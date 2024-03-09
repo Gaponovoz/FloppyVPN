@@ -1,0 +1,14 @@
+
+# VS & compiler folders:
+**/.vs/
+**/bin/
+**/obj/
+
+# Windows shortcuts
+*.lnk
+
+# I don't want you to see this ...yet
+**/drivers/
+alzheimer.txt
+alzheimer.txt
+CONFIG.XML

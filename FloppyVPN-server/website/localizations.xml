@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <row>
+    <name>website-title</name>
+    <en>FloppyVPN</en>
+    <ru>ФлоппиVPN</ru>
+    <uk>ФлоппіVPN</uk>
+    <ja>フロッピVPN</ja>
+  </row>
+  <row>
+    <name>language-label</name>
+    <en>Language:      </en>
+    <ru>Язык</ru>
+    <uk>Мова</uk>
+    <ja>ranguage</ja>
+  </row>
+  <row>
+    <name>register-button</name>
+    <en>Register</en>
+    <ru>Регистрация</ru>
+    <uk>Реєстрація</uk>
+    <ja>登録</ja>
+  </row>
+  <row>
+    <name>login-button</name>
+    <en>Log in</en>
+    <ru>Войти</ru>
+    <uk>Увійти</uk>
+    <ja>入る</ja>
+  </row>
+  <row>
+    <name>heading-text</name>
+    <en>FloppyVPN — Shielding Bytes, Lighting Freedom.\nSimple yet full-featured:</en>
+    <ru>FloppyVPN — спасай приватность и забывай блокировки.\nТеперь без геморроя:</ru>
+    <uk>FloppyVPN — рятуєм приватність, минаєм цензуру.\nОл-інклюзів:</uk>
+    <ja>FloppyVPN — 匿名の接続と検閲の回避。\nシンプルでリッチ:</ja>
+  </row>
+  <row>
+    <name>pricing-1</name>
+    <en>Single account &amp; three devices &amp; many countries</en>
+    <ru>Один аккаунт — три устройства — много стран</ru>
+    <uk>Один акаунт — три платформи — багато краiiн</uk>
+    <ja>123</ja>
+  </row>
+  <row>
+    <name>pricing-2</name>
+    <en>3$ / month</en>
+    <ru>220 рублей в месяц</ru>
+    <uk>90 гривень на місяць</uk>
+    <ja>$3/月</ja>
+  </row>
+  <row>
+    <name>devices-caption</name>
+    <en>You can use FloppyVPN on all devices simultaneously but not on multiple same devices.</en>
+    <ru>Вы можете одновременно использовать FloppyVPN на всех устройствах, но не на нескольких устройствах одного типа.</ru>
+    <uk>Ви можете одночасно використовувати FloppyVPN на всіх пристроях, але не на декількох пристроях одного типу.</uk>
+    <ja>FloppyVPNはすべてのデバイスで同時に使用できますが、同じタイプの複数のデバイスでは使用できません</ja>
+  </row>
+  <row>
+    <name>header-account-register</name>
+    <en>Register to start using FloppyVPN</en>
+    <ru>Зарегистрируйтесь, чтобы начать использование FloppyVPN</ru>
+    <uk>Зареєструйтеся, щоб почати використання FloppyVPN</uk>
+    <ja>FloppyVPNの使用を開始するために登録する</ja>
+  </row>
+  <row>
+    <name>cant-find-page</name>
+    <en>Could not serve this page! The link may be wrong, or you have made too many requests today. (you know better)</en>
+    <ru>Не удалось отобразить эту страницу! Ссылка может быть неправильной или вы превысили лимит запросов к ресурсу. (вам виднее).</ru>
+    <uk>Не вдалося подати цю сторінку. Посилання може бути помилковим, або ви перевисили ліміт запросів до ресурсу (вам видніше).</uk>
+    <ja>このページは表示できませんでした！ リンクが正しくないか、リソースへの要求の制限を超えている可能性があります。（あなたはよく知っています）。</ja>
+  </row>
+  <row>
+    <name>go-back-button</name>
+    <en>Go back</en>
+    <ru>Назад</ru>
+    <uk>Назад</uk>
+    <ja>戻る</ja>
+  </row>
+  <row>
+    <name>more-platforms-soon</name>
+    <en>More platforms coming soon</en>
+    <ru>Ещё больше платформ уже скоро!</ru>
+    <uk>Скоро - ще більше платформ!</uk>
+    <ja>さらに多くのプラットフォームがすぐに来ています！</ja>
+  </row>
+  <row>
+    <name>features-heading</name>
+    <en>aaa</en>
+    <ru>aaa</ru>
+    <uk>aaa</uk>
+    <ja>aaa</ja>
+  </row>
+  <row>
+    <name>feature1</name>
+    <en>Stabilizes the connection</en>
+    <ru>Стабилизирует подключение</ru>
+    <uk>Стабілізує підключення</uk>
+    <ja>接続を安定させます</ja>
+  </row>
+  <row>
+    <name>feature2</name>
+    <en>Bypass censhorship</en>
+    <ru>Обходит цензуру и блокировки</ru>
+    <uk>Обходить цензуру і блокування</uk>
+    <ja>検閲とブロックをバイパスします</ja>
+  </row>
+  <row>
+    <name>feature3</name>
+    <en>Allows torrenting</en>
+    <ru>Позволяет торрентить</ru>
+    <uk>Дозволяє торренти</uk>
+    <ja>トレントを許可します</ja>
+  </row>
+  <row>
+    <name>feature4</name>
+    <en>Nice speed</en>
+    <ru>Хорошая скорость</ru>
+    <uk>Файна швидкість</uk>
+    <ja>よい速度</ja>
+  </row>
+  <row>
+    <name>feature5</name>
+    <en>Unlimited bandwidth</en>
+    <ru>Безлимитный трафик</ru>
+    <uk>Необмежений трафік</uk>
+    <ja>無制限のトラフィック</ja>
+  </row>
+  <row>
+    <name>feature6</name>
+    <en>Kill-switch</en>
+    <ru>Аварийный выключатель</ru>
+    <uk>Аварійний вимикач</uk>
+    <ja>キルスイッチ</ja>
+  </row>
+  <row>
+    <name>feature7</name>
+    <en>1-5 locations</en>
+    <ru>1-3 локации</ru>
+    <uk>1-3 локації</uk>
+    <ja>1-3箇所</ja>
+  </row>
+  <row>
+    <name>feature8</name>
+    <en>Split tunneling</en>
+    <ru>Раздельное туннелирование</ru>
+    <uk>Роздільне тунелювання</uk>
+    <ja>個々のアプリケーションのトンネリング</ja>
+  </row>
+  <row>
+    <name>feature9</name>
+    <en>IPv4 &amp; IPv6</en>
+    <ru>IPv4 &amp; IPv6</ru>
+    <uk>IPv4 &amp; IPv6</uk>
+    <ja>IPv4 &amp; IPv6</ja>
+  </row>
+  <row>
+    <name>feature10</name>
+    <en>No logs, 100% open source</en>
+    <ru>Никаких логов, 100% открытые исходники</ru>
+    <uk>Жодних логів, 100% відкритий код</uk>
+    <ja>ログなし、100％オープンソース</ja>
+  </row>
+  <row>
+    <name>login-page-heading</name>
+    <en>Log in to your account to check time left and add more</en>
+    <ru>Войдите в свою учётную запись, чтобы узнать оставшееся время и пополнить его</ru>
+    <uk>Увійдіть у свій обліковий запис, щоб дізнатися час, що залишився, і поповнити його</uk>
+    <ja>アカウントにログインして残り時間を確認し、それを上にします</ja>
+  </row>
+  <row>
+    <name>login-field-caption</name>
+    <en>Your account code:</en>
+    <ru>Ваш логин:</ru>
+    <uk>Ваш логін:</uk>
+    <ja>あなたのログイン:</ja>
+  </row>
+  <row>
+    <name>register-proposal</name>
+    <en>Not registered yet? It will take no more than 15 seconds:</en>
+    <ru>Нет аккаунта? Зарегистрируйтесь, это займёт не более 15 секунд:</ru>
+    <uk>Немає облікового запису? Зареєструйтесь, це займе не більше 15 секунд:</uk>
+    <ja>アカウントはありませんか？ 登録、それは15秒以上かかりません:</ja>
+  </row>
+  <row>
+    <name>already-registered-proposal</name>
+    <en>Already registered? Enter your account:</en>
+    <ru>Уже зарегистрированы? Тогда войдите в свой аккаунт:</ru>
+    <uk>Вже зареєстровані? Тоді увійдіть до свого облікового запису:</uk>
+    <ja>すでに登録されていますか？ 次に、アカウントにログインします:</ja>
+  </row>
+  <row>
+    <name>page-error</name>
+    <en>Error page</en>
+    <ru>Ошибочная страница</ru>
+    <uk>Помилкова сторінка</uk>
+    <ja>間違ったページ</ja>
+  </row>
+  <row>
+    <name>account-not-found</name>
+    <en>Couldn&apos;t find an account with this username!\nIt is possible that the login information is incorrect or the account has been deleted.</en>
+    <ru>Не удалось найти учетную запись с таким логином!\nВозможно, данные для входа неверны или учетная запись была удалена.</ru>
+    <uk>Не вдалося знайти обліковий запис з таким логіном!\nМожливо, дані для входу неправильні або обліковий запис було видалено.</uk>
+    <ja>そのようなログインでアカウントを見つけることができませんでした！\nログインデータが間違っているか、アカウントが削除されている可能性があります。</ja>
+  </row>
+  <row>
+    <name>download-windows</name>
+    <en>Download for\nWindows</en>
+    <ru>Скачать для\nWindows</ru>
+    <uk>Завантажити на\nWindows</uk>
+    <ja>Windows\n用のダウンロード</ja>
+  </row>
+  <row>
+    <name>download-android</name>
+    <en>Download for\nAndroid</en>
+    <ru>Скачать на\nAndroid</ru>
+    <uk>Завантажити в\nAndroid</uk>
+    <ja>Android\nにダウンロード</ja>
+  </row>
+  <row>
+    <name>download-linux</name>
+    <en>Download for\nLinux</en>
+    <ru>Скачать для\nLinux</ru>
+    <uk>Завантажити на\nLinux</uk>
+    <ja>Linux\n用のダウンロード</ja>
+  </row>
+  <row>
+    <name>register-caption</name>
+    <en>No personal data is required — register in seconds:</en>
+    <ru>Не требуются никакие личные данные — зарегистрируйтесь за секунды:</ru>
+    <uk>Не потрібні жодні особисті дані — зареєструйтеся за секунди:</uk>
+    <ja>個人データは必要ありません—数秒で登録:</ja>
+  </row>
+  <row>
+    <name>account-welcome-message</name>
+    <en>Welcome to your account</en>
+    <ru>Добро пожаловать в ваш аккаунт</ru>
+    <uk>Ласкаво просимо до вашого акаунту</uk>
+    <ja>あなたの記述への歓迎</ja>
+  </row>
+  <row>
+    <name>account-message</name>
+    <en>This is your account.</en>
+    <ru>Это ваша учетная запись.</ru>
+    <uk>Це ваш обліковий запис.</uk>
+    <ja>これはあなたのアカウントです。</ja>
+  </row>
+  <row>
+    <name>header-account-registered</name>
+    <en>Done! Thank you for registration.</en>
+    <ru>Готово! Спасибо за регистрацию.</ru>
+    <uk>Готово! Дякую за реєстрацію.</uk>
+    <ja>準備ができました！ ご登録いただきありがとうございます。</ja>
+  </row>
+  <row>
+    <name>registered-explanation-1</name>
+    <en>This is your login. It is used to use VPN on your devices and to top up balance.</en>
+    <ru>Это ваш логин. Он используется для входа в VPN на устройствах и на сайте для пополнения баланса.</ru>
+    <uk>Це ваш логін. Він використовується для входу в VPN на пристроях і на сайті для поповнення рахунку.</uk>
+    <ja>これはあなたのログインです。 これは、デバイスやwebサイトでvpnにログインして残高を補充するために使用されます。</ja>
+  </row>
+  <row>
+    <name>registered-explanation-2</name>
+    <en>Please save or write it down properly and never tell it to anyone!!</en>
+    <ru>Сохраните или запишите его и никогда никому не давайте!!</ru>
+    <uk>Збережіть або запишіть його і ніколи нікому не давайте!!</uk>
+    <ja>保存したり、それを書き留めて、誰にもそれを与えることはありません！！</ja>
+  </row>
+  <row>
+    <name>registered-explanation-3</name>
+    <en>You will not be able to recover it if lost as no email/name/password needed.</en>
+    <ru>Вы не сможете восстановить его, если потеряете.</ru>
+    <uk>Ви не зможете відновити його, якщо втратите.</uk>
+    <ja>あなたがそれを失うと、それを回復することはできません。</ja>
+  </row>
+  <row>
+    <name>registered-button-caption</name>
+    <en>Now enter your new account:</en>
+    <ru>Теперь зайдите в свой новый аккаунт:</ru>
+    <uk>Теперь перейдіть до свого нового акаунту:</uk>
+    <ja>今すぐあなたの新しいアカウントにログインします：</ja>
+  </row>
+  <row>
+    <name>gotoaccount-button</name>
+    <en>Go to account</en>
+    <ru>Перейти в аккаунт</ru>
+    <uk>Перейти до акаунту</uk>
+    <ja>アカウントに移動</ja>
+  </row>
+  <row>
+    <name>column-your-login</name>
+    <en>Your login:</en>
+    <ru>Ваш логин:</ru>
+    <uk>Ваш логін:</uk>
+    <ja>あなたのログイン:</ja>
+  </row>
+  <row>
+    <name>column-paid-till</name>
+    <en>Paid till:</en>
+    <ru>Оплачено до:</ru>
+    <uk>Сплачено до:</uk>
+    <ja>まで支払われる:</ja>
+  </row>
+  <row>
+    <name>column-days-left</name>
+    <en>Days left:</en>
+    <ru>Осталось дней:</ru>
+    <uk>Залишилось днів:</uk>
+    <ja>残り日数:</ja>
+  </row>
+  <row>
+    <name>column-registration-date</name>
+    <en>Registration date:</en>
+    <ru>Дата регистрации:</ru>
+    <uk>Дата реєстрації:</uk>
+    <ja>登録日:</ja>
+  </row>
+  <row>
+    <name>topup-balance</name>
+    <en>Top up your balance to add time:</en>
+    <ru>Пополните баланс, чтобы добавить время:</ru>
+    <uk>Поповніть рахунок, щоб додати часу:</uk>
+    <ja>時間を追加するためにあなたのバランスを上:</ja>
+  </row>
+  <row>
+    <name>column-currency</name>
+    <en>Currency</en>
+    <ru>Валюта</ru>
+    <uk>Валюта</uk>
+    <ja>通貨</ja>
+  </row>
+  <row>
+    <name>column-cost</name>
+    <en>Cost</en>
+    <ru>Стоимость</ru>
+    <uk>Вартість</uk>
+    <ja>コスト</ja>
+  </row>
+  <row>
+    <name>column-payment-link</name>
+    <en>Payment link</en>
+    <ru>Ссылка на оплату</ru>
+    <uk>Посилання на оплату</uk>
+    <ja>支払いへのリンク</ja>
+  </row>
+  <row>
+    <name>account-tip1</name>
+    <en>Note: once your paid time is over, the account will be immediately suspended. If you have just registered, you have 24 hours to extend your prepaid time!</en>
+    <ru>Примечание: как только ваше оплаченное время истечет, аккаунт будет удалён. Но если вы только что зарегистрировались, у вас есть 24 часа, чтобы пополнить баланс!</ru>
+    <uk>Примітка: як тільки ваш оплачений час закінчиться, обліковий запис буде видалено. Але якщо ви щойно зареєструвались, у вас є 24 години, щоб поповнити рахунок!</uk>
+    <ja>注: 支払った時間が経過すると、アカウントはすぐに停止されます。 登録したばかりの場合は、24 時間以内にプリペイド時間を延長してください。</ja>
+  </row>
+  <row>
+    <name>account-tip2</name>
+    <en>Tip: You can share this link with your friends and they will be able to top up your balance (but not to use your VPN).</en>
+    <ru>Совет: если поделиться текущей ссылкой с друзьями, то они смогут пополнять ваш баланс (но не использовать ваш VPN).</ru>
+    <uk>Порада: якщо поділитися поточним посиланням з друзями, то вони зможуть поповнювати ваш рахунок (але не використовувати ваш VPN).</uk>
+    <ja>ヒント：現在のリンクを友達と共有すると、友達は残高を補うことができます（ただし、VPNは使用しません）。</ja>
+  </row>
+  <row>
+    <name>account-tip3</name>
+    <en>a</en>
+    <ru>a</ru>
+    <uk>a</uk>
+    <ja>a</ja>
+  </row>
+  <row>
+    <name>support-page-heading</name>
+    <en>Always here to help &amp; answer any questions.</en>
+    <ru>Всегда здесь, чтобы помочь и ответить на любые вопросы.</ru>
+    <uk>Завжди тут, щоб допомогти і відповісти на будь-які питання.</uk>
+    <ja>常にここに助けて＆質問に答える。</ja>
+  </row>
+  <row>
+    <name>support-proposal</name>
+    <en>Contact support the most convenient way you want:</en>
+    <ru>Свяжитесь со службой поддержки наиболее удобным для вас способом:</ru>
+    <uk>Зв`яжіться зі службою підтримки найбільш зручним для Вас способом: </uk>
+    <ja>あなたが望む最も便利な方法をサポートに連絡してください:</ja>
+  </row>
+  <row>
+    <name>support-button</name>
+    <en>Get support</en>
+    <ru>Получить помощь</ru>
+    <uk>Отримати допомогу</uk>
+    <ja>助けを得る</ja>
+  </row>
+  <row>
+    <name>whom-for</name>
+    <en>Whom this is for? If...</en>
+    <ru>Для кого это? Если ты...</ru>
+    <uk>Для кого це? Якщо ти...</uk>
+    <ja>それは誰のためですか？ してください...</ja>
+  </row>
+  <row>
+    <name>whomfor1</name>
+    <en>You need maximum privacy</en>
+    <ru>Хочешь максимум приватності</ru>
+    <uk>Хочеш максимум приватності</uk>
+    <ja>あなたは最大のプライバシーをしたいですか</ja>
+  </row>
+  <row>
+    <name>whomfor2</name>
+    <en>You enjoy simplicity</en>
+    <ru>Любишь простоту</ru>
+    <uk>Полюбляєш простоту</uk>
+    <ja>あなたはシンプルさが好きですか</ja>
+  </row>
+  <row>
+    <name>whomfor3</name>
+    <en>You hate online censorship</en>
+    <ru>Ненавидишь цензуру</ru>
+    <uk>Ненавидиш цензуру</uk>
+    <ja>検閲を嫌う</ja>
+  </row>
+  <row>
+    <name>for-whom</name>
+    <en>...You must give FloppyVPN a try!</en>
+    <ru>...то дай FloppyVPN шанс!</ru>
+    <uk>...то дай FloppyVPN шанс!</uk>
+    <ja>...次に、FloppyVPNにチャンスを与えてください！</ja>
+  </row>
+  <row>
+    <name>explaining-caption</name>
+    <en>Core aspects are privacy and reliability in which FloppyVPN is unsurpassed.</en>
+    <ru>В основе - приватность и надёжность, в которых FloppyVPN непревзойдён.</ru>
+    <uk>В основі - приватність і надійність, у цьому FloppyVPN неперевершений.</uk>
+    <ja>それはプライバシーと信頼性に基づいています。 この点で、FloppyVPNは卓越しています。</ja>
+  </row>
+  <row>
+    <name>title_login</name>
+    <en>Login</en>
+    <ru>Вход</ru>
+    <uk>Вхід</uk>
+    <ja>ログイン</ja>
+  </row>
+  <row>
+    <name>title_register</name>
+    <en>Register</en>
+    <ru>Регистрация</ru>
+    <uk>Реєстрація</uk>
+    <ja>登録</ja>
+  </row>
+  <row>
+    <name>title_account</name>
+    <en>Account</en>
+    <ru>Учетная запись</ru>
+    <uk>Обліковий запис</uk>
+    <ja>アカウント</ja>
+  </row>
+  <row>
+    <name>title_error</name>
+    <en>Error</en>
+    <ru>Ошибка</ru>
+    <uk>Помилка</uk>
+    <ja>エラー</ja>
+  </row>
+  <row>
+    <name>title_registered</name>
+    <en>Registered</en>
+    <ru>Зарегистрировано</ru>
+    <uk>Зареєстровано</uk>
+    <ja>登録されている</ja>
+  </row>
+  <row>
+    <name>title_support</name>
+    <en>Support</en>
+    <ru>Поддержка</ru>
+    <uk>Підтримка</uk>
+    <ja>サポートサービス</ja>
+  </row>
+</root>

@@ -1,0 +1,78 @@
+﻿@namespace FloppyVPN
+@Html.Partial("_Functions");
+
+@{
+	ViewData["Title"] = "Account";
+	string lang = GetCurrentLanguage();
+}
+
+
+
+<h4><span id="account-welcome-message"></span> "%%%user_login_masked_stars%%%"</h4>
+<br>
+
+<span class="htext"><span class="htext"><img src="/account-view.png" />  <span class="highlight" id="account-message"></span></span></span>
+<br>
+<br>
+
+<table>
+	<tbody>
+		<tr style="text-align: center;">
+			<td><b id="column-your-login"></b></td>
+			<td><b id="column-paid-till"></b></td>
+			<td><b id="column-days-left"></b></td>
+			<td><b id="column-registration-date"></b></td>
+		</tr>
+		<tr>
+			<td>%%%user_login_masked_stars%%%</td>
+			<td>%%%paid_till%%%</td>
+			<td>%%%days_left%%%</td>
+			<td>%%%date_registered%%%</td>
+		</tr>
+	</tbody>
+</table>
+
+<br>
+<br>
+
+<ul>
+	<li>
+		<span class="htext" id="account-tip1">
+			
+		</span>
+	</li>
+	<li>
+		<span class="htext" id="account-tip2">
+			
+		</span>
+	</li>
+</ul>
+
+<br>
+<br>
+
+<span class="htext"><img src="/account-addtime.png" />  <span class="highlight" id="topup-balance"></span></span>
+
+<br>
+<br>
+
+<table>
+	<tbody>
+		<tr style="text-align: center;">
+			<td><b id="column-currency"></b></td>
+			<td><b id="column-cost"></b></td>
+			<td><b id="column-payment-link"></b></td>
+		</tr>
+		<tr>
+			<td>Monero (XMR)</td>
+			<td>0.007 XMR</td>
+			<td>link</td>
+		</tr>
+		<tr>
+			<td>RUR (Rouble)</td>
+			<td>220 ₽</td>
+			<td>link</td>
+		</tr>
+	</tbody>
+</table>
+

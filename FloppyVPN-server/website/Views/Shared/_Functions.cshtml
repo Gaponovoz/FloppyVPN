@@ -1,0 +1,22 @@
+﻿@namespace FloppyVPN
+
+@functions {
+	public string GetCurrentLanguage()
+	{
+		string? languageFromUrl = Context.Request.Query["lang"].ToString();
+
+		if (!string.IsNullOrEmpty(languageFromUrl))
+		{
+			return languageFromUrl;
+		}
+
+		string? languageFromCookie = Context.Request.Cookies["language"];
+
+		if (!string.IsNullOrEmpty(languageFromCookie))
+		{
+			return languageFromCookie;
+		}
+
+		return "en";
+	}
+}

@@ -1,0 +1,118 @@
+﻿@{
+	ViewData["Title"] = "";
+}
+
+
+
+<div class="window" style="margin: 32px; width: 250px; display: none; float: right;" id="cookie-alert-window">
+	<div class="title-bar">
+		<div class="title-bar-text">
+			Cookie notice
+		</div>
+	</div>
+	<div class="window-body">
+		<p>This website uses cookies... To store your language preference and this cookie alert!</p>
+		<button onclick="writeCookieAcknowledgement();"><b>OK</b></button>
+	</div>
+</div>
+
+<br>
+<h3 id="heading-text">
+</h3>
+
+<ul class="htext">
+	<li id="feature1"></li>
+	<li id="feature2"></li>
+	<li id="feature10"></li>
+	<li id="feature3"></li>
+	<li id="feature4"></li>
+	<li id="feature5"></li>
+	<li id="feature6"></li>
+	<li id="feature7"></li>
+	<li id="feature8"></li>
+	<li id="feature9"></li>
+</ul>
+
+<br>
+<br>
+<span class="htext" id="explaining-caption">
+
+</span>
+
+
+<h4>
+	<span id="pricing-1"></span><span class="highlight" id="pricing-2">3$ / month</span>.
+</h4>
+
+<br>
+
+<center>
+	<table border="1" style="table-layout: fixed;">
+		<tbody>
+			<tr>
+				<td style="text-align:center"><img src="http://2.bp.blogspot.com/_bgGfbhWKZyY/S_P0ydc_7yI/AAAAAAAAAXI/nHY8v1QqgTc/s320/1832floppy_disc.jpg"></td>
+				<td style="text-align:center"><img src="https://i.pinimg.com/originals/87/87/a8/8787a8967850df18659d88c800d78ef5.jpg"></td>
+				<td style="text-align:center"><img src="https://2.bp.blogspot.com/-cAf5zf6lLMo/V_tZ5PzjagI/AAAAAAAAAfU/GxaJw4UfM203mR7PJH629QnjVSeq2dB7wCLcB/s1600/floppy%2Bdisk.jpg"></td>
+			</tr>
+			<tr>
+				<td style="text-align:center"><span class="htext">Windows 7+; any arch</span></td>
+				<td style="text-align:center"><span class="htext">Android 5+</span></td>
+				<td style="text-align:center"><span class="htext">Browser (Firefox/Chromium)</span></td>
+			</tr>
+			<tr>
+				<td style="text-align:center"><a href="#"><button style="margin: 10px; padding: 6px;"><b id="download-windows">Download<br>for Windows</b></button></a></td>
+				<td style="text-align:center"><a href="#"><button style="margin: 10px; padding: 6px;"><b id="download-android">Download<br>for Android</b></button></a></td>
+				<td style="text-align:center"><a href="#"><button style="margin: 10px; padding: 6px;"><b id="download-browser">Get for<br>my Browser</b></button></a></td>
+			</tr>
+
+		</tbody>
+	</table>
+</center>
+
+<br>
+<br>
+<span class="htext" id="devices-caption">
+	You can use FloppyVPN on all devices simultaneously but not on multiple same devices.
+</span>
+
+<br>
+<br>
+<span class="htext" id="more-platforms-soon">
+	More platforms coming soon! Also, to support the project, you can
+</span>
+<br>
+<br>
+
+<ul class="htext">
+	<span class="htext" id="whom-for"></span>
+	<li id="whomfor1"></li>
+	<li id="whomfor2"></li>
+	<li id="whomfor3"></li>
+	<span class="htext" id="for-whom"></span>
+</ul>
+
+<br>
+
+<br>
+
+
+
+
+<script>
+	function writeCookieAcknowledgement() {
+		var element = document.getElementById("cookie-alert-window");
+		if (element) {
+			element.style.display = 'none';
+		}
+		setCookie("FloppyVPNcookieAcknowledged", "true", 365);
+	}
+
+	function checkCookieAcknowledgement() {
+		var cookieValue = getCookie("FloppyVPNcookieAcknowledged");
+		if (!cookieValue) {
+			document.getElementById("cookie-alert-window").style.display = "block";
+		}
+	}
+
+	window.onload = checkCookieAcknowledgement; // Checks the cookie when the page loads
+</script>

@@ -1,0 +1,89 @@
+﻿@namespace FloppyVPN
+@Html.Partial("_Functions")
+
+@{
+	string currentController = (ViewContext.RouteData.Values["controller"] != null) ? ViewContext.RouteData.Values["controller"].ToString() : "";
+	string currentView = (Context.Request.Path != null) ? (Context.Request.Path) : "";
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] | FloppyVPN</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+			<div class="container-fluid">
+				<div>
+					<a href="/register"><button id="register-button">Register</button></a>
+	                   <button id="logout-button" style="display: none" onclick="window.location='/';">Log out</button>
+					<a href="/login"><button id="login-button">Login</button></a>
+	
+				</div>
+
+				<a href="/" class="plain-link"><span style="font-family: Tahoma,sans; font-size: 23px; font-weight: bold" id="website-title">FloppyVPN</span></a>
+
+				<div>
+					@{
+						string selectedLang = "GetCurrentLanguage()";
+					}
+
+					<label for="language" id="language-label">Language:      </label>
+					<select id="language" name="language" onchange="languageChanged(this)">
+@* 						<option value="en"@(selectedLang == "en" ? " selected" : "")>English</option>
+						<option value="ru"@(selectedLang == "ru" ? " selected" : "")>Русский</option>
+						<option value="uk"@(selectedLang == "uk" ? " selected" : "")>Українська</option>
+						<option value="ja"@(selectedLang == "ja" ? " selected" : "")>日本語</option>
+ *@					</select>
+
+					<script>
+						function languageChanged(selectElement) {
+							var selectedValue = selectElement.value;
+							setCookie('language', selectedValue, 30); // Assuming you want to set the cookie for 30 days
+
+							// Reload the page with the new language parameter
+							var langParam = 'lang=' + selectedValue;
+							var paramUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + langParam;
+							window.location.href = paramUrl;
+						}
+					</script>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+
+
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+
+
+
+	<footer class="border-top footer text-muted">
+		<div class="container">
+			<span class="htext">© <a href="https://otso.software" target="_blank">OtsoSoftware</a>, 2023-2001.</span>
+			<div>
+				<a href="/support"><button id="support-button">Get support</button></a>
+				<span>    </span>
+				<a href="https://github.com/gaponovoz/FloppyVPN" target="_blank"><button>Github</button></a>
+			</div>
+		</div>
+	</footer>
+@* 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+ *@	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="/localization.js"></script>
+
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

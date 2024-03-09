@@ -1,0 +1,24 @@
+﻿@model ErrorViewModel
+@{
+	ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">Error.</h1>
+<h2 class="text-danger">An error occurred while processing your request.</h2>
+
+<center>
+	<div class="window" style="margin: 32px; width: 250px">
+		<div class="title-bar">
+			<div class="title-bar-text" id="page-error">
+				Error
+			</div>
+		</div>
+		<div class="window-body">
+			<p>
+				<strong>Request ID:</strong> <code>@Model.RequestId</code>
+			</p>
+			<p id="cant-find-page"></p>
+			<button onclick="history.back();" id="go-back-button">Go back</button>
+		</div>
+	</div>
+</center>

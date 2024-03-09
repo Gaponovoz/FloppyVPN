@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>FloppyVPN</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Properties\launchSettings.json" />
+    <Content Remove="wwwroot\css\site.css" />
+    <Content Remove="wwwroot\fonts\MS Sans Serif Bold.ttf" />
+    <Content Remove="wwwroot\fonts\MS Sans Serif.ttf" />
+    <Content Remove="wwwroot\imgs\account-addtime.png" />
+    <Content Remove="wwwroot\imgs\account-view.png" />
+    <Content Remove="wwwroot\imgs\icon.png" />
+    <Content Remove="wwwroot\imgs\write.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_WebToolingArtifacts Remove="Properties\launchSettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Properties\launchSettings.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+    <None Include="wwwroot\css\site.css" />
+    <None Include="wwwroot\fonts\MS Sans Serif Bold.ttf" />
+    <None Include="wwwroot\fonts\MS Sans Serif.ttf" />
+    <None Include="wwwroot\imgs\account-addtime.png" />
+    <None Include="wwwroot\imgs\account-view.png" />
+    <None Include="wwwroot\imgs\icon.png" />
+    <None Include="wwwroot\imgs\write.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\shared\FloppyVPN-server-shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="System.Data" />
+  </ItemGroup>
+
+</Project>

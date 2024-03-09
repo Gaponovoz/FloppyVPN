@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FloppyVPN-server-vpn", "vpn\FloppyVPN-server-vpn.csproj", "{04E73FD5-58AD-44E9-A64A-AFDA2F5D2B94}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FloppyVPN-server-orchestrator", "orchestrator\FloppyVPN-server-orchestrator.csproj", "{8DFFAA3B-3B39-4FA2-8872-0B8982CB3943}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FloppyVPN-server-website", "website\FloppyVPN-server-website.csproj", "{4ED6A68E-E8AF-485D-8611-B71A6274154E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FloppyVPN-server-shared", "shared\FloppyVPN-server-shared.csproj", "{BBC7B472-50D2-4006-9714-E34C9A32F675}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04E73FD5-58AD-44E9-A64A-AFDA2F5D2B94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04E73FD5-58AD-44E9-A64A-AFDA2F5D2B94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04E73FD5-58AD-44E9-A64A-AFDA2F5D2B94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04E73FD5-58AD-44E9-A64A-AFDA2F5D2B94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DFFAA3B-3B39-4FA2-8872-0B8982CB3943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DFFAA3B-3B39-4FA2-8872-0B8982CB3943}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DFFAA3B-3B39-4FA2-8872-0B8982CB3943}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DFFAA3B-3B39-4FA2-8872-0B8982CB3943}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ED6A68E-E8AF-485D-8611-B71A6274154E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ED6A68E-E8AF-485D-8611-B71A6274154E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ED6A68E-E8AF-485D-8611-B71A6274154E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ED6A68E-E8AF-485D-8611-B71A6274154E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBC7B472-50D2-4006-9714-E34C9A32F675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBC7B472-50D2-4006-9714-E34C9A32F675}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBC7B472-50D2-4006-9714-E34C9A32F675}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBC7B472-50D2-4006-9714-E34C9A32F675}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2D66DAF8-523B-46FB-843A-DCA3DD64416F}
+	EndGlobalSection
+EndGlobal
