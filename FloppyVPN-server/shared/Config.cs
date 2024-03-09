@@ -16,7 +16,7 @@ namespace FloppyVPN
 		/// <summary>
 		/// If there is no CONFIG.XML but there is CONFIG.XML.TEMPLATE, copy it to CONFIG.XML
 		/// </summary>
-		public static void ConfigFileIntegrity()
+		public static void EnsureFileIntegrity()
 		{
 			string pathToConfig = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CONFIG.XML"));
 			string pathToTemplate = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CONFIG.XML.TEMPLATE"));

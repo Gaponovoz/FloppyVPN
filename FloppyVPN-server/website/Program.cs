@@ -15,6 +15,7 @@ namespace FloppyVPN
             }
             GC.KeepAlive(mutex);
 
+            Config.EnsureFileIntegrity();
 
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
 
@@ -51,24 +52,6 @@ namespace FloppyVPN
                 name: "graduatesRoute",
                 pattern: "graduates",
                 defaults: new { controller = "Home", action = "Graduates" }
-            );
-
-            app.MapControllerRoute(
-                name: "avtoparkRoute",
-                pattern: "avtopark",
-                defaults: new { controller = "Home", action = "Avtopark" }
-            );
-
-            app.MapControllerRoute(
-                name: "krasnodonRoute",
-                pattern: "krasnodon",
-                defaults: new { controller = "Home", action = "Krasnodon" }
-            );
-
-            app.MapControllerRoute(
-                name: "avtodromRoute",
-                pattern: "avtodrom",
-                defaults: new { controller = "Home", action = "Avtodrom" }
             );
 
             app.MapControllerRoute(

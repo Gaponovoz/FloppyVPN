@@ -17,7 +17,7 @@ namespace FloppyVPN
 
 			ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
 
-			Config.ConfigFileIntegrity();
+			Config.EnsureFileIntegrity();
 
 			Api.Start();
 		}
