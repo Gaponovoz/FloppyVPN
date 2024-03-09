@@ -3,9 +3,6 @@
 	ViewData["Title"] = "Error";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
-
 <center>
 	<div class="window" style="margin: 32px; width: 250px">
 		<div class="title-bar">
@@ -15,8 +12,8 @@
 		</div>
 		<div class="window-body">
 			<p>
-				<strong>Error message:</strong> <code>@(string.IsNullOrEmpty(Model.ErrorMessage) ? Model.ErrorMessage : "idk")</code>
-				<strong>Error code:</strong> <code>@(Model.ErrorMessage)</code>
+				<b>Error message:</b> <code>@(string.IsNullOrEmpty(Model.ErrorMessage) ? Model.ErrorMessage : "idk")</code>
+				<b>Error code:</b> <code>@(Model.ErrorMessage)</code>
 			</p>
 			<p id="cant-find-page"></p>
 			<button onclick="history.back();" id="go-back-button">Go back</button>

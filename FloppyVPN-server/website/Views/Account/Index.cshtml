@@ -1,10 +1,10 @@
 ﻿@namespace FloppyVPN
+@using static FloppyVPN.Functions
 
 @{
 	ViewData["Title"] = "Account";
 
-	string lang = "en";
-	//GetCurrentLanguage();
+	string lang = GetCurrentLanguage(this);
 
 
 }
@@ -95,4 +95,3 @@
 		</tr>
 	</tbody>
 </table>
-

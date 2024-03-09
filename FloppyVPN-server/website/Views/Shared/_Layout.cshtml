@@ -2,8 +2,9 @@
 @using static FloppyVPN.Functions
 
 @{
-	string currentController = (ViewContext.RouteData.Values["controller"] != null) ? ViewContext.RouteData.Values["controller"].ToString() : "";
+	string currentController = (ViewContext.RouteData.Values["controller"] ?? "").ToString();
 	string currentView = (Context.Request.Path != null) ? (Context.Request.Path) : "";
+	string selectedLang = GetCurrentLanguage(this);
 
 }
 
@@ -12,7 +13,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title> @(string.IsNullOrEmpty(ViewData["Title"].ToString()) ? "FloppyVPN" : $"{ViewData["Title"]} | FloppyVPN)") </title>
+	<title> @(string.IsNullOrEmpty((ViewData["Title"] ?? "").ToString()) ? "FloppyVPN" : $"{ViewData["Title"]} | FloppyVPN)") </title>
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
@@ -28,20 +29,49 @@
 	
 				</div>
 
-				<a href="/" class="plain-link"><span style="font-family: Tahoma,sans; font-size: 23px; font-weight: bold" id="website-title">FloppyVPN</span></a>
+				<a href="/" class="plain-link"><span style="font-family: Tahoma,sans; font-size: 23px; font-weight: bold" id="website-title">@Loc.Get("website-title", selectedLang)</span></a>
 
 				<div>
-					@{
-						string selectedLang = GetCurrentLanguage(this);
-					}
-
 					<label for="language" id="language-label">Language:      </label>
 					<select id="language" name="language" onchange="languageChanged(this)">
-@* 						<option value="en"@(selectedLang == "en" ? " selected" : "")>English</option>
-						<option value="ru"@(selectedLang == "ru" ? " selected" : "")>Русский</option>
-						<option value="uk"@(selectedLang == "uk" ? " selected" : "")>Українська</option>
-						<option value="ja"@(selectedLang == "ja" ? " selected" : "")>日本語</option>
- *@					</select>
+						@{
+							if (selectedLang == "en")
+							{
+								<option value="en" selected>English</option>
+							}
+							else
+							{
+								<option value="en">English</option>
+							}
+
+							if (selectedLang == "ru")
+							{
+								<option value="ru" selected>Русский</option>
+							}
+							else
+							{
+								<option value="ru">Русский</option>
+							}
+
+							if (selectedLang == "uk")
+							{
+								<option value="uk" selected>Українська</option>
+							}
+							else
+							{
+								<option value="uk">Українська</option>
+							}
+
+							if (selectedLang == "ja")
+							{
+								<option value="ja" selected>日本語</option>
+							}
+							else
+							{
+								<option value="ja">日本語</option>
+							}
+						}
+					</select>
 
 					<script>
 						function languageChanged(selectElement) {
@@ -71,19 +101,25 @@
 
 	<footer class="border-top footer text-muted">
 		<div class="container">
-			<span class="htext">© <a href="https://otso.software" target="_blank">OtsoSoftware</a>, 2023-2001.</span>
+			<span class="htext">© <a href="https://otso.software" target="_blank">OtsoSoftware</a>, 2024-2001.</span>
 			<div>
 				<a href="/support"><button id="support-button">Get support</button></a>
 				<span>    </span>
-				<a href="https://github.com/gaponovoz/FloppyVPN" target="_blank"><button>Github</button></a>
+				<a class="button" href="https://github.com/gaponovoz/FloppyVPN" target="_blank"><button>Github</button></a>
 			</div>
 		</div>
 	</footer>
-@* 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
- *@	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+@* 	
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+ 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+*@
 	<script src="~/js/site.js" asp-append-version="true"></script>
 	<script src="/localization.js"></script>
 
 	@await RenderSectionAsync("Scripts", required: false)
+
+
 </body>
 </html>

@@ -6,9 +6,9 @@
 
 ## Stack
 - Servers: C# (ASP.NET Core 6)
+- Website: C#; HTML, CSS, JS (ASP.NET Core 6 MVC)
 - Database: MySQL
 - Windows App & Installer: C# (WinForms)
-- Website: HTML, CSS, JavaScript
 - Android App: Java
 
 ## Compiling
@@ -31,4 +31,3 @@ Expanding a new VPN server on a new linux machine is extra easy. A bash script i
 
 ## Deploying
 How to fully deploy the app.
-First, deploy the orchestrator server and the website server.

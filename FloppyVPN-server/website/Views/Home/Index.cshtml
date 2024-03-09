@@ -1,5 +1,10 @@
-﻿@{
+﻿@namespace FloppyVPN
+@using static FloppyVPN.Functions
+
+@{
 	ViewData["Title"] = "";
+	string lang = GetCurrentLanguage(this);
+
 }
 
 
@@ -21,27 +26,28 @@
 </h3>
 
 <ul class="htext">
-	<li id="feature1"></li>
-	<li id="feature2"></li>
-	<li id="feature10"></li>
-	<li id="feature3"></li>
-	<li id="feature4"></li>
-	<li id="feature5"></li>
-	<li id="feature6"></li>
-	<li id="feature7"></li>
-	<li id="feature8"></li>
-	<li id="feature9"></li>
+	<li id="feature1">@Loc.Get("feature1", lang)</li>
+	<li id="feature2">@Loc.Get("feature2", lang)</li>
+	<li id="feature10">@Loc.Get("feature10", lang)</li>
+	<li id="feature3">@Loc.Get("feature3", lang)</li>
+	<li id="feature4">@Loc.Get("feature4", lang)</li>
+	<li id="feature5">@Loc.Get("feature5", lang)</li>
+	<li id="feature6">@Loc.Get("feature6", lang)</li>
+	<li id="feature7">@Loc.Get("feature7", lang)</li>
+	<li id="feature8">@Loc.Get("feature8", lang)</li>
+	<li id="feature9">@Loc.Get("feature9", lang)</li>
 </ul>
 
 <br>
 <br>
 <span class="htext" id="explaining-caption">
-
+	@Loc.Get("", lang)
 </span>
 
 
 <h4>
-	<span id="pricing-1"></span><span class="highlight" id="pricing-2">3$ / month</span>.
+	<span id="pricing-1">@Loc.Get("pricing-1", lang)</span>
+	<span class="highlight" id="pricing-2">@Loc.Get("pricing-2", lang)</span>.
 </h4>
 
 <br>
@@ -55,14 +61,14 @@
 				<td style="text-align:center"><img src="https://2.bp.blogspot.com/-cAf5zf6lLMo/V_tZ5PzjagI/AAAAAAAAAfU/GxaJw4UfM203mR7PJH629QnjVSeq2dB7wCLcB/s1600/floppy%2Bdisk.jpg"></td>
 			</tr>
 			<tr>
-				<td style="text-align:center"><span class="htext">Windows 7+; any arch</span></td>
-				<td style="text-align:center"><span class="htext">Android 5+</span></td>
-				<td style="text-align:center"><span class="htext">Browser (Firefox/Chromium)</span></td>
+				<td style="text-align:center"><span class="htext">Windows 9+</span></td>
+				<td style="text-align:center"><span class="htext">Android 7+</span></td>
+				<td style="text-align:center"><span class="htext">Linux 5+</span></td>
 			</tr>
 			<tr>
-				<td style="text-align:center"><a href="#"><button style="margin: 10px; padding: 6px;"><b id="download-windows">Download<br>for Windows</b></button></a></td>
-				<td style="text-align:center"><a href="#"><button style="margin: 10px; padding: 6px;"><b id="download-android">Download<br>for Android</b></button></a></td>
-				<td style="text-align:center"><a href="#"><button style="margin: 10px; padding: 6px;"><b id="download-browser">Get for<br>my Browser</b></button></a></td>
+				<td style="text-align:center"><a href="#"><button style="margin: 10px; padding: 6px;"><b id="download-windows">@Loc.Get("download-windows", lang)</b></button></a></td>
+				<td style="text-align:center"><a href="#"><button style="margin: 10px; padding: 6px;"><b id="download-android">@Loc.Get("download-android", lang)</b></button></a></td>
+				<td style="text-align:center"><a href="#"><button style="margin: 10px; padding: 6px;"><b id="download-linux">@Loc.Get("download-linux", lang)</b></button></a></td>
 			</tr>
 
 		</tbody>
@@ -72,23 +78,23 @@
 <br>
 <br>
 <span class="htext" id="devices-caption">
-	You can use FloppyVPN on all devices simultaneously but not on multiple same devices.
+	@Loc.Get("devices-caption", lang)
 </span>
 
 <br>
 <br>
 <span class="htext" id="more-platforms-soon">
-	More platforms coming soon! Also, to support the project, you can
+	@Loc.Get("more-platforms-soon", lang)
 </span>
 <br>
 <br>
 
 <ul class="htext">
-	<span class="htext" id="whom-for"></span>
-	<li id="whomfor1"></li>
-	<li id="whomfor2"></li>
-	<li id="whomfor3"></li>
-	<span class="htext" id="for-whom"></span>
+	<span class="htext" id="whom-for">@Loc.Get("whom-for", lang)</span>
+	<li id="whomfor1">@Loc.Get("whomfor1", lang)</li>
+	<li id="whomfor2">@Loc.Get("whomfor2", lang)</li>
+	<li id="whomfor3">@Loc.Get("whomfor3", lang)</li>
+	<span class="htext" id="for-whom">@Loc.Get("for-whom", lang)</span>
 </ul>
 
 <br>
@@ -114,5 +120,5 @@
 		}
 	}
 
-	window.onload = checkCookieAcknowledgement; // Checks the cookie when the page loads
+	window.onload = checkCookieAcknowledgement;
 </script>
