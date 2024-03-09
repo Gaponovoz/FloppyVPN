@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Config>
-	<master_key></master_key>
+	<master_key>qwerty123</master_key>
+	<db_host>localhost</db_host>
+	<db_user>root</db_user>
+	<db_password>toor</db_password>
+	<db_name>floppyvpn_database</db_name>
+	<db_backups_folder>/var/floppyvpn_db_backups</db_backups_folder>
+	<></>
+	<></>
+	<></>
+	<></>
+	<></>
+	<></>
 </Config>

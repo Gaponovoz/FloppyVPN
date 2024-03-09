@@ -5,8 +5,9 @@ namespace FloppyVPN
 {
 	public static class Utils
 	{
-		public static string GetSha512Hash(string s, string key)
+		public static string GetHash(string s)
 		{
+			string key = Config.Get("master_key");
 			s += key; //add key as salt to maximally reduce bruteforce possibility
 
 			using (SHA512 sha512 = SHA512.Create())

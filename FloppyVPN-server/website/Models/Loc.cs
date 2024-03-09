@@ -2,9 +2,9 @@
 
 namespace FloppyVPN
 {
-	public static class Localizations
+	internal static class Loc
 	{
-		private static DataTable localizations = null;
+		public static DataTable table = null;
 
 		public static void AutoRefresh()
 		{
@@ -17,14 +17,14 @@ namespace FloppyVPN
 
 		public static void Refresh()
 		{
-			localizations = Config.LoadDataTable("");
+			table = Config.LoadDataTable(Program.PathToLocalizations);
 		}
 
 		public static string Get(string name, string lang)
 		{
 			try
 			{
-				return localizations.Select($"name = '{name}'")[0][lang].ToString();
+				return table.Select($"name = '{name}'")[0][lang].ToString();
 			}
 			catch
 			{

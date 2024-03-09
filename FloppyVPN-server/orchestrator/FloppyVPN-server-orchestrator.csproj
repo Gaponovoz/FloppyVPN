@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="MySql.Data" Version="8.3.0" />
+    <PackageReference Include="MySqlBackup.NET" Version="2.3.8" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +26,9 @@
 
   <ItemGroup>
     <None Update="CONFIG.XML">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="CONFIG.XML.TEMPLATE">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

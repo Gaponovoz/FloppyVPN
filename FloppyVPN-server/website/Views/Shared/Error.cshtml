@@ -10,12 +10,13 @@
 	<div class="window" style="margin: 32px; width: 250px">
 		<div class="title-bar">
 			<div class="title-bar-text" id="page-error">
-				Error
+				Error @Model.ErrorCode
 			</div>
 		</div>
 		<div class="window-body">
 			<p>
-				<strong>Request ID:</strong> <code>@Model.RequestId</code>
+				<strong>Error message:</strong> <code>@(string.IsNullOrEmpty(Model.ErrorMessage) ? Model.ErrorMessage : "idk")</code>
+				<strong>Error code:</strong> <code>@(Model.ErrorMessage)</code>
 			</p>
 			<p id="cant-find-page"></p>
 			<button onclick="history.back();" id="go-back-button">Go back</button>

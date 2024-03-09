@@ -10,8 +10,7 @@ namespace FloppyVPN
 		public string login;
 		public string masked_login;
 		public string masked_login_stars;
-		public string paid_till;
-		public int days_left;
+		public DateTime paid_till;
 		public string? date_registered;
 
 		public Account(string _login, bool isMasked = false)
@@ -20,7 +19,7 @@ namespace FloppyVPN
 
 			//restore full login if we only have short (masked) part:
 			if (isMasked)
-				login = DB.GetValueInTable($"SELECT login FROM Users WHERE login LIKE '{login}{splitChar}%';");
+				login = DB.GetValue($"SELECT login FROM Users WHERE login LIKE '{login}{splitChar}%';").ToString();
 
             //check if login exists
             DataTable accounts = DB.GetDataTable($"SELECT login FROM Users WHERE login = '{login}';");
@@ -41,15 +40,8 @@ namespace FloppyVPN
 			masked_login_stars = masked_login + new string('*', splitLogin[1].Length + 1);
 
 			//get and count paid time:
-			paid_till = account["paid_till"];
-			try
-			{
-				days_left = (int)Math.Ceiling((Utils.StringToDateTime(paid_till) - DateTime.Now).TotalDays);
-			}
-			catch
-			{
-				days_left = 0;
-			}
+			paid_till = account["paid_till"].ToString().ToDateTime();
+
 
 			//get registration date:
 			date_registered = DB.GetValue($"SELECT date_registered FROM Users WHERE `login` = '@login';", new Dictionary<string, object>()
@@ -62,14 +54,24 @@ namespace FloppyVPN
 		/// <returns>A DateTime symbolizing date and time till which account is paid.</returns>
 		public DateTime AddTime(ushort days)
 		{
-			DateTime new_paid_till = paid_till.ToDateTime().AddDays(days);
+			DateTime new_paid_till = paid_till.AddDays(days);
 			DB.Execute($"UPDATE `Users` SET paid_till = '{new_paid_till.ToDateTime()}' WHERE login = '{login}';", 
 				new Dictionary<string, object>() { { "", "" }, { "", "" }, { "", "" } });
 			Thread.Sleep(100);
 			return new_paid_till;
 		}
 
-
+		public int DaysLeft()
+		{
+            try
+            {
+                return (int)Math.Ceiling((paid_till - DateTime.Now).TotalDays);
+            }
+            catch
+            {
+                return 0;
+            }
+        }
 
 
 
@@ -79,7 +81,7 @@ namespace FloppyVPN
 			string login = "";
 			string paid_till = "-";
 			string date_registered = Dating.DateNow();
-			string hash_ip_registered = Utils.GetSha256Hash(ipaddress);
+			string hash_ip_registered = Utils.GetHash(ipaddress);
 
 			const string dic = "qwetipasdfghjkzcvb123456789"; //account symbols dictionary
 

@@ -5,7 +5,7 @@
     "anonymousAuthentication": true
   },
   "profiles": {
-    "sampleAPI": {
+    "FloppyVPN-server-website": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

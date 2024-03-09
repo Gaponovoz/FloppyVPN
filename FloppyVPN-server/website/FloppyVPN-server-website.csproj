@@ -45,4 +45,13 @@
     <Using Include="System.Data" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="CONFIG.XML">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="CONFIG.XML.TEMPLATE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

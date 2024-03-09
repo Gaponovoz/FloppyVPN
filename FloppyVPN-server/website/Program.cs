@@ -4,6 +4,9 @@ namespace FloppyVPN
 {
 	public class Program
 	{
+        public static readonly string PathToLocalizations = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "localizations.xml"));
+
+
 		public static void Main(string[] args)
 		{
             //single instance:
@@ -19,7 +22,7 @@ namespace FloppyVPN
 
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
 
-            new Thread(() => Localizations.AutoRefresh()).Start();
+            new Thread(() => Loc.AutoRefresh()).Start();
 
             Startup(args);
         }

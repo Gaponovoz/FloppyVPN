@@ -1,5 +1,5 @@
 ﻿@namespace FloppyVPN
-@Html.Partial("_Functions")
+@using static FloppyVPN.Functions
 
 @{
 	string currentController = (ViewContext.RouteData.Values["controller"] != null) ? ViewContext.RouteData.Values["controller"].ToString() : "";
@@ -12,7 +12,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>@ViewData["Title"] | FloppyVPN</title>
+	<title> @(string.IsNullOrEmpty(ViewData["Title"].ToString()) ? "FloppyVPN" : $"{ViewData["Title"]} | FloppyVPN)") </title>
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
@@ -32,7 +32,7 @@
 
 				<div>
 					@{
-						string selectedLang = "GetCurrentLanguage()";
+						string selectedLang = GetCurrentLanguage(this);
 					}
 
 					<label for="language" id="language-label">Language:      </label>

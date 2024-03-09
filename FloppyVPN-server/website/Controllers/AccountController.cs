@@ -8,5 +8,25 @@ namespace FloppyVPN.Controllers
 		{
 			return View();
 		}
+
+		public IActionResult Login()
+		{
+			return View();
+		}
+
+		public IActionResult NoLogin()
+		{
+			return View();
+		}
+
+		public IActionResult Register()
+		{
+			return View();
+		}
+
+		public IActionResult Registered()
+		{
+			return View();
+		}
 	}
 }
