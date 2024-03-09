@@ -470,15 +470,15 @@
     <ja>サポートサービス</ja>
   </row>
   <row>
-    <name>xxx</name>
-    <en>xxx</en>
-    <ru>xxx</ru>
-    <uk>xxx</uk>
-    <ja>xxx</ja>
+    <name>cookie-title-bar</name>
+    <en>Cookie notice</en>
+    <ru>Уведомление о Cookie</ru>
+    <uk>Cookie notice</uk>
+    <ja>Cookie notice</ja>
   </row>
   <row>
-    <name>xxx</name>
-    <en>xxx</en>
+    <name>cookie-message</name>
+    <en>This website uses cookies... To store your language preference and this cookie alert!</en>
     <ru>xxx</ru>
     <uk>xxx</uk>
     <ja>xxx</ja>

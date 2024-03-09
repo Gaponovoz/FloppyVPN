@@ -1,16 +1,31 @@
 ﻿@namespace FloppyVPN
-@Html.Partial("_Functions")
+@using static FloppyVPN._Functions
 
 @{
-	//string lang = GetCurrentLanguage();
-    //ViewData["Title"] = Localizations.Get("", lang);
+	string lang = GetCurrentLanguage(this);
+	ViewData["Title"] = Loc.Get("title_register", lang);
 }
 
-<h3 id="header-account-register">Register an account to start using FloppyVPN</h3>
+<h3 id="header-account-register">@Loc.Get("header-account-register", lang)</h3>
+
 <br><br>
+
 <span class="htext">
-    <span class="htext" id="register-caption"></span>
-    <button onclick="window.location='/registered';" id="_register-button"><b>Register!</b></button>
-    <br><br>
-    <span class="htext" id="already-registered-proposal"></span>
-</span>   <a href="/login"><button id="_login-button">Login</button></a>
+	<span class="htext" id="register-caption">
+		@Loc.Get("register-caption", lang)
+	</span>
+
+	<button onclick="window.location='/registered';" id="register-button">
+		<b>@Loc.Get("register-button", lang)!</b>
+	</button>
+
+	<br><br>
+
+	<span class="htext" id="already-registered-proposal">
+		@Loc.Get("already-registered-proposal", lang)
+	</span>
+</span>
+
+<a href="/login"><button id="login-button">
+	@Loc.Get("login-button", lang)
+</button></a>

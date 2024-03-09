@@ -1,5 +1,5 @@
 ﻿@namespace FloppyVPN
-@using static FloppyVPN.Functions
+@using static FloppyVPN._Functions
 
 @{
 	string currentController = (ViewContext.RouteData.Values["controller"] ?? "").ToString();
@@ -20,73 +20,52 @@
 </head>
 <body>
 	<header>
-		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-			<div class="container-fluid">
-				<div>
-					<a href="/register"><button id="register-button">Register</button></a>
-	                   <button id="logout-button" style="display: none" onclick="window.location='/';">Log out</button>
-					<a href="/login"><button id="login-button">Login</button></a>
-	
+		<div class="container px-4">
+			<div class="row gx-5">
+				<div class="col" id="element2">
+					<a href="/register"><button id="register-button">@Loc.Get("register-button", selectedLang)</button></a>
+					<button id="logout-button" style="display: none" onclick="window.location='/';">@Loc.Get("logout-button", selectedLang)</button>
+					<a href="/login"><button id="login-button">@Loc.Get("login-button", selectedLang)</button></a>
+
 				</div>
 
-				<a href="/" class="plain-link"><span style="font-family: Tahoma,sans; font-size: 23px; font-weight: bold" id="website-title">@Loc.Get("website-title", selectedLang)</span></a>
+				<div class="col" id="element1">
+					<a href="/" class="plain-link"><span style="font-family: Tahoma,sans; font-size: 23px; font-weight: bold" id="website-title">@Loc.Get("website-title", selectedLang)</span></a>
+				</div>
 
-				<div>
-					<label for="language" id="language-label">Language:      </label>
-					<select id="language" name="language" onchange="languageChanged(this)">
+				<div class="col" id="element3">
+
+					<form method="post">
+						<label for="language" id="language-label">Language: </label>
+						<select id="language" name="language" onchange="this.form.submit()">
 						@{
-							if (selectedLang == "en")
+							<option value="en" selected="@(selectedLang == "en")">English</option>
+							<option value="ru" selected="@(selectedLang == "ru")">Русский</option>
+							<option value="uk" selected="@(selectedLang == "uk")">Українська</option>
+							<option value="ja" selected="@(selectedLang == "ja")">日本語</option>
+						}
+						</select>
+						@{
+							// Handle language change and set cookie
+							if (Context.Request.Method == "POST")
 							{
-								<option value="en" selected>English</option>
-							}
-							else
-							{
-								<option value="en">English</option>
-							}
-
-							if (selectedLang == "ru")
-							{
-								<option value="ru" selected>Русский</option>
-							}
-							else
-							{
-								<option value="ru">Русский</option>
-							}
-
-							if (selectedLang == "uk")
-							{
-								<option value="uk" selected>Українська</option>
-							}
-							else
-							{
-								<option value="uk">Українська</option>
-							}
-
-							if (selectedLang == "ja")
-							{
-								<option value="ja" selected>日本語</option>
-							}
-							else
-							{
-								<option value="ja">日本語</option>
+								var _selectedLang = Context.Request.Form["language"];
+								WriteCookie(this, "language", _selectedLang);
+								// Redirect to refresh page with the new language parameter
+								string? langParam = "?lang=" + _selectedLang;
+								string? paramUrl = Url.Action(null, null, new { lang = _selectedLang });
+								Context.Response.Redirect(paramUrl);
 							}
 						}
-					</select>
+					</form>
 
-					<script>
-						function languageChanged(selectElement) {
-							var selectedValue = selectElement.value;
-							setCookie('language', selectedValue, 30); // Assuming you want to set the cookie for 30 days
-
-							// Reload the page with the new language parameter
-							var langParam = 'lang=' + selectedValue;
-							var paramUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + langParam;
-							window.location.href = paramUrl;
-						}
-					</script>
 				</div>
 			</div>
-		</nav>
+
+			<hr />
+			<br />
+
+		</div>
 	</header>
 
 
@@ -101,22 +80,20 @@
 
 	<footer class="border-top footer text-muted">
 		<div class="container">
+			<br />
+
 			<span class="htext">© <a href="https://otso.software" target="_blank">OtsoSoftware</a>, 2024-2001.</span>
 			<div>
-				<a href="/support"><button id="support-button">Get support</button></a>
+				<a href="/support" id="support-button">Get support</a>
 				<span>    </span>
-				<a class="button" href="https://github.com/gaponovoz/FloppyVPN" target="_blank"><button>Github</button></a>
+				<a class="button" href="https://github.com/gaponovoz/FloppyVPN" target="_blank">Github</a>
 			</div>
 		</div>
 	</footer>
 
 
-@* 	
-	<script src="~/lib/jquery/dist/jquery.min.js"></script>
- 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-*@
-	<script src="~/js/site.js" asp-append-version="true"></script>
-	<script src="/localization.js"></script>
+	
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 	@await RenderSectionAsync("Scripts", required: false)
 

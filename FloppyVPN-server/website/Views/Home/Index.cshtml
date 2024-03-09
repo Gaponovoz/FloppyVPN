@@ -1,5 +1,5 @@
 ﻿@namespace FloppyVPN
-@using static FloppyVPN.Functions
+@using static FloppyVPN._Functions
 
 @{
 	ViewData["Title"] = "";
@@ -11,12 +11,12 @@
 
 <div class="window" style="margin: 32px; width: 250px; display: none; float: right;" id="cookie-alert-window">
 	<div class="title-bar">
-		<div class="title-bar-text">
-			Cookie notice
+		<div class="title-bar-text" id="cookie-title-bar">
+			@Loc.Get("cookie-title-bar", lang)
 		</div>
 	</div>
 	<div class="window-body">
-		<p>This website uses cookies... To store your language preference and this cookie alert!</p>
+		<p id="cookie-message">@Loc.Get("cookie-message", lang)</p>
 		<button onclick="writeCookieAcknowledgement();"><b>OK</b></button>
 	</div>
 </div>

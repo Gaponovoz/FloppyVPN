@@ -1,40 +1,49 @@
-﻿
-@{
+﻿@namespace FloppyVPN
+@using static FloppyVPN._Functions
 
+@{
+	string lang = GetCurrentLanguage(this);
+	ViewData["Title"] = Loc.Get("registered_title", lang);
 }
 
-<h3 id="header-account-registered">Done! Thanks for registering.</h3>
-<br>
+
+<h3 id="header-account-registered">
+	@Loc.Get("header-account-registered", lang)
+</h3>
+
+<br><br>
+
 <span class="htext">
-	<span style="font-family: Tahoma; font-size: 20px; font-weight: bold; letter-spacing: 2px; display: block; align: center; text-align: -moz-center; text-align: -webkit-center;">%%%login%%%</span><br><br>
-	<span class="htext" id="registered-explanation-1">
-
-	</span><br><br>
-	<img src="write.png">
-	<span class="highlight" id="registered-explanation-2">
-
-	</span><br>
-	<span class="htext" id="registered-explanation-3">
-
-		<br>
+	<span style="font-family: Tahoma; font-size: 20px; font-weight: bold; letter-spacing: 2px; display: block; align-content: center; text-align: center;">
+		%%%login%%%
 	</span>
+
+	<br>
+	<span class="htext" id="registered-explanation-1">
+		@Loc.Get("registered-explanation-1", lang)
+	</span>
+	
 	<br><br>
-	<span class="htext" id="registered-button-caption"></span>
-	<a href="/account/%%%masked_login_nostars%%%"><button id="gotoaccount-button"><b></b></button></a>
+	
+	<img src="/imgs/write.png">
+	<span class="highlight" id="registered-explanation-2">
+		@Loc.Get("registered-explanation-2", lang)
+	</span>
+	
+	<br><br>
+
+	<span class="htext" id="registered-explanation-3">
+		@Loc.Get("registered-explanation-3", lang)
+	</span>
+
+
+	<span class="htext" id="registered-button-caption">
+		@Loc.Get("registered-button-caption", lang)
+	</span>
+	<a href="/account/%%%masked_login%%%"><button id="gotoaccount-button"><b>
+		@Loc.Get("gotoaccount-button", lang)
+	</b></button></a>
+
 	<br><br>
 </span>
 
-
-
-<script type="text/javascript">
-	// prevents user from refreshing the page
-	function disableF5(e) {
-		if (e.keyCode === 116 || (e.ctrlKey && e.keyCode === 82)) {
-			e.preventDefault();
-		}
-	}
-
-	document.addEventListener('DOMContentLoaded', function () {
-		document.addEventListener("keydown", disableF5);
-	});
-</script>
