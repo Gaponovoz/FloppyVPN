@@ -24,7 +24,7 @@ namespace FloppyVPN
 		{
 			try
 			{
-				return table.Select($"name = '{name}'")[0][lang].ToString().Replace("\n", Environment.NewLine);
+				return (table.Select($"name = '{name}'")[0][lang] ?? "").ToString();
 			}
 			catch
 			{

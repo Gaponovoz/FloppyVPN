@@ -1,21 +1,107 @@
 ﻿
 body {
-	max-width: 860px;
+	max-width: 800px;
 	margin: 0 auto; /* This centers the page content horizontally */
 	padding: 0 16px; /* A little space so content doesn't touch the edges */
+	font-family: 'Times New Roman', Times, serif;
 	font-size: 12px;
 }
 
 header {
+	margin-top: 8px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#elementSecondaryLeft,
+#elementPrimary,
+#elementSecondaryRight {
+	flex: 1;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
-	padding: 10px 0;
 }
+
+#elementSecondaryLeft {
+	justify-content: flex-start;
+}
+
+#elementPrimary {
+	justify-content: center;
+}
+
+#elementSecondaryRight {
+	justify-content: flex-end;
+	text-align: right; /* Align text to the right within elementSecondaryRight */
+}
+
+@media screen and (max-width: 600px) {
+	header {
+		flex-direction: column;
+	}
+
+	#elementPrimary {
+		order: 1; /* Moves the primary element to the top */
+		text-align: center;
+	}
+
+	#elementSecondaryLeft {
+		order: 2; /* Moves elementSecondaryLeft below the primary element */
+		text-align: left; /* Align text to the left on mobile */
+	}
+
+	#elementSecondaryRight {
+		order: 3; /* Moves elementSecondaryRight below elementSecondaryLeft */
+		text-align: right; /* Align text to the right on mobile */
+	}
+}
+
+
+.footer {
+	display: flex;
+	align-items: center;
+	margin-top: 8px;
+	margin-bottom: 16px;
+}
+
+#elementLefter {
+	flex: 1;
+	justify-content: left;
+	text-align: left;
+}
+#elementRighter {
+	flex: 1;
+	justify-content: right;
+	text-align: right;
+}
+
+
+
+@media screen and (max-width: 600px) {
+	.footer {
+		flex-wrap: wrap;
+		flex-direction: row;
+	}
+
+	#elementLefter,
+	#elementRighter {
+		flex-basis: 100%;
+		text-align: center;
+		margin-bottom: 8px;
+		margin-top: 8px;
+	}
+}
+
+
+
+
+
+
+
 
 header select, header button { /* increase size of some controls because they are too small */
 	transform: scale(1.1);
-	margin: 3px;
+	margin: 4px;
 }
 
 header label {
@@ -26,7 +112,7 @@ button {
 	transform: scale(1.1);
 }
 
-h1, h2, h3, h4, h5, h6, p, table, ul, li,  {
+h1, h2, h3, h4, h5, h6, p, table, ul, li, tr, td {
 	font-family: "Times New Roman", Times, serif;
 }
 
@@ -149,11 +235,19 @@ table img {
 
 
 
+
+
+
+
+
+
+
+
+
 /*! 98.css v0.1.20 - https://github.com/jdan/98.css */
 
 body {
 	color: #222;
-	font-family: Arial;
 	font-size: 12px
 }
 

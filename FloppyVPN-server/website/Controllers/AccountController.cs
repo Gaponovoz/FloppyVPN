@@ -46,7 +46,7 @@ namespace FloppyVPN.Controllers
 			TempData["FormSubmitted"] = true;
 
 			// Redirect to the Registered action to render the Registered view
-			return RedirectToAction("Registered");
+			return RedirectToAction("Registered", "Account");
 		}
 	}
 }
