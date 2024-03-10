@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.OpenApi.Models;
 using System.Net;
 
 namespace FloppyVPN
@@ -19,7 +22,49 @@ namespace FloppyVPN
 
 			Config.EnsureFileIntegrity();
 
-			Api.Start();
+			Startup(args);
+		}
+
+		static void Startup(string[] args)
+		{
+			WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+			builder.Services.AddControllers();
+
+			builder.Services.AddEndpointsApiExplorer();
+			builder.Services.AddSwaggerGen(c =>
+			{
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "Orchestrator server API", Version = "v1" });
+			});
+
+			builder.Services.Configure<KestrelServerOptions>(options =>
+			{
+				options.AllowSynchronousIO = true;
+				options.Limits.MaxRequestBodySize = 300000000;
+			});
+			builder.Services.Configure<FormOptions>(options =>
+			{
+				options.ValueCountLimit = int.MaxValue;
+				options.MultipartBodyLengthLimit = 30000000;
+				options.MemoryBufferThreshold = int.MaxValue;
+			});
+
+			WebApplication app = builder.Build();
+
+			app.MapControllers();
+
+			app.Urls.Clear();
+			app.Urls.Add("http://localhost:1440");
+
+			app.UseSwagger();
+			app.UseSwaggerUI(c =>
+			{
+				c.SwaggerEndpoint("/swagger/v1/swagger.json", "Orchestrator Server API");
+				c.RoutePrefix = "swagger"; // set Swagger UI at the app root
+			});
+
+
+			app.Run();
 		}
 
 		public static void Log(string where, string what)

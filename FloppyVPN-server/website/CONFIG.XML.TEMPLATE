@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Config>
-	<master_key></master_key>
+	<master_key>qwerty123</master_key>
+	<orchestrator_url>http://localhost:1440</orchestrator_url>
 </Config>
