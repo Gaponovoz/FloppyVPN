@@ -14,7 +14,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title> @(string.IsNullOrEmpty((ViewData["Title"] ?? "").ToString()) ? "FloppyVPN" : $"{ViewData["Title"]} | FloppyVPN)") </title>
-	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	@* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
 </head>
@@ -82,18 +82,24 @@
 		<div class="container">
 			<br />
 
-			<span class="htext">© <a href="https://otso.software" target="_blank">OtsoSoftware</a>, 2024-2001.</span>
-			<div>
-				<a href="/support" id="support-button">Get support</a>
-				<span>    </span>
-				<a class="button" href="https://github.com/gaponovoz/FloppyVPN" target="_blank">Github</a>
+			<div class="row">
+				<div class="col">
+					<span class="htext">© <a href="https://otso.software" target="_blank">OtsoSoftware</a>, 2024-2001.</span>
+				</div>
+				<div class="col">
+					<div>
+						<a href="/support" id="support-button">Get support</a>
+						<span>    </span>
+						<a class="button" href="https://github.com/gaponovoz/FloppyVPN" target="_blank">Github</a>
+					</div>
+				</div>
 			</div>
+
 		</div>
 	</footer>
 
 
 	
-	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 	@await RenderSectionAsync("Scripts", required: false)
 

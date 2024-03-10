@@ -26,7 +26,27 @@ namespace FloppyVPN.Controllers
 
 		public IActionResult Registered()
 		{
-			return View();
+			// Only redirect to "Registered" (which actually registers a user) when redirected from "Register"
+			if ((bool)(TempData["FormSubmitted"] ?? false) == true)
+			{
+				TempData.Remove("FormSubmitted");
+				return View();
+			}
+			else
+			{
+				// If not redirected from Register view, redirect to login page
+				return RedirectToAction("Login", "Account");
+			}
+		}
+
+		[HttpPost]
+		public IActionResult PerformRegistration()
+		{
+			// Set TempData flag indicating that the form was submitted
+			TempData["FormSubmitted"] = true;
+
+			// Redirect to the Registered action to render the Registered view
+			return RedirectToAction("Registered");
 		}
 	}
 }

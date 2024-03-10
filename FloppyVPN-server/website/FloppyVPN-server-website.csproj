@@ -11,7 +11,7 @@
     <Content Remove="Properties\launchSettings.json" />
     <Content Remove="wwwroot\css\site.css" />
     <Content Remove="wwwroot\fonts\MS Sans Serif Bold.ttf" />
-    <Content Remove="wwwroot\fonts\MS Sans Serif.ttf" />
+    <Content Remove="wwwroot\fonts\MSSansSerif.ttf" />
     <Content Remove="wwwroot\imgs\account-addtime.png" />
     <Content Remove="wwwroot\imgs\account-view.png" />
     <Content Remove="wwwroot\imgs\icon.png" />
@@ -29,8 +29,6 @@
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
     <None Include="wwwroot\css\site.css" />
-    <None Include="wwwroot\fonts\MS Sans Serif Bold.ttf" />
-    <None Include="wwwroot\fonts\MS Sans Serif.ttf" />
     <None Include="wwwroot\imgs\account-addtime.png" />
     <None Include="wwwroot\imgs\account-view.png" />
     <None Include="wwwroot\imgs\icon.png" />

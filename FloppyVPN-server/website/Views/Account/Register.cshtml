@@ -14,18 +14,20 @@
 	<span class="htext" id="register-caption">
 		@Loc.Get("register-caption", lang)
 	</span>
-
-	<button onclick="window.location='/registered';" id="register-button">
-		<b>@Loc.Get("register-button", lang)!</b>
-	</button>
+	<form method="post" action="@Url.Action("AttemptRegister", "Account")">
+		<button type="submit" id="register-button">
+			<b>@Loc.Get("register-button", lang)!</b>
+		</button>
+	</form>
 
 	<br><br>
 
-	<span class="htext" id="already-registered-proposal">
-		@Loc.Get("already-registered-proposal", lang)
-	</span>
+
 </span>
 
+<span class="htext" id="already-registered-proposal">
+	@Loc.Get("already-registered-proposal", lang)
+</span>
 <a href="/login"><button id="login-button">
 	@Loc.Get("login-button", lang)
 </button></a>
