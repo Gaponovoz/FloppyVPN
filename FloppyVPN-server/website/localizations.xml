@@ -30,17 +30,17 @@
   </row>
   <row>
     <name>heading-text</name>
-    <en>FloppyVPN — Shielding Bytes, Lighting Freedom.<br>Simple yet full-featured:</en>
-    <ru>FloppyVPN — спасай приватность и забывай блокировки.<br>Теперь без геморроя:</ru>
-    <uk>FloppyVPN — рятуєм приватність, минаєм цензуру.<br>Ол-інклюзів:</uk>
-    <ja>FloppyVPN — 匿名の接続と検閲の回避。<br>シンプルでリッチ:</ja>
+    <en>FloppyVPN — Shielding Bytes, Lighting Freedom.\nSimple yet full-featured:</en>
+    <ru>FloppyVPN — спасай приватность и забывай блокировки.\nТеперь без геморроя:</ru>
+    <uk>FloppyVPN — рятуєм приватність, минаєм цензуру.\nОл-інклюзів:</uk>
+    <ja>FloppyVPN — 匿名の接続と検閲の回避。\nシンプルでリッチ:</ja>
   </row>
   <row>
     <name>pricing-1</name>
-    <en>Single account &amp; three devices &amp; many countries</en>
+    <en>Single account &amp; three devices &amp; many countries = </en>
     <ru>Один аккаунт — три устройства — много стран</ru>
-    <uk>Один акаунт — три платформи — багато краiiн</uk>
-    <ja>123</ja>
+    <uk>Один акаунт — три платформи — багато країн = </uk>
+    <ja></ja>
   </row>
   <row>
     <name>pricing-2</name>
@@ -198,31 +198,31 @@
   </row>
   <row>
     <name>account-not-found</name>
-    <en>Couldn&apos;t find an account with this username!<br>It is possible that the login information is incorrect or the account has been deleted.</en>
-    <ru>Не удалось найти учетную запись с таким логином!<br>Возможно, данные для входа неверны или учетная запись была удалена.</ru>
-    <uk>Не вдалося знайти обліковий запис з таким логіном!<br>Можливо, дані для входу неправильні або обліковий запис було видалено.</uk>
-    <ja>そのようなログインでアカウントを見つけることができませんでした！<br>ログインデータが間違っているか、アカウントが削除されている可能性があります。</ja>
+    <en>Couldn&apos;t find an account with this username!\nIt is possible that the login information is incorrect or the account has been deleted.</en>
+    <ru>Не удалось найти учетную запись с таким логином!\nВозможно, данные для входа неверны или учетная запись была удалена.</ru>
+    <uk>Не вдалося знайти обліковий запис з таким логіном!\nМожливо, дані для входу неправильні або обліковий запис було видалено.</uk>
+    <ja>そのようなログインでアカウントを見つけることができませんでした！\nログインデータが間違っているか、アカウントが削除されている可能性があります。</ja>
   </row>
   <row>
     <name>download-windows</name>
-    <en>Download for<br>Windows</en>
-    <ru>Скачать для<br>Windows</ru>
-    <uk>Завантажити на<br>Windows</uk>
-    <ja>Windows<br>用のダウンロード</ja>
+    <en>Download for\nWindows</en>
+    <ru>Скачать для\nWindows</ru>
+    <uk>Завантажити на\nWindows</uk>
+    <ja>Windows\n用のダウンロード</ja>
   </row>
   <row>
     <name>download-android</name>
-    <en>Download for<br>Android</en>
-    <ru>Скачать на<br>Android</ru>
-    <uk>Завантажити в<br>Android</uk>
-    <ja>Android<br>にダウンロード</ja>
+    <en>Download for\nAndroid</en>
+    <ru>Скачать на\nAndroid</ru>
+    <uk>Завантажити в\nAndroid</uk>
+    <ja>Android\nにダウンロード</ja>
   </row>
   <row>
     <name>download-linux</name>
-    <en>Download for<br>Linux</en>
-    <ru>Скачать для<br>Linux</ru>
-    <uk>Завантажити на<br>Linux</uk>
-    <ja>Linux<br>用のダウンロード</ja>
+    <en>Download for\nLinux</en>
+    <ru>Скачать для\nLinux</ru>
+    <uk>Завантажити на\nLinux</uk>
+    <ja>Linux\n用のダウンロード</ja>
   </row>
   <row>
     <name>register-caption</name>

@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace FloppyVPN
+﻿namespace FloppyVPN
 {
 	internal static class Loc
 	{
@@ -24,7 +22,7 @@ namespace FloppyVPN
 		{
 			try
 			{
-				return (table.Select($"name = '{name}'")[0][lang] ?? "").ToString();
+				return (table.Select($"name = '{name}'")[0][lang] ?? "").ToString().Replace("\r\n", "<br>").Replace("\\n", "<br>");
 			}
 			catch
 			{

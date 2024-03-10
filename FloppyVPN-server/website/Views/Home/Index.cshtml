@@ -31,7 +31,7 @@
 
 <br>
 <h3 id="heading-text">
-	@Loc.Get("heading-text", lang)
+	@Html.Raw(Loc.Get("heading-text", lang))
 </h3>
 
 <ul class="htext">
@@ -50,7 +50,7 @@
 <br>
 <br>
 <span class="htext" id="explaining-caption">
-	@Loc.Get("explaining-caption", lang)
+	@Html.Raw(Loc.Get("explaining-caption", lang))
 </span>
 
 
@@ -65,9 +65,9 @@
 	<table border="1" style="table-layout: fixed;">
 		<tbody>
 			<tr>
-				<td style="text-align:center"><img src="http://2.bp.blogspot.com/_bgGfbhWKZyY/S_P0ydc_7yI/AAAAAAAAAXI/nHY8v1QqgTc/s320/1832floppy_disc.jpg"></td>
-				<td style="text-align:center"><img src="https://i.pinimg.com/originals/87/87/a8/8787a8967850df18659d88c800d78ef5.jpg"></td>
-				<td style="text-align:center"><img src="https://2.bp.blogspot.com/-cAf5zf6lLMo/V_tZ5PzjagI/AAAAAAAAAfU/GxaJw4UfM203mR7PJH629QnjVSeq2dB7wCLcB/s1600/floppy%2Bdisk.jpg"></td>
+				<td style="text-align:center"><img src="/imgs/windows.jpg"></td>
+				<td style="text-align:center"><img src="/imgs/android.jpg"></td>
+				<td style="text-align:center"><img src="/imgs/linux.jpg"></td>
 			</tr>
 			<tr>
 				<td style="text-align:center"><span class="htext">Windows 9+</span></td>
@@ -75,9 +75,9 @@
 				<td style="text-align:center"><span class="htext">Linux 5+</span></td>
 			</tr>
 			<tr>
-				<td style="text-align:center"><a href="#"><button style="margin: 10px; padding: 6px;"><b id="download-windows">@Loc.Get("download-windows", lang)</b></button></a></td>
-				<td style="text-align:center"><a href="#"><button style="margin: 10px; padding: 6px;"><b id="download-android">@Loc.Get("download-android", lang)</b></button></a></td>
-				<td style="text-align:center"><a href="#"><button style="margin: 10px; padding: 6px;"><b id="download-linux">@Loc.Get("download-linux", lang)</b></button></a></td>
+				<td style="text-align:center"><a href="#"><button style="margin-top: 6px; margin-bottom: 6px; padding: 6px;"><b id="download-windows">@Html.Raw(Loc.Get("download-windows", lang))</b></button></a></td>
+				<td style="text-align:center"><a href="#"><button style="margin-top: 6px; margin-bottom: 6px; padding: 6px;" disabled><b id="download-android">@Html.Raw(Loc.Get("download-android", lang))</b></button></a></td>
+				<td style="text-align:center"><a href="#"><button style="margin-top: 6px; margin-bottom: 6px; padding: 6px;" disabled><b id="download-linux">@Html.Raw(Loc.Get("download-linux", lang))</b></button></a></td>
 			</tr>
 
 		</tbody>
@@ -86,25 +86,33 @@
 
 <br>
 <br>
+
 <span class="htext" id="devices-caption">
 	@Loc.Get("devices-caption", lang)
 </span>
 
 <br>
 <br>
+
 <span class="htext" id="more-platforms-soon">
 	@Loc.Get("more-platforms-soon", lang)
 </span>
+
+<br>
+<br>
 <br>
 <br>
 
+<span class="htext" style="margin-bottom: 60px;" id="whom-for">@Loc.Get("whom-for", lang)</span>
+
 <ul class="htext">
-	<span class="htext" id="whom-for">@Loc.Get("whom-for", lang)</span>
 	<li id="whomfor1">@Loc.Get("whomfor1", lang)</li>
 	<li id="whomfor2">@Loc.Get("whomfor2", lang)</li>
 	<li id="whomfor3">@Loc.Get("whomfor3", lang)</li>
-	<span class="htext" id="for-whom">@Loc.Get("for-whom", lang)</span>
 </ul>
+
+<span class="htext" style="margin-top: 60px;" id="for-whom">@Loc.Get("for-whom", lang)</span>
+
 
 <br>
 

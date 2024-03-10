@@ -1,4 +1,14 @@
 ﻿
+@font-face {
+	font-family: 'Times New Roman';
+	src: local('Times New Roman'), url('/fonts/Times New Roman.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Tahoma';
+	src: local('Tahoma'), url('/fonts/Tahoma.ttf') format('truetype');
+}
+
 body {
 	max-width: 800px;
 	margin: 0 auto; /* This centers the page content horizontally */
@@ -8,6 +18,7 @@ body {
 }
 
 header {
+	font-family: Tahoma;
 	margin-top: 8px;
 	display: flex;
 	justify-content: space-between;

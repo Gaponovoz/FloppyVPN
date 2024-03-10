@@ -2,4 +2,5 @@
 <Config>
 	<master_key>qwerty123</master_key>
 	<orchestrator_url>http://localhost:1440</orchestrator_url>
+	<allow_registration>True</allow_registration>
 </Config>

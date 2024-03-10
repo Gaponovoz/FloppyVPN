@@ -88,12 +88,6 @@ namespace FloppyVPN
 				defaults: new { controller = "Account", action = "Register" }
 			);
 
-			app.MapControllerRoute(
-				name: "registeredRoute",
-				pattern: "registered",
-				defaults: new { controller = "Account", action = "Registered" }
-			);
-
 			#endregion
 
 
