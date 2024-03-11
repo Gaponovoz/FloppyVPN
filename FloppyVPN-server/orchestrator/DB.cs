@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Google.Protobuf;
+using MySql.Data.MySqlClient;
 
 namespace FloppyVPN
 {
@@ -53,6 +54,31 @@ namespace FloppyVPN
 				Console.WriteLine($"An error occurred when attempting to backup: {ex.Message}");
 			}
 		}
+
+		public static void Log(string sender, string message)
+		{
+			DateTime now = DateTime.Now;
+			Console.WriteLine($"{now.ToDateTime()}  {sender}\t{message}");
+
+			try
+			{
+				DB.Execute("INSERT INTO `logs` (`date_time`, `sender`, `message`) " +
+					"VALUES (@date_time, @sender, @message);", 
+					new Dictionary<string, object>()
+					{
+						{ "date_time", now },
+						{ "sender", sender },
+						{ "message", message }
+					});
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("Something unexpected happens - could not even write log into the DB!");
+			}
+		}
+
+
+
 
 		public static void Execute(string query, Dictionary<string, object> parameters = null)
 		{

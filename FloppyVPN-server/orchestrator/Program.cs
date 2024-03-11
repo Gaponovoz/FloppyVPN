@@ -79,25 +79,5 @@ namespace FloppyVPN
 
 			app.Run();
 		}
-
-		public static void Log(string where, string what)
-		{
-			Console.WriteLine($"{Dating.DateNow()}  {where}\t{what}");
-
-			try
-			{
-
-			}
-			catch
-			{
-			}
-
-			DB.Execute("INSERT INTO `logs` (``, ``, ``) VALUES ('@ddd', '@fff', '@lll');", new Dictionary<string, object>()
-			{
-				{ "", Dating.DateNow() },
-				{ "", where },
-				{ "", what },
-			});
-		}
 	}
 }

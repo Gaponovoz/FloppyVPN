@@ -4,18 +4,13 @@ namespace FloppyVPN
 {
 	public class Account
 	{
-		public static readonly char splitChar = 'x'; //character which is used to split login to the public and private parts
-
 		public bool exists = false;
-		public string private_login;
-		public string public_login;
-		public DateTime paid_till;
+		public string private_login; //used to log in and use vpn
+		public string public_login;  //used to top up the balance
 		public DateTime date_registered;
+		public DateTime paid_till;   //if "paid_till" equals "date_registered" - the account is just created
 
 
-		/// <summary>
-		/// 
-		/// </summary>
 		/// <param name="login"></param>
 		/// <param name="isLoginPublic">True if passing a public login, false (default) if passing the private login</param>
 		public Account(string login, bool isLoginPublic = false)
@@ -25,23 +20,22 @@ namespace FloppyVPN
 			if (isLoginPublic)
 			{
 				this.public_login = login;
-
 				accessColumn = "public_login";
 			}
 			else
 			{
 				this.private_login = login;
+				accessColumn = "private_login";
 			}
 
-
 			//check if login exists
-			DataTable _account = DB.GetDataTable($"SELECT login FROM Users WHERE login = '{login}';", 
+			DataTable accounts = DB.GetDataTable($"SELECT * FROM `accounts` WHERE `{accessColumn}` = @login;", 
 				new Dictionary<string, object>()
 				{
-					
+					{ "@login", login }
 				});
 
-			if (_account.Rows.Count == 1)
+			if (accounts.Rows.Count == 1)
 			{
 				exists = true;
 			}
@@ -51,14 +45,14 @@ namespace FloppyVPN
 				return;
 			}
 			
-			DataRow account = _account.Rows[0];
+			//getting account data:
+			DataRow account = accounts.Rows[0];
 
-			//make masked versions:
-			string[] splitLogin = login.Split(splitChar);
-			public_login = splitLogin[0];
-
-			//get and count paid time:
+			private_login = account["private_login"].ToString();
+			public_login = account["public_login"].ToString();
+			date_registered = (DateTime)account["when_registered"];
 			paid_till = (DateTime)account["paid_till"];
+
 		}
 
 
@@ -74,44 +68,41 @@ namespace FloppyVPN
 			return new_paid_till;
 		}
 
-		public int DaysLeft()
+		public ushort DaysLeft()
 		{
 			try
 			{
-				return (int)Math.Ceiling((paid_till - DateTime.Now).TotalDays);
+				return (ushort)Math.Ceiling((paid_till - DateTime.Now).TotalDays);
 			}
 			catch
 			{
-				return 0;
+				return (ushort)0;
 			}
 		}
-
-
-
 
 		public static Account Register()
 		{
 			string private_login = GenerateUniquePrivateLogin();
 			string public_login = GenerateUniquePublicLogin();
-			DateTime paid_till = DateTime.MinValue;
-			DateTime date_registered = DateTime.Now;
-
+			DateTime now = DateTime.Now;
+			DateTime when_registered = now;
+			DateTime paid_till = now;
 
 			ulong new_account_id = DB.InsertAndGetID("INSERT INRO `accounts` " +
-				"(`when_registered`, `paid_till`, `private_login`, `public_login`, ``) " +
+				"(`when_registered`, `paid_till`, `private_login`, `public_login`) " +
 				"VALUES " +
 				"(@when_registered, @paid_till, @private_login, @public_login);", 
 				new Dictionary<string, object>()
 				{
-					{ "@when_registered",  },
-					{ "@paid_till", "" },
-					{ "@private_login", "" },
-					{ "@public_login", "" },
+					{ "@when_registered", when_registered },
+					{ "@paid_till", paid_till },
+					{ "@private_login", private_login },
+					{ "@public_login", public_login },
 				});
 
 			Thread.Sleep(123);
 
-			return new Account();
+			return new Account(private_login);
 		}
 
 		private static string GenerateUniquePrivateLogin()
@@ -148,10 +139,10 @@ namespace FloppyVPN
 				}
 
 				DataTable loginExistances = DB.GetDataTable($"SELECT * FROM `accounts` WHERE " +
-					$"`login` = '{new_private_login.Split('x')[0]}%';",
+					$"`private_login` = @private_login;",
 					new Dictionary<string, object>()
 					{
-						{ "", new_private_login }
+						{ "private_login", new_private_login }
 					});
 
 				if (loginExistances.Rows.Count <= 0)
@@ -159,7 +150,7 @@ namespace FloppyVPN
 			}
 
 			if (new_private_login == "")
-				throw new Exception("Could not generate a unique login");
+				throw new Exception("Could not generate a unique private login");
 			else
 				return new_private_login;
 		}
@@ -167,7 +158,7 @@ namespace FloppyVPN
 		private static string GenerateUniquePublicLogin()
 		{
 			const string dic = "qwetipasdfghjkzcvb123456789"; //possible account characters dictionary
-			string new_private_login = "";
+			string new_public_login = "";
 
 			for (uint u = 0; u < uint.MaxValue; u++) //fail-safe alternative to forever loop
 			{
@@ -175,9 +166,7 @@ namespace FloppyVPN
 
 				for (byte b = 0; b < 11; b++)
 				{
-					new_private_login += dic[random.Next(dic.Length)];
-					if (b == 4)
-						new_private_login += "-";
+					new_public_login += dic[random.Next(dic.Length)];
 
 					try
 					{
@@ -198,20 +187,20 @@ namespace FloppyVPN
 				}
 
 				DataTable loginExistances = DB.GetDataTable($"SELECT * FROM `accounts` WHERE " +
-					$"`login` = '{new_private_login.Split('x')[0]}%';",
+					$"`public_login` = @public_login;",
 					new Dictionary<string, object>()
 					{
-						{ "", new_private_login }
+						{ "public_login", new_public_login }
 					});
 
 				if (loginExistances.Rows.Count <= 0)
 					break;
 			}
 
-			if (new_private_login == "")
-				throw new Exception("Could not generate a unique login");
+			if (new_public_login == "")
+				throw new Exception("Could not generate a unique public login");
 			else
-				return new_private_login;
+				return new_public_login;
 		}
 
 	}
