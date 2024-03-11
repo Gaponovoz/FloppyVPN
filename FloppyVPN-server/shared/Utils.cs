@@ -10,9 +10,9 @@ namespace FloppyVPN
 			string key = Config.Get("master_key");
 			s += key; //add key as salt to maximally reduce bruteforce possibility
 
-			using (SHA512 sha512 = SHA512.Create())
+			using (SHA512 sha = SHA512.Create())
 			{
-				byte[] bytes = sha512.ComputeHash(Encoding.UTF8.GetBytes(s));
+				byte[] bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(s));
 
 				StringBuilder builder = new();
 				for (int i = 0; i < bytes.Length; i++)

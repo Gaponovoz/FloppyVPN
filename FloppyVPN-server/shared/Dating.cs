@@ -8,32 +8,17 @@ namespace FloppyVPN
 		public static readonly string dateString = "yyyy'.'MM'.'dd";
 		public static readonly string timeString = "HH':'mm':'ss";
 
-		public static string DateNow()
-		{
-			return DateTime.Now.ToString(dateString);
-		}
-
-		public static string DateTimeNow()
-		{
-			return DateTime.Now.ToString(dateTimeString);
-		}
-
-		public static string TimeNow()
-		{
-			return DateTime.Now.ToString(timeString);
-		}
-
 		public static DateTime ToDate(this string s)
 		{
-			return DateTime.Parse(s, CultureInfo.InvariantCulture);
+			return DateTime.ParseExact(s, dateString, CultureInfo.InvariantCulture);
 		}
 
 		public static DateTime ToDateTime(this string s)
 		{
-			return DateTime.Parse(s, CultureInfo.InvariantCulture);
+			return DateTime.ParseExact(s, dateTimeString, CultureInfo.InvariantCulture);
 		}
 
-        public static string ToDate(this DateTime dt)
+		public static string ToDate(this DateTime dt)
         {
             return dt.ToString(dateString);
         }

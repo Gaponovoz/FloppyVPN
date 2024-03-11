@@ -19,7 +19,7 @@ namespace FloppyVPN
 					Directory.CreateDirectory(backupDir);
 
 
-				string backupName = $"backup {Dating.DateTimeNow()}.sql".Replace(":", "-");
+				string backupName = $"backup {DateTime.Now.ToDate()}.sql".Replace(":", "-");
 				string backupPath = Path.Combine(backupDir, backupName);
 
 				Backup(backupPath);
@@ -39,10 +39,10 @@ namespace FloppyVPN
 					{
 						using (MySqlBackup mb = new(command))
 						{
-                            command.Connection = connection;
-                            connection.Open();
+							command.Connection = connection;
+							connection.Open();
 							mb.ExportToFile(backupPath);
-                            connection.Close();
+							connection.Close();
 							Console.WriteLine("Backup completed successfully.");
 						}
 					}
@@ -75,27 +75,27 @@ namespace FloppyVPN
 		/// To be used with INSERT commands only.
 		/// </summary>
 		/// <returns>ID of the newly created record</returns>
-		public static uint InsertAndGetID(string query, Dictionary<string, object> parameters = null)
+		public static ulong InsertAndGetID(string query, Dictionary<string, object> parameters = null)
 		{
 			using (MySqlConnection connection = new(connectionString))
 			using (MySqlCommand cmd = new(query, connection))
 			{
-					if (parameters != null)
+				if (parameters != null)
+				{
+					foreach (var param in parameters)
 					{
-						foreach (var param in parameters)
-						{
-							cmd.Parameters.AddWithValue(param.Key, param.Value);
-						}
+						cmd.Parameters.AddWithValue(param.Key, param.Value);
 					}
+				}
 
-					// Выполнение запроса на вставку
-					cmd.ExecuteNonQuery();
+				// Выполнение запроса на вставку
+				cmd.ExecuteNonQuery();
 
-					// Получение ID последней вставленной строки
-					cmd.CommandText = "SELECT LAST_INSERT_ID();";
-					uint lastInsertedId = Convert.ToUInt32(cmd.ExecuteScalar());
+				// Получение ID последней вставленной строки
+				cmd.CommandText = "SELECT LAST_INSERT_ID();";
+				ulong lastInsertedId = Convert.ToUInt64(cmd.ExecuteScalar());
 
-					return lastInsertedId;
+				return lastInsertedId;
 			}
 		}
 
