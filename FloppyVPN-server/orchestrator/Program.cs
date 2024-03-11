@@ -49,6 +49,19 @@ namespace FloppyVPN
 				options.MemoryBufferThreshold = int.MaxValue;
 			});
 
+			// Disable crazy logging
+			builder.Host.ConfigureLogging(logging =>
+			{
+				logging.ClearProviders();
+				logging.AddConsole(); // Add back the console logger if needed
+
+				logging.AddFilter("Microsoft.AspNetCore", LogLevel.Warning);
+				logging.AddFilter("Microsoft.AspNetCore.Mvc.ViewFeatures", LogLevel.None);
+				logging.AddFilter("Microsoft.AspNetCore.Mvc.Infrastructure", LogLevel.None);
+				logging.AddFilter("Microsoft.AspNetCore.Routing", LogLevel.None);
+				logging.AddFilter("Microsoft.AspNetCore.StaticFiles", LogLevel.None);
+			});
+
 			WebApplication app = builder.Build();
 
 			app.MapControllers();

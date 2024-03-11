@@ -448,19 +448,26 @@
     <uk>Обліковий запис</uk>
     <ja>アカウント</ja>
   </row>
-  <row>
+ <row>
     <name>title_error</name>
     <en>Error</en>
     <ru>Ошибка</ru>
     <uk>Помилка</uk>
     <ja>エラー</ja>
-  </row>
-  <row>
-    <name>title_registered</name>
-    <en>Registered</en>
-    <ru>Зарегистрировано</ru>
-    <uk>Зареєстровано</uk>
-    <ja>登録されている</ja>
+ </row>
+ <row>
+    <name>title_topup</name>
+    <en>Balance top up</en>
+    <ru>Пополнение баланса</ru>
+    <uk>Поповнення рахунку</uk>
+    <ja>アカウント Top Up</ja>
+ </row>
+ <row>
+  <name>title_registered</name>
+  <en>Registered</en>
+  <ru>Зарегистрировано</ru>
+  <uk>Зареєстровано</uk>
+  <ja>登録されている</ja>
   </row>
   <row>
     <name>title_support</name>

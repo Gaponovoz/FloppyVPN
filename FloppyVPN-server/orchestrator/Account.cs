@@ -24,11 +24,13 @@ namespace FloppyVPN
             //check if login exists
             DataTable accounts = DB.GetDataTable($"SELECT login FROM Users WHERE login = '{login}';");
 			if (accounts.Rows.Count == 1)
+			{
 				exists = true;
+			}
 			else
 			{
-                exists = false;
-                return;
+				exists = false;
+				return;
 			}
 				
 

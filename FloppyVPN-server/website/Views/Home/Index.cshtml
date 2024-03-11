@@ -7,8 +7,10 @@
 
 }
 
-
-@if (string.IsNullOrEmpty(_Functions.ReadCookie(this, "FloppyVPNcookieAcknowledged"))) 
+@{
+	Console.WriteLine("Cookie: " + _Functions.ReadCookie(this, "FloppyVPN_CookieAcknowledged"));
+}
+@if (!(_Functions.ReadCookie(this, "FloppyVPN_CookieAcknowledged") ?? "").Contains("True"))
 {
 	<div class="window" style="margin: 32px; width: 250px; display: none; float: right;" id="cookie-alert-window">
 		<div class="title-bar">
@@ -18,15 +20,23 @@
 		</div>
 		<div class="window-body">
 			<p id="cookie-message">@Loc.Get("cookie-message", lang)</p>
-			<form>
+			<form method="post">
 				<button type="submit">
 					<b>OK</b>
 				</button>
+				@{
+					// Handle cookie acknowledgement and set cookie
+					if (Context.Request.Method == "POST")
+					{
+						WriteCookie(this, "FloppyVPN_CookieAcknowledged", "True");
+						// Refresh page
+						Context.Response.Redirect("/");
+					}
+				}
 			</form>
 		</div>
 	</div>
 }
-
 
 
 <br>
@@ -79,7 +89,6 @@
 				<td style="text-align:center"><a href="#"><button style="margin-top: 6px; margin-bottom: 6px; padding: 6px;" disabled><b id="download-android">@Html.Raw(Loc.Get("download-android", lang))</b></button></a></td>
 				<td style="text-align:center"><a href="#"><button style="margin-top: 6px; margin-bottom: 6px; padding: 6px;" disabled><b id="download-linux">@Html.Raw(Loc.Get("download-linux", lang))</b></button></a></td>
 			</tr>
-
 		</tbody>
 	</table>
 </center>

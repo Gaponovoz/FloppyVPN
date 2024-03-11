@@ -10,7 +10,7 @@
 }
 
 body {
-	max-width: 800px;
+	max-width: 798px;
 	margin: 0 auto; /* This centers the page content horizontally */
 	padding: 0 16px; /* A little space so content doesn't touch the edges */
 	font-family: 'Times New Roman', Times, serif;
@@ -105,11 +105,6 @@ header {
 
 
 
-
-
-
-
-
 header select, header button { /* increase size of some controls because they are too small */
 	transform: scale(1.1);
 	margin: 4px;
@@ -181,6 +176,10 @@ header > * {
 	color: inherit;
 }
 
+/* To make link change color on hover */
+.color-on-hover:hover {
+	color: #1485f5;
+}
 
 table {
 	width: 100%;

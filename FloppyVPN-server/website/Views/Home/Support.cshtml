@@ -3,12 +3,12 @@
 
 @{
 	string lang = GetCurrentLanguage(this);
-	ViewData["Title"] = Loc.Get("support_title", lang);
+	ViewData["Title"] = Loc.Get("title_support", lang);
 }
 
-<h3 id="support-page-heading"></h3>
+<h3 id="support-page-heading">@Loc.Get("support-page-heading", lang)</h3>
 <br>
-<span class="htext" id="support-proposal"></span>
+<span class="htext" id="support-proposal">@Html.Raw(Loc.Get("support-proposal", lang))</span>
 <br>
 <br>
 <table style="">
