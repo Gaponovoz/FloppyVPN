@@ -8,11 +8,6 @@
       "applicationUrl": "http://localhost:14400",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "Logging": {
-        "LogLevel": {
-          "Default": "Critical"
-        }
       }
     }
   }

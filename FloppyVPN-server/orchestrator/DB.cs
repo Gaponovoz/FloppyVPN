@@ -4,7 +4,7 @@ namespace FloppyVPN
 {
 	internal static class DB
 	{
-		private static readonly string connectionString = $"Server=localhost;Port=3306;Database=AAAAAAAA;User={Config.Get("db_user")};Password={Config.Get("db_password")};";
+		private static readonly string connectionString = $"Server={Config.Get("db_host")};Port={Config.Get("db_port")};Database={Config.Get("db_name")};User={Config.Get("db_user")};Password={Config.Get("db_password")};AllowPublicKeyRetrieval=true;";
 
 
 		public static void Backupper()

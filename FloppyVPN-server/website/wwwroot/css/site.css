@@ -114,14 +114,15 @@ header label {
 	margin-right: 8px;
 }
 
-button {
-	transform: scale(1.1);
-}
-
-h1, h2, h3, h4, h5, h6, p, table, ul, li, tr, td {
+table, ul, li, tr, td {
 	font-family: "Times New Roman", Times, serif;
 }
 
+button {
+	transform: scale(1.1);
+	margin: 4px;
+	font-family: Tahoma;
+}
 .htext {
 	font-family: 'Times New Roman', 'Times', serif;
 	font-size: 19px;

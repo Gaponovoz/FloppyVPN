@@ -63,14 +63,35 @@
     <uk>Зареєструйтеся, щоб почати використання FloppyVPN</uk>
     <ja>FloppyVPNの使用を開始するために登録する</ja>
   </row>
-  <row>
-    <name>cant-find-page</name>
-    <en>Could not serve this page! The link may be wrong, or you have made too many requests today. (you know better)</en>
-    <ru>Не удалось отобразить эту страницу! Ссылка может быть неправильной или вы превысили лимит запросов к ресурсу. (вам виднее).</ru>
-    <uk>Не вдалося подати цю сторінку. Посилання може бути помилковим, або ви перевисили ліміт запросів до ресурсу (вам видніше).</uk>
-    <ja>このページは表示できませんでした！ リンクが正しくないか、リソースへの要求の制限を超えている可能性があります。（あなたはよく知っています）。</ja>
-  </row>
-  <row>
+	<row>
+		<name>error-registrations-limit</name>
+		<en>You are prohibited to access this service because you have made too many requests recently.</en>
+		<ru>Не удалось отобразить эту страницу! Ссылка может быть неправильной или вы превысили лимит запросов к ресурсу. (вам виднее).</ru>
+		<uk>Не вдалося подати цю сторінку. Посилання може бути помилковим, або ви перевисили ліміт запросів до ресурсу (вам видніше).</uk>
+		<ja>このページは表示できませんでした！ リンクが正しくないか、リソースへの要求の制限を超えている可能性があります。（あなたはよく知っています）。</ja>
+	</row>
+	<row>
+		<name>error-403</name>
+		<en>You are prohibited to access this service because you have made too many requests recently.</en>
+		<ru>Не удалось отобразить эту страницу! Ссылка может быть неправильной или вы превысили лимит запросов к ресурсу. (вам виднее).</ru>
+		<uk>Не вдалося подати цю сторінку. Посилання може бути помилковим, або ви перевисили ліміт запросів до ресурсу (вам видніше).</uk>
+		<ja>このページは表示できませんでした！ リンクが正しくないか、リソースへの要求の制限を超えている可能性があります。（あなたはよく知っています）。</ja>
+	</row>
+	<row>
+		<name>error-404</name>
+		<en>Could not serve this page! The link may be wrong, or you have made too many requests today. (you know better)</en>
+		<ru>Не удалось отобразить эту страницу! Ссылка может быть неправильной или вы превысили лимит запросов к ресурсу. (вам виднее).</ru>
+		<uk>Не вдалося подати цю сторінку. Посилання може бути помилковим, або ви перевисили ліміт запросів до ресурсу (вам видніше).</uk>
+		<ja>このページは表示できませんでした！ リンクが正しくないか、リソースへの要求の制限を超えている可能性があります。（あなたはよく知っています）。</ja>
+	</row>
+	<row>
+		<name>error-503</name>
+		<en>Could not serve this page! The requested service currently unavailable. Please try again a bit later!</en>
+		<ru>Не удалось подать эту страницу! Запрошенное действие в данный момент недоступно. Пожалуйста, повторите попытку чуть позже!</ru>
+		<uk>Не вдалося подати цю сторінку. Запитана послуга наразі недоступна. Будь ласка, спробуйте ще раз трохи пізніше!</uk>
+		<ja>このページを提供できませんでした！ 要求されたサービスは現在利用できません。 少し後にもう一度お試しください！</ja>
+    </row>
+	<row>
     <name>go-back-button</name>
     <en>Go back</en>
     <ru>Назад</ru>
@@ -486,7 +507,7 @@
   <row>
     <name>cookie-message</name>
     <en>This website uses cookies... To store your language preference and this cookie alert!</en>
-    <ru>xxx</ru>
+    <ru>Этот сайт использует Cookies... Чтобы хранить твои предпочтения и это сообщение про Cookies!</ru>
     <uk>xxx</uk>
     <ja>xxx</ja>
   </row>

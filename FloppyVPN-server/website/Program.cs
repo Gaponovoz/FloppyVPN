@@ -63,15 +63,15 @@ namespace FloppyVPN
 			#region Short paths initialization
 
 			app.MapControllerRoute(
-				name: "graduatesRoute",
-				pattern: "graduates",
-				defaults: new { controller = "Home", action = "Graduates" }
+				name: "privacyRoute",
+				pattern: "privacy",
+				defaults: new { controller = "Home", action = "Privacy" }
 			);
 
 			app.MapControllerRoute(
-				name: "scheduleRoute",
-				pattern: "schedule",
-				defaults: new { controller = "Home", action = "Schedule" }
+				name: "supportRoute",
+				pattern: "support",
+				defaults: new { controller = "Home", action = "Support" }
 			);
 
 			app.MapControllerRoute(

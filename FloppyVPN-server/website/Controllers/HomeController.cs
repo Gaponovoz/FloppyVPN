@@ -27,5 +27,12 @@ namespace FloppyVPN.Controllers
 		{
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 		}
+
+		[HttpPost]
+		public IActionResult AcknowledgeCookie()
+		{
+			_Functions.WriteCookie(HttpContext, "FloppyVPN_CookieAcknowledged", "True");
+			return RedirectToAction("Index", "Home");
+		}
 	}
 }

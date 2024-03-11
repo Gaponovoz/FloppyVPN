@@ -11,7 +11,7 @@ namespace FloppyVPN
 		public string masked_login;
 		public string masked_login_stars;
 		public DateTime paid_till;
-		public string? date_registered;
+		public string date_registered;
 
 		public Account(string _login, bool isMasked = false)
 		{
@@ -46,9 +46,10 @@ namespace FloppyVPN
 
 
 			//get registration date:
-			date_registered = DB.GetValue($"SELECT date_registered FROM Users WHERE `login` = '@login';", new Dictionary<string, object>()
+			date_registered = DB.GetValue($"SELECT `date_registered` FROM `users` WHERE `login` = '@login' AND `banned` = @banned;", new Dictionary<string, object>()
 			{
-				{ "login", login }
+				{ "@login", "master228" },
+				{ "@banned", false } 
 			}).ToString();
 		}
 

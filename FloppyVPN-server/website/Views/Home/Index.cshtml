@@ -4,38 +4,31 @@
 @{
 	ViewData["Title"] = "";
 	string lang = GetCurrentLanguage(this);
-
 }
 
 @{
+	bool cookieAcknowledged = (_Functions.ReadCookie(this, "FloppyVPN_CookieAcknowledged") ?? "").Contains("True");
 	Console.WriteLine("Cookie: " + _Functions.ReadCookie(this, "FloppyVPN_CookieAcknowledged"));
-}
-@if (!(_Functions.ReadCookie(this, "FloppyVPN_CookieAcknowledged") ?? "").Contains("True"))
-{
-	<div class="window" style="margin: 32px; width: 250px; display: none; float: right;" id="cookie-alert-window">
-		<div class="title-bar">
-			<div class="title-bar-text" id="cookie-title-bar">
-				@Loc.Get("cookie-title-bar", lang)
+	Console.WriteLine("Acknowledged: " + cookieAcknowledged.ToString());
+
+	if (!cookieAcknowledged)
+	{
+		<div class="window" style="margin: 32px; width: 250px; float: right;" id="cookie-alert-window">
+			<div class="title-bar">
+				<div class="title-bar-text">
+					@Loc.Get("cookie-title-bar", lang)
+				</div>
+			</div>
+			<div class="window-body">
+				<p>@Loc.Get("cookie-message", lang)</p>
+				<form method="post" asp-action="AcknowledgeCookie" asp-controller="Home">
+					<button type="submit">
+						<b>OK</b>
+					</button>
+				</form>
 			</div>
 		</div>
-		<div class="window-body">
-			<p id="cookie-message">@Loc.Get("cookie-message", lang)</p>
-			<form method="post">
-				<button type="submit">
-					<b>OK</b>
-				</button>
-				@{
-					// Handle cookie acknowledgement and set cookie
-					if (Context.Request.Method == "POST")
-					{
-						WriteCookie(this, "FloppyVPN_CookieAcknowledged", "True");
-						// Refresh page
-						Context.Response.Redirect("/");
-					}
-				}
-			</form>
-		</div>
-	</div>
+	}
 }
 
 

@@ -9,18 +9,12 @@ namespace FloppyVPN.Controllers
 		[HttpGet("/Error/{statusCode}")]
 		public IActionResult HttpStatusCodeHandler(int statusCode)
 		{
-			string errorMessage = "";
+			string? errorMessage = null;
 
-			// Handle different HTTP status codes
-			switch (statusCode)
-			{
-				case 404:
-					errorMessage = "The resource you requested does not exist.";
-					break;
-				default:
-					errorMessage = "Sorry, something went wrong.";
-					break;
-			}
+			// Only write error message if status code is not well-known and localized
+			// to display the actual error message
+			if (statusCode == 500)
+				errorMessage = "Fuck";
 
 			return View("~/Views/Shared/Error.cshtml", new ErrorViewModel
 			{

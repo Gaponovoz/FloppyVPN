@@ -41,6 +41,11 @@ namespace FloppyVPN
 			page.Context.Response.Cookies.Append(key, value, new CookieOptions() { Expires = DateTimeOffset.MaxValue });
 		}
 
+		public static void WriteCookie(HttpContext context, string key, string value)
+		{
+			context.Response.Cookies.Append(key, value, new CookieOptions() { Expires = DateTimeOffset.MaxValue });
+		}
+
 		public static string? ReadCookie(RazorPage page, string key)
 		{
 			return page.Context.Request.Cookies[key] ?? null;
