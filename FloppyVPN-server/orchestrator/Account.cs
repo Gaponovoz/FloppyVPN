@@ -10,6 +10,7 @@ namespace FloppyVPN
 		public DateTime date_registered;
 		public DateTime paid_till;   //if "paid_till" equals "date_registered" - the account is just created
 
+		public DataRow? account = null;
 
 		/// <param name="login"></param>
 		/// <param name="isLoginPublic">True if passing a public login, false (default) if passing the private login</param>
@@ -44,18 +45,20 @@ namespace FloppyVPN
 				exists = false;
 				return;
 			}
-			
+
 			//getting account data:
-			DataRow account = accounts.Rows[0];
+			account = accounts.Rows[0];
 
 			private_login = account["private_login"].ToString();
 			public_login = account["public_login"].ToString();
 			date_registered = (DateTime)account["when_registered"];
 			paid_till = (DateTime)account["paid_till"];
-
 		}
 
+		private void UpdateAccountRow()
+		{
 
+		}
 
 		/// <param name="days">Amount of days to add to account's balance.</param>
 		/// <returns>A DateTime till which account is paid.</returns>
@@ -157,7 +160,7 @@ namespace FloppyVPN
 
 		private static string GenerateUniquePublicLogin()
 		{
-			const string dic = "qwetipasdfghjkzcvb123456789"; //possible account characters dictionary
+			const string dic = "qwertyupasdfghjkzxcvbnm123456789"; //possible account characters dictionary
 			string new_public_login = "";
 
 			for (uint u = 0; u < uint.MaxValue; u++) //fail-safe alternative to forever loop
