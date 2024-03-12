@@ -1,6 +1,4 @@
-﻿using Org.BouncyCastle.Asn1.Ocsp;
-
-namespace FloppyVPN
+﻿namespace FloppyVPN
 {
 	/// <summary>
 	/// A class to regulate access to APIs. 
@@ -8,16 +6,33 @@ namespace FloppyVPN
 	/// </summary>
 	internal class Karma
 	{
+		/// <summary>
+		/// For request logging
+		/// </summary>
+		public enum LogRequestResources
+		{
+			idk,
+			registration,
+			login
+		}
+
 		string hashed_ip_address;
-		DataRow karmaRow;
+		DataRow karmaData;
+
+		/// <summary>
+		/// Last hours during which misusage will be checked.
+		/// Not recommended to set more than 24 or less than 1.
+		/// Must be negative
+		/// </summary>
+		readonly double LastHoursToCheckMisusageIn = -24;
 
 		public Karma(string hashed_ip_address)
 		{
 			this.hashed_ip_address = hashed_ip_address;
-			RefreshKarmaInfoAndCreateIfNotExistsYet();
+			RefreshKarmaDataAndCreateIfNotExistsYet();
 		}
 
-		private void RefreshKarmaInfoAndCreateIfNotExistsYet()
+		private void RefreshKarmaDataAndCreateIfNotExistsYet()
 		{
 			DataTable karmas = DB.GetDataTable("SELECT * FROM `karma` " +
 				"WHERE `hashed_ip_address` = @hashed_ip_address;", 
@@ -26,9 +41,8 @@ namespace FloppyVPN
 					{ "@hashed_ip_address", hashed_ip_address },
 				});
 
-			if (karmas.Rows.Count <= 0)
+			if (karmas.Rows.Count <= 0) //create karma for user if not exist yet:
 			{
-				//create karma for user because it does not exist yet:
 				ulong newKarmaID = DB.InsertAndGetID("INSERT INTO karmas " +
 					"(hashed_ip_address, banned_till, times_banned) " +
 					"VALUES(@hashed_ip_address, @banned_till, @times_banned);", 
@@ -38,57 +52,66 @@ namespace FloppyVPN
 						{ "@banned_till", DateTime.MinValue },
 						{ "@times_banned", (byte)0 }
 					});
+
+				this.karmaData = DB.GetDataTable($"SELECT * FROM `karmas` WHERE `id` = {newKarmaID};").Rows[0];
 			}
-			else
+			else //if exists - just grab info
 			{
-				this.karmaRow = karmas.Rows[0];
+				this.karmaData = karmas.Rows[0];
 			}
 		}
 
 
 		/// <summary>
-		/// Adds a request to the table of requests.
-		/// Also, if this ip address has no karma record yet, create one
+		/// Adds a request to the table of requests
 		/// </summary>
-		public void LogRequest(string requested_resource)
+		public void LogRequest(LogRequestResources requestedResource, bool isRequestSuccessful = true)
 		{
-			
+			DB.Execute("INSERT INTO `requests` (`date_time`, hashed_ip_address, `successful`, `request`) " +
+				"VALUES(@date_time, @hashed_ip_address, @successful, @request);", 
+				new Dictionary<string, object>()
+				{
+					{ "@date_time", DateTime.Now },
+					{ "@hashed_ip_address", (ulong)karmaData["id"] },
+					{ "@successful", isRequestSuccessful },
+					{ "@request", requestedResource.ToString() },
+				});
+
+			CheckIpForMisusageAndTakeActions();
 		}
 
 		/// <summary>
-		/// Checks
+		/// Not just performs check but also bans if misuage is detected
 		/// </summary>
-		/// <param name="hashed_ip_address"></param>
 		private void CheckIpForMisusageAndTakeActions()
 		{
 			//if user already banned, return.
-			DateTime bannedTill = (DateTime)karmaRow["banned_till"];
+			DateTime bannedTill = (DateTime)karmaData["banned_till"];
 
-			ulong failedRequestsAmount = GetRegistrationsCount(DateTime.Now.AddHours(-24), DateTime.Now);
+			ulong failedRequestsAmount = GetRegistrationsCount(DateTime.Now.AddHours(LastHoursToCheckMisusageIn), DateTime.Now);
 			ulong failedRequestsThreshold = 5;
 
-			ulong registrationsCount = 0;
+			ulong registrationsCount = GetFailedRequestsCount(DateTime.Now.AddHours(LastHoursToCheckMisusageIn), DateTime.Now);
 			ulong registrationsLimit = 10;
 
 
-
-
-			if (failedRequestsAmount > failedRequestsThreshold) //exceeded => ban!
+			//limits exceeding leads to ban:
+			if ((failedRequestsAmount > failedRequestsThreshold) || (registrationsCount > registrationsLimit))
 			{
 				Ban(hashed_ip_address);
+				RefreshKarmaDataAndCreateIfNotExistsYet();
 			}
-
-			RefreshKarmaInfoAndCreateIfNotExistsYet();
 		}
 
 
 		ulong GetFailedRequestsCount(DateTime periodFrom, DateTime periodTo)
 		{
 			string query = "SELECT COUNT(*) AS record_count FROM `requests` " +
-				"WHERE `date_time` >= @start_datetime AND `date_time` <= @end_datetime;";
+				"WHERE `hashed_ip_address` = @hashed_ip_address AND `successful` = 0 AND `date_time` >= @start_datetime AND `date_time` <= @end_datetime;";
 
 			Dictionary<string, object> parameters = new()
 				{
+					{ "@hashed_ip_address", (ulong)karmaData["id"] },
 					{ "@start_datetime", periodFrom },
 					{ "@end_datetime", periodTo }
 				};
@@ -99,10 +122,12 @@ namespace FloppyVPN
 		ulong GetRegistrationsCount(DateTime periodFrom, DateTime periodTo)
 		{
 			string query = "SELECT COUNT(*) AS record_count FROM `requests` " +
-				"WHERE `date_time` >= @start_datetime AND `date_time` <= @end_datetime;";
+				"WHERE `hashed_ip_address` = @hashed_ip_address AND `request` = @request AND `date_time` >= @start_datetime AND `date_time` <= @end_datetime;";
 
 			Dictionary<string, object> parameters = new()
 				{
+					{ "@request", LogRequestResources.registration.ToString() },
+					{ "@hashed_ip_address", (ulong)karmaData["id"] },
 					{ "@start_datetime", periodFrom },
 					{ "@end_datetime", periodTo }
 				};
@@ -111,7 +136,7 @@ namespace FloppyVPN
 		}
 
 		/// <summary>
-		/// Bans a user in a smart way depending on his previous reputation (amount of bans in the past).
+		/// Bans a user in a smart way depending on his previous reputation.
 		/// First few bans are quite short but the following ones are extremely strict
 		/// </summary>
 		public void Ban(string hashed_ip_address)
@@ -131,13 +156,16 @@ namespace FloppyVPN
 				{ 7, 9999 },
 			};
 
-			byte timesBanned = byte.Parse(karmaRow["times_banned"].ToString());
+			byte timesBanned = byte.Parse(karmaData["times_banned"].ToString());
 			DateTime bannedTill = DateTime.Now;
 
 			if (banLengthsInHoursDependingOnTimesBanned.ContainsKey(timesBanned))
 			{
 				double hoursToBanFor = banLengthsInHoursDependingOnTimesBanned[timesBanned];
 				bannedTill = bannedTill.AddHours(hoursToBanFor);
+
+				if (hoursToBanFor < LastHoursToCheckMisusageIn)
+					ClearRequestsOfCheckPeriod(); //read the summary of the method
 			}
 			else //if possible amount of bans exceeded - ban forever
 			{
@@ -153,17 +181,38 @@ namespace FloppyVPN
 					{ "@hashed_ip_address", hashed_ip_address }
 				});
 
-			RefreshKarmaInfoAndCreateIfNotExistsYet();
+			RefreshKarmaDataAndCreateIfNotExistsYet();
 		}
 
 		public bool IsBanned()
 		{
-			DateTime banned_till = (DateTime)karmaRow[""];
+			DateTime banned_till = (DateTime)karmaData[""];
 
 			if (banned_till > DateTime.Now)
 				return true;
 			else
 				return false;
+		}
+
+		/// <summary>
+		/// Clears requests of past check period to avoid double-banning a user right after he gets unbanned
+		/// </summary>
+		void ClearRequestsOfCheckPeriod()
+		{
+			DateTime periodFrom = DateTime.Now.AddHours(LastHoursToCheckMisusageIn);
+			DateTime periodTo = DateTime.Now;
+
+			string query = "DELETE FROM `requests` WHERE `hashed_ip_address` = @hashed_ip_address " +
+				"AND `date_time` >= @start_datetime AND `date_time` <= @end_datetime;";
+
+			Dictionary<string, object> parameters = new()
+				{
+					{ "@hashed_ip_address", (ulong)karmaData["id"] },
+					{ "@start_datetime", periodFrom },
+					{ "@end_datetime", periodTo }
+				};
+
+			DB.Execute(query, parameters);
 		}
 
 	}

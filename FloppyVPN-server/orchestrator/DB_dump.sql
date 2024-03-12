@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
--- Host: 1.2.3.4    Database: floppyvpn_db
+-- Host: x.x.x.x    Database: floppyvpn_db
 -- ------------------------------------------------------
 -- Server version	8.0.22-13
 
@@ -21,7 +21,7 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '50affa9b-dad1-11ee-8d98-525400123456:1-161';
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '50affa9b-dad1-11ee-8d98-525400123456:1-212';
 
 --
 -- Table structure for table `accounts`
@@ -51,6 +51,7 @@ CREATE TABLE `karmas` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `hashed_ip_address` varchar(130) COLLATE utf8mb4_general_ci NOT NULL,
   `banned_till` datetime NOT NULL COMMENT 'From 0 to 10, where 10 is banned forever',
+  `times_banned` tinyint unsigned NOT NULL DEFAULT '0' COMMENT 'How many times user has been banned in the past',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Dictionary of IP addresses and their karmas';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -81,7 +82,7 @@ DROP TABLE IF EXISTS `requests`;
 CREATE TABLE `requests` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `date_time` datetime NOT NULL,
-  `hashed_ip_address` varchar(130) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `hashed_ip_address` bigint unsigned NOT NULL,
   `successful` tinyint(1) NOT NULL,
   `request` varchar(128) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT 'What resource was requested',
   PRIMARY KEY (`id`)
@@ -102,4 +103,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-12  0:24:38
+-- Dump completed on 2024-03-12 16:53:36
