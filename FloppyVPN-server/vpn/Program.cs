@@ -13,9 +13,9 @@ namespace FloppyVPN
 			}
 			GC.KeepAlive(mutex);
 
+			Config.EnsureFileIntegrity();
 
-
-
+			new Thread(() => Config.CacheRefresher()).Start();
 			new Thread(() => Listener.Start()).Start();
         }
     }

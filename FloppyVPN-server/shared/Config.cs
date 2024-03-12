@@ -10,6 +10,7 @@ namespace FloppyVPN
 	{
 		private static readonly string ConfigFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CONFIG.XML");
 		private static readonly string rootName = "Config";
+		public static DataRow cache = null;
 
 		/// <summary>
 		/// If there is no CONFIG.XML but there is CONFIG.XML.TEMPLATE, copy it to CONFIG.XML
@@ -36,6 +37,15 @@ namespace FloppyVPN
 				Console.ReadLine();
 
 				Environment.Exit(1);
+			}
+		}
+
+		public static void CacheRefresher()
+		{
+			for (; ; )
+			{
+				cache = LoadDataTable(ConfigFilePath).Rows[0];
+				Thread.Sleep(15 * 1000);
 			}
 		}
 

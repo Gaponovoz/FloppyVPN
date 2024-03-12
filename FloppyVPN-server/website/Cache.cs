@@ -2,7 +2,7 @@
 {
 	/// <summary>
 	/// A simple class for storing and updating frequently used data as cached data 
-	/// because we are not going to read it from config or DB each time, right?
+	/// because we are not going to read it from DB each time, right?
 	/// </summary>
 	internal static class Cache
 	{
@@ -25,8 +25,7 @@
 		{
 			try
 			{
-				master_key = Config.Get("master_key");
-				orchestrator_url = Config.Get("master_key");
+
 			}
 			catch (Exception ex)
 			{
@@ -38,8 +37,7 @@
 
 		#region Cached data
 
-		public static string master_key = "";
-		public static string orchestrator_url = "";
+		public static string x = "";
 
 
 		#endregion
