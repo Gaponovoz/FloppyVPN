@@ -501,15 +501,15 @@
     <name>cookie-title-bar</name>
     <en>Cookie notice</en>
     <ru>Уведомление о Cookie</ru>
-    <uk>Cookie notice</uk>
-    <ja>Cookie notice</ja>
+    <uk>Повідомлення про файли cookie</uk>
+    <ja>クッキーに関するお知らせ</ja>
   </row>
   <row>
     <name>cookie-message</name>
     <en>This website uses cookies... To store your language preference and this cookie alert!</en>
     <ru>Этот сайт использует Cookies... Чтобы хранить твои предпочтения и это сообщение про Cookies!</ru>
-    <uk>xxx</uk>
-    <ja>xxx</ja>
+    <uk>Цей веб-сайт використовує файли cookie... для зберігання ваших вподобань щодо мови та цього сповіщення про файли cookie!</uk>
+    <ja>このウェブサイトではCookieを使用しています... お客様の言語設定とこのCookieのアラートを保存します。</ja>
   </row>
   <row>
     <name>xxx</name>

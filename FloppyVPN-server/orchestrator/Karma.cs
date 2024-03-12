@@ -1,50 +1,122 @@
-﻿namespace FloppyVPN
+﻿using Org.BouncyCastle.Asn1.Ocsp;
+
+namespace FloppyVPN
 {
 	/// <summary>
-	/// A class to manage and regulate access to APIs. 
-	/// Includes request counting, filtering system, checking.
+	/// A class to regulate access to APIs. 
+	/// Includes request counting, filtering system, checking for misusage, banning.
 	/// </summary>
-	internal static class Karma
+	internal class Karma
 	{
+		string hashed_ip_address;
+		DataRow karmaRow;
 
+		public Karma(string hashed_ip_address)
+		{
+			this.hashed_ip_address = hashed_ip_address;
+			RefreshKarmaInfoAndCreateIfNotExistsYet();
+		}
+
+		private void RefreshKarmaInfoAndCreateIfNotExistsYet()
+		{
+			DataTable karmas = DB.GetDataTable("SELECT * FROM `karma` " +
+				"WHERE `hashed_ip_address` = @hashed_ip_address;", 
+				new Dictionary<string, object>()
+				{
+					{ "@hashed_ip_address", hashed_ip_address },
+				});
+
+			if (karmas.Rows.Count <= 0)
+			{
+				//create karma for user because it does not exist yet:
+				ulong newKarmaID = DB.InsertAndGetID("INSERT INTO karmas " +
+					"(hashed_ip_address, banned_till, times_banned) " +
+					"VALUES(@hashed_ip_address, @banned_till, @times_banned);", 
+					new Dictionary<string, object>()
+					{
+						{ "@hashed_ip_address", hashed_ip_address },
+						{ "@banned_till", DateTime.MinValue },
+						{ "@times_banned", (byte)0 }
+					});
+			}
+			else
+			{
+				this.karmaRow = karmas.Rows[0];
+			}
+		}
 
 
 		/// <summary>
 		/// Adds a request to the table of requests.
 		/// Also, if this ip address has no karma record yet, create one
 		/// </summary>
-		public static void LogRequest(string hashed_ip_address, string requested_resource)
+		public void LogRequest(string requested_resource)
 		{
 			
 		}
 
-		private static void CheckIpForMisusageAndTakeActions(string hashed_ip_address)
+		/// <summary>
+		/// Checks
+		/// </summary>
+		/// <param name="hashed_ip_address"></param>
+		private void CheckIpForMisusageAndTakeActions()
 		{
-			long failedRequestsThreshold = 50;
+			//if user already banned, return.
+			DateTime bannedTill = (DateTime)karmaRow["banned_till"];
 
-			long requests = long.Parse((DB.GetValue($"", 
-				new Dictionary<string, object>()
-				{
-					{ "@hashed_ip_address", hashed_ip_address }
-				}) ?? "0").ToString());
+			ulong failedRequestsAmount = GetRegistrationsCount(DateTime.Now.AddHours(-24), DateTime.Now);
+			ulong failedRequestsThreshold = 5;
+
+			ulong registrationsCount = 0;
+			ulong registrationsLimit = 10;
 
 
-			if (requests > failedRequestsThreshold) //exceeded => ban!
+
+
+			if (failedRequestsAmount > failedRequestsThreshold) //exceeded => ban!
 			{
 				Ban(hashed_ip_address);
 			}
+
+			RefreshKarmaInfoAndCreateIfNotExistsYet();
+		}
+
+
+		ulong GetFailedRequestsCount(DateTime periodFrom, DateTime periodTo)
+		{
+			string query = "SELECT COUNT(*) AS record_count FROM `requests` " +
+				"WHERE `date_time` >= @start_datetime AND `date_time` <= @end_datetime;";
+
+			Dictionary<string, object> parameters = new()
+				{
+					{ "@start_datetime", periodFrom },
+					{ "@end_datetime", periodTo }
+				};
+
+			return Convert.ToUInt64(DB.GetValue(query, parameters));
+		}
+
+		ulong GetRegistrationsCount(DateTime periodFrom, DateTime periodTo)
+		{
+			string query = "SELECT COUNT(*) AS record_count FROM `requests` " +
+				"WHERE `date_time` >= @start_datetime AND `date_time` <= @end_datetime;";
+
+			Dictionary<string, object> parameters = new()
+				{
+					{ "@start_datetime", periodFrom },
+					{ "@end_datetime", periodTo }
+				};
+
+			return Convert.ToUInt64(DB.GetValue(query, parameters));
 		}
 
 		/// <summary>
 		/// Bans a user in a smart way depending on his previous reputation (amount of bans in the past).
 		/// First few bans are quite short but the following ones are extremely strict
 		/// </summary>
-		private static void Ban(string hashed_ip_address)
+		public void Ban(string hashed_ip_address)
 		{
-			DataTable userKarma = DB.GetDataTable("SELECT * FROM `karma` " +
-				$"WHERE `hashed_ip_address` = {hashed_ip_address};");
-
-			if (userKarma.Rows.Count <= 0)
+			if (IsBanned())
 				return;
 
 			Dictionary<byte, double> banLengthsInHoursDependingOnTimesBanned = new()
@@ -59,13 +131,13 @@
 				{ 7, 9999 },
 			};
 
-			byte timesBanned = byte.Parse(userKarma.Rows[0][""].ToString());
-			DateTime bannedTill = DateTime.Now.AddSeconds(-1);
+			byte timesBanned = byte.Parse(karmaRow["times_banned"].ToString());
+			DateTime bannedTill = DateTime.Now;
 
 			if (banLengthsInHoursDependingOnTimesBanned.ContainsKey(timesBanned))
 			{
 				double hoursToBanFor = banLengthsInHoursDependingOnTimesBanned[timesBanned];
-				bannedTill.AddHours(hoursToBanFor);
+				bannedTill = bannedTill.AddHours(hoursToBanFor);
 			}
 			else //if possible amount of bans exceeded - ban forever
 			{
@@ -73,27 +145,26 @@
 			}
 
 			//write new ban time of the user to the table:
-			DB.Execute("UPDATE `karmas` SET `banned_till` = @bannedtill WHERE `hashed_ip_address` = @hashed_ip_address", 
+			DB.Execute("UPDATE `karmas` SET `banned_till` = @bannedtill " +
+				"WHERE `hashed_ip_address` = @hashed_ip_address", 
 				new Dictionary<string, object>()
 				{
 					{ "@bannedtill", bannedTill },
 					{ "@hashed_ip_address", hashed_ip_address }
 				});
+
+			RefreshKarmaInfoAndCreateIfNotExistsYet();
 		}
 
-		public static bool IsIpBanned(string hashed_ip_address)
+		public bool IsBanned()
 		{
-			DateTime banned_till = (DateTime)(DB.GetValue($"SELECT `banned_till` FROM `karma` " +
-				$"WHERE `hashed_ip_address` = @hashed_ip_address;", 
-				new Dictionary<string, object>()
-				{
-					{ "@hashed_ip_address", hashed_ip_address }
-				}) ?? DateTime.MinValue);
+			DateTime banned_till = (DateTime)karmaRow[""];
 
 			if (banned_till > DateTime.Now)
 				return true;
 			else
 				return false;
 		}
+
 	}
 }
