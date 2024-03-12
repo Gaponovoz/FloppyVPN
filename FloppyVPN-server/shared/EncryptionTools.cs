@@ -3,9 +3,9 @@ using System.Text;
 
 namespace FloppyVPN
 {
-	public static class Utils
+	public static class EncryptionTools
 	{
-		public static string GetHash(string s)
+		public static string Hash(string s)
 		{
 			string key = Config.Get("master_key");
 			s += key; //add key as salt to maximally reduce bruteforce possibility
@@ -23,13 +23,14 @@ namespace FloppyVPN
 			}
 		}
 
-		public static byte ToTinyInt(this bool b)
+		public static string Encrypt(string s)
 		{
-			if (b == true)
-				return (byte)1;
-			else
-				return (byte)0;
+			return "";
 		}
 
+		public static string Decrypt(string s)
+		{
+			return "";
+		}
 	}
 }

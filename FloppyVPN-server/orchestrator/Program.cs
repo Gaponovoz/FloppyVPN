@@ -23,6 +23,7 @@ namespace FloppyVPN
 			Config.EnsureFileIntegrity();
 
 			new Thread(() => Config.CacheRefresher()).Start();
+			new Thread(() => Worker.Start()).Start();
 
 			Startup(args);
 		}

@@ -12,10 +12,5 @@ namespace FloppyVPN.Controllers
 			return DateTime.Now.ToDateTime();
 		}
 
-		[HttpGet("CurrentDateTime")]
-		public string fCurrentDateTime()
-		{
-			return DateTime.Now.ToDateTime();
-		}
 	}
 }

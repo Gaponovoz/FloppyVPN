@@ -10,7 +10,7 @@ namespace FloppyVPN
 		public DateTime date_registered;
 		public DateTime paid_till;   //if "paid_till" equals "date_registered" - the account is just created
 
-		public DataRow? account = null;
+		public DataRow? accountData = null;
 
 		/// <param name="login"></param>
 		/// <param name="isLoginPublic">True if passing a public login, false (default) if passing the private login</param>
@@ -47,12 +47,12 @@ namespace FloppyVPN
 			}
 
 			//getting account data:
-			account = accounts.Rows[0];
+			accountData = accounts.Rows[0];
 
-			private_login = account["private_login"].ToString();
-			public_login = account["public_login"].ToString();
-			date_registered = (DateTime)account["when_registered"];
-			paid_till = (DateTime)account["paid_till"];
+			private_login = accountData["private_login"].ToString();
+			public_login = accountData["public_login"].ToString();
+			date_registered = (DateTime)accountData["when_registered"];
+			paid_till = (DateTime)accountData["paid_till"];
 		}
 
 		private void UpdateAccountRow()
@@ -83,6 +83,10 @@ namespace FloppyVPN
 			}
 		}
 
+		/// <summary>
+		/// Registers a new account.
+		/// </summary>
+		/// <returns>A fresh brand new account</returns>
 		public static Account Register()
 		{
 			string private_login = GenerateUniquePrivateLogin();

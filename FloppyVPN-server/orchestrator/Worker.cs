@@ -1,7 +1,7 @@
 ﻿namespace FloppyVPN
 {
 	/// <summary>
-	/// 
+	/// Does periodical jobs like deleting unpaid accounts
 	/// </summary>
 	internal static class Worker
 	{
@@ -10,14 +10,19 @@
 			Thread.Sleep(5000);
 			for (; ; )
 			{
-				DeleteUnpaidUsers();
-
+				DeleteUnpaidAccounts();
+				DoSomethingElse();
 
 				Thread.Sleep(60000);
 			}
 		}
 
-		static void DeleteUnpaidUsers()
+		static void DeleteUnpaidAccounts()
+		{
+
+		}
+
+		static void DoSomethingElse()
 		{
 
 		}
