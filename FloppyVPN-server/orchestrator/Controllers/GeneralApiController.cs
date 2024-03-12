@@ -3,13 +3,19 @@
 namespace FloppyVPN.Controllers
 {
 	[ApiController]
-	[Route("GeneralApi")]
+	[Route("Api/General")]
 	public class GeneralApiController : ControllerBase
 	{
 		[HttpGet("CurrentDateTime")]
-		public string Test()
+		public string CurrentDateTime()
 		{
-			return "hi";
+			return DateTime.Now.ToDateTime();
+		}
+
+		[HttpGet("CurrentDateTime")]
+		public string fCurrentDateTime()
+		{
+			return DateTime.Now.ToDateTime();
 		}
 	}
 }

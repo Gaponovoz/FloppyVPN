@@ -3,13 +3,9 @@
 namespace FloppyVPN.Controllers
 {
 	[ApiController]
-	[Route("WebsiteController")]
+	[Route("Api/Website")]
 	public class WebsiteApiController : ControllerBase
 	{
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns>nothing yet</returns>
 		[HttpGet("Test")]
 		public string Test()
 		{

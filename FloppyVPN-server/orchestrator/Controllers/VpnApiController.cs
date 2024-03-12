@@ -3,7 +3,7 @@
 namespace FloppyVPN.Controllers
 {
 	[ApiController]
-	[Route("VpnApi")]
+	[Route("Api/Vpn")]
 	public class VpnApiController : Controller
 	{
 		[HttpGet("Test")]
