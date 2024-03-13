@@ -40,4 +40,27 @@ namespace FloppyVPN.Controllers
 			// No action needed after the action method is executed
 		}
 	}
+
+	public class UserIsSoftBannedValidationFilter : IActionFilter
+	{
+		public void OnActionExecuting(ActionExecutingContext context)
+		{
+			Karma userKarma = new(Filters.GetHashedIpFromHeaders(context.HttpContext.Request));
+			if (userKarma.IsSoftBanned())
+			{
+				context.HttpContext.Response.StatusCode = StatusCodes.Status423Locked;
+				context.HttpContext.Response.WriteAsync("The user seems to be softbanned right now.");
+				context.Result = new EmptyResult();
+			}
+			else
+			{
+
+			}
+		}
+
+		public void OnActionExecuted(ActionExecutedContext context)
+		{
+			// No action needed after the action method is executed
+		}
+	}
 }

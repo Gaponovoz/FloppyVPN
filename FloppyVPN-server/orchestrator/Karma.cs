@@ -26,6 +26,16 @@
 		/// </summary>
 		readonly double LastHoursToCheckMisusageIn = -24;
 
+		/// <summary>
+		/// How many failed requests per check period are allowed until user gets a ban
+		/// </summary>
+		readonly ulong MaximumFailedRequestsAllowed = 12;
+
+		/// <summary>
+		/// How many registrations per check period are allowed until user gets a softban
+		/// </summary>
+		readonly byte MaximumRegistrationsAllowedPerPeriod = 10;
+
 		public Karma(string hashed_ip_address)
 		{
 			this.hashed_ip_address = hashed_ip_address;
@@ -86,17 +96,17 @@
 		private void CheckIpForMisusageAndTakeActions()
 		{
 			//if user already banned, return.
-			DateTime bannedTill = (DateTime)karmaData["banned_till"];
+			if (IsBanned())
+				return;
 
 			ulong failedRequestsAmount = GetRegistrationsCount(DateTime.Now.AddHours(LastHoursToCheckMisusageIn), DateTime.Now);
 			ulong failedRequestsThreshold = 5;
 
 			ulong registrationsCount = GetFailedRequestsCount(DateTime.Now.AddHours(LastHoursToCheckMisusageIn), DateTime.Now);
-			ulong registrationsLimit = 10;
 
 
 			//limits exceeding leads to ban:
-			if ((failedRequestsAmount > failedRequestsThreshold) || (registrationsCount > registrationsLimit))
+			if ((failedRequestsAmount > MaximumFailedRequestsAllowed) || (registrationsCount > MaximumRegistrationsAllowedPerPeriod))
 			{
 				Ban(hashed_ip_address);
 				RefreshKarmaDataAndCreateIfNotExistsYet();
@@ -173,8 +183,54 @@
 			}
 
 			//write new ban time of the user to the table:
+			DB.Execute("UPDATE `karmas` SET `banned_till` = @bannedtill, `times_banned` = @times_banned " +
+				"WHERE `hashed_ip_address` = @hashed_ip_address",
+				new Dictionary<string, object>()
+				{
+					{ "@times_banned", timesBanned + 1 },
+					{ "@bannedtill", bannedTill },
+					{ "@hashed_ip_address", hashed_ip_address }
+				});
+
+			RefreshKarmaDataAndCreateIfNotExistsYet();
+		}
+
+		public void SoftBan(string hashed_ip_address)
+		{
+			if (IsBanned())
+				return;
+
+			Dictionary<byte, double> banLengthsInHoursDependingOnTimesBanned = new()
+			{
+				{ 0, 0.15 },
+				{ 1, 0.4  },
+				{ 2, 2    },
+				{ 3, 12   },
+				{ 4, 24   },
+				{ 5, 48   },
+				{ 6, 200  },
+				{ 7, 9999 },
+			};
+
+			byte timesBanned = byte.Parse(karmaData["times_banned"].ToString());
+			DateTime bannedTill = DateTime.Now;
+
+			if (banLengthsInHoursDependingOnTimesBanned.ContainsKey(timesBanned))
+			{
+				double hoursToBanFor = banLengthsInHoursDependingOnTimesBanned[timesBanned];
+				bannedTill = bannedTill.AddHours(hoursToBanFor);
+
+				if (hoursToBanFor < LastHoursToCheckMisusageIn)
+					ClearRequestsOfCheckPeriod(); //read the summary of the method
+			}
+			else //if possible amount of bans exceeded - ban forever
+			{
+				bannedTill = DateTime.MaxValue;
+			}
+
+			//write new ban time of the user to the table:
 			DB.Execute("UPDATE `karmas` SET `banned_till` = @bannedtill " +
-				"WHERE `hashed_ip_address` = @hashed_ip_address", 
+				"WHERE `hashed_ip_address` = @hashed_ip_address",
 				new Dictionary<string, object>()
 				{
 					{ "@bannedtill", bannedTill },
@@ -186,7 +242,17 @@
 
 		public bool IsBanned()
 		{
-			DateTime banned_till = (DateTime)karmaData[""];
+			DateTime banned_till = (DateTime)karmaData["banned_till"];
+
+			if (banned_till > DateTime.Now)
+				return true;
+			else
+				return false;
+		}
+
+		public bool IsSoftBanned()
+		{
+			DateTime banned_till = (DateTime)karmaData["softbanned_till"];
 
 			if (banned_till > DateTime.Now)
 				return true;
