@@ -1,3 +1,4 @@
+using FloppyVPN.Controllers;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.OpenApi.Models;
@@ -32,7 +33,11 @@ namespace FloppyVPN
 		{
 			WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-			builder.Services.AddControllers();
+			builder.Services.AddControllers(options =>
+			{
+				options.Filters.AddService<MasterKeyValidationFilter>(); // Add the filter as a service filter
+			});
+
 
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen(c =>
@@ -51,6 +56,11 @@ namespace FloppyVPN
 				options.MultipartBodyLengthLimit = 30000000;
 				options.MemoryBufferThreshold = int.MaxValue;
 			});
+
+			builder.Services.AddScoped<MasterKeyValidationFilter>();
+			builder.Services.AddScoped<UserIsSoftBannedValidationFilter>();
+			builder.Services.AddScoped<UserIsBannedValidationFilter>(); 
+			
 
 			// Disable crazy logging
 			builder.Host.ConfigureLogging(logging =>

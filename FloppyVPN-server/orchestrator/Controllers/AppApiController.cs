@@ -3,8 +3,8 @@
 namespace FloppyVPN.Controllers
 {
 	[ApiController]
-	[Route("Api/Public")]
-	public class PublicApiController : ControllerBase
+	[Route("Api/App")]
+	public class AppApiController : ControllerBase
 	{
 		[HttpGet("Test")]
 		public string Test()

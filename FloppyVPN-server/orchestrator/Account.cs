@@ -29,7 +29,7 @@ namespace FloppyVPN
 				accessColumn = "private_login";
 			}
 
-			//check if login exists
+			//check if account exists
 			DataTable accounts = DB.GetDataTable($"SELECT * FROM `accounts` WHERE `{accessColumn}` = @login;", 
 				new Dictionary<string, object>()
 				{
@@ -95,7 +95,7 @@ namespace FloppyVPN
 			DateTime when_registered = now;
 			DateTime paid_till = now;
 
-			ulong new_account_id = DB.InsertAndGetID("INSERT INRO `accounts` " +
+			ulong new_account_id = DB.InsertAndGetID("INSERT INTO `accounts` " +
 				"(`when_registered`, `paid_till`, `private_login`, `public_login`) " +
 				"VALUES " +
 				"(@when_registered, @paid_till, @private_login, @public_login);", 
@@ -121,10 +121,10 @@ namespace FloppyVPN
 			{
 				Random random = new();
 
-				for (byte b = 0; b < 11; b++)
+				for (byte b = 0; b < 12; b++)
 				{
 					new_private_login += dic[random.Next(dic.Length)];
-					if (b == 4)
+					if (b == 5)
 						new_private_login += "-";
 
 					try

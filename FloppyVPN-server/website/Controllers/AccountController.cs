@@ -14,11 +14,6 @@ namespace FloppyVPN.Controllers
 			return View();
 		}
 
-		public IActionResult NoLogin()
-		{
-			return View();
-		}
-
 		public IActionResult Register()
 		{
 			return View();
@@ -26,11 +21,45 @@ namespace FloppyVPN.Controllers
 
 		public IActionResult Registered()
 		{
-			// Only redirect to "Registered" (which actually registers a user) when redirected from "Register"
+			// Only open "Registered" (which actually registers a user) when redirected from "Register"
 			if ((bool)(TempData["FormSubmitted"] ?? false) == true)
 			{
 				TempData.Remove("FormSubmitted");
-				return View();
+
+				if (Config.cache["allow_registration"].ToString() == bool.FalseString)
+				{
+					HttpContext.Response.StatusCode = StatusCodes.Status503ServiceUnavailable;
+					return RedirectToAction();
+				}
+				else
+				{
+					string response = Communicator.GetHttp(url: $"{Config.cache["orchestrator_url"]}/Api/Website/RegisterAccount",
+						master_key: Config.cache["master_key"].ToString(),
+						hashed_user_ip_address: ServerTools.GetHashedIPAddress(HttpContext.Request).ToString(),
+						status_code: out HttpStatusCode statusCode,
+						is_successful: out bool isSuccessful
+					);
+
+					Console.WriteLine(response);
+
+					DataRow? newAccountData;
+					try
+					{
+						newAccountData = Rialize.Dese<DataRow>(response);
+					}
+					catch
+					{
+						newAccountData = null;
+					}
+
+
+					if (!isSuccessful || newAccountData == null)
+					{
+						return Redirect($"/Error/{(int)statusCode}");
+					}
+
+					return View(new Models.NewAccountModel() { NewAccountData = newAccountData });
+				}
 			}
 			else
 			{
@@ -47,6 +76,12 @@ namespace FloppyVPN.Controllers
 
 			// Redirect to the Registered action to render the Registered view
 			return RedirectToAction("Registered", "Account");
+		}
+
+		[HttpPost]
+		public IActionResult PerformLogin()
+		{
+			return RedirectToAction("Index", "Account");
 		}
 	}
 }

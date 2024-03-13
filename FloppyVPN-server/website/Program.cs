@@ -52,18 +52,18 @@ namespace FloppyVPN
 				logging.AddFilter("Microsoft.AspNetCore.StaticFiles", LogLevel.None);
 			});
 
-			var app = builder.Build();
-
-			// Configure the HTTP request pipeline
-			if (!app.Environment.IsDevelopment())
-			{
-				app.UseExceptionHandler("/Error");
-			}
+			WebApplication app = builder.Build();
 
 			app.UseStaticFiles();
 			app.UseRouting();
 
 			#region Short paths initialization
+
+			//app.MapControllerRoute(
+			//	name: "errorRoute",
+			//	pattern: "error",
+			//	defaults: new { controller = "Home", action = "Error" }
+			//);
 
 			app.MapControllerRoute(
 				name: "privacyRoute",
@@ -90,12 +90,6 @@ namespace FloppyVPN
 			);
 
 			app.MapControllerRoute(
-				name: "nologinRoute",
-				pattern: "nologin",
-				defaults: new { controller = "Account", action = "NoLogin" }
-			);
-
-			app.MapControllerRoute(
 				name: "registerRoute",
 				pattern: "register",
 				defaults: new { controller = "Account", action = "Register" }
@@ -115,12 +109,32 @@ namespace FloppyVPN
 			#endregion
 
 
-			app.UseExceptionHandler("/Error/500");
+			// Custom middleware to handle exceptions and set status codes
+			app.Use(async (context, next) =>
+			{
+				try
+				{
+					await next();
+				}
+				catch (Exception ex)
+				{
+					context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+
+					context.Request.Path = "/Error";
+
+					await next();
+				}
+			});
+
+			// UseExceptionHandler to handle other unhandled exceptions
+			app.UseExceptionHandler("/Error");
+
+			// UseStatusCodePagesWithReExecute to handle other status codes
 			app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
 
 			app.Urls.Clear();
-			app.Urls.Add("http://localhost:14400");
+			app.Urls.Add("http://localhost:1441");
 
 			app.Run();
 		}

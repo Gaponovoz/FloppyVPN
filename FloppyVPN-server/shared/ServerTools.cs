@@ -80,22 +80,3 @@ public static class ServerTools
 		return localIpPrefixes.Any(prefix => ipAddress.StartsWith(prefix, StringComparison.Ordinal));
 	}
 }
-
-public class MasterKeyValidationFilter : IActionFilter
-{
-	public void OnActionExecuting(ActionExecutingContext context)
-	{
-		if (!ServerTools.IsValidMasterKey(context.HttpContext.Request))
-		{
-			context.HttpContext.Response.StatusCode = StatusCodes.Status407ProxyAuthenticationRequired;
-			context.HttpContext.Response.WriteAsync("Master key is wrong or absent.");
-			context.Result = new EmptyResult();
-		}
-	}
-
-	public void OnActionExecuted(ActionExecutedContext context)
-	{
-		// No action needed after the action method is executed
-	}
-}
-

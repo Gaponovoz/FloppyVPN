@@ -11,7 +11,7 @@
 			for (; ; )
 			{
 				DeleteUnpaidAccounts();
-				DoSomethingElse();
+				DeleteOldRequests();
 
 				Thread.Sleep(60000);
 			}
@@ -22,7 +22,7 @@
 
 		}
 
-		static void DoSomethingElse()
+		static void DeleteOldRequests()
 		{
 
 		}

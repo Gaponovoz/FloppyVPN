@@ -1,5 +1,8 @@
 ﻿namespace FloppyVPN
 {
+	/// <summary>
+	/// Class responsible for obtaining, caching and providing localized strings for Views.
+	/// </summary>
 	internal static class Loc
 	{
 		public static DataTable table = null;
@@ -26,7 +29,7 @@
 			}
 			catch
 			{
-				return "";
+				return "?";
 			}
 		}
 	}

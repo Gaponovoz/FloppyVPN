@@ -82,20 +82,25 @@ namespace FloppyVPN
 
 		public static void Execute(string query, Dictionary<string, object> parameters = null)
 		{
-			using (MySqlConnection connection = new(connectionString))
-			using (MySqlCommand command = new(query, connection))
+			using (MySqlConnection connection = new MySqlConnection(connectionString))
 			{
-				if (parameters != null)
-				{
-					foreach (var param in parameters)
-					{
-						command.Parameters.AddWithValue(param.Key, param.Value);
-					}
-				}
+				connection.Open(); // Open the connection explicitly
 
-				command.ExecuteNonQuery();
+				using (MySqlCommand command = new MySqlCommand(query, connection))
+				{
+					if (parameters != null)
+					{
+						foreach (var param in parameters)
+						{
+							command.Parameters.AddWithValue(param.Key, param.Value);
+						}
+					}
+
+					command.ExecuteNonQuery();
+				}
 			}
 		}
+
 
 		/// <summary>
 		/// To be used with INSERT commands only.
@@ -103,45 +108,58 @@ namespace FloppyVPN
 		/// <returns>ID of the newly created record</returns>
 		public static ulong InsertAndGetID(string query, Dictionary<string, object> parameters = null)
 		{
-			using (MySqlConnection connection = new(connectionString))
-			using (MySqlCommand cmd = new(query, connection))
+			using (MySqlConnection connection = new MySqlConnection(connectionString))
 			{
-				if (parameters != null)
+				connection.Open(); // Open the connection explicitly
+
+				using (MySqlCommand cmd = new MySqlCommand(query, connection))
 				{
-					foreach (var param in parameters)
+					if (parameters != null)
 					{
-						cmd.Parameters.AddWithValue(param.Key, param.Value);
+						foreach (var param in parameters)
+						{
+							cmd.Parameters.AddWithValue(param.Key, param.Value);
+						}
 					}
+
+					// Выполнение запроса на вставку
+					cmd.ExecuteNonQuery();
 				}
 
-				// Выполнение запроса на вставку
-				cmd.ExecuteNonQuery();
-
 				// Получение ID последней вставленной строки
-				cmd.CommandText = "SELECT LAST_INSERT_ID();";
-				ulong lastInsertedId = Convert.ToUInt64(cmd.ExecuteScalar());
+				ulong lastInsertedId;
+				using (MySqlCommand getIdCmd = new MySqlCommand("SELECT LAST_INSERT_ID();", connection))
+				{
+					lastInsertedId = Convert.ToUInt64(getIdCmd.ExecuteScalar());
+				}
 
 				return lastInsertedId;
 			}
 		}
 
 
+
 		public static object GetValue(string query, Dictionary<string, object> parameters = null)
 		{
-			using (MySqlConnection connection = new(connectionString))
-			using (MySqlCommand command = new(query, connection))
+			using (MySqlConnection connection = new MySqlConnection(connectionString))
 			{
-				if (parameters != null)
-				{
-					foreach (var param in parameters)
-					{
-						command.Parameters.AddWithValue(param.Key, param.Value);
-					}
-				}
+				connection.Open(); // Open the connection explicitly
 
-				return command.ExecuteScalar();
+				using (MySqlCommand command = new MySqlCommand(query, connection))
+				{
+					if (parameters != null)
+					{
+						foreach (var param in parameters)
+						{
+							command.Parameters.AddWithValue(param.Key, param.Value);
+						}
+					}
+
+					return command.ExecuteScalar();
+				}
 			}
 		}
+
 
 		public static string GetConfig(string key)
 		{

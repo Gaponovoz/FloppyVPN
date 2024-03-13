@@ -1,10 +1,12 @@
 ﻿@namespace FloppyVPN
 @using static _Functions
-
 @model ErrorViewModel
+
 @{
 	string lang = GetCurrentLanguage(this);
 	ViewData["Title"] = Loc.Get("title_error", lang);
+
+	int error_code = Model.ErrorCode;
 }
 
 <center>
@@ -13,26 +15,30 @@
 	<div class="window" style="margin: 32px; width: 250px">
 		<div class="title-bar">
 			<div class="title-bar-text">
-				@Loc.Get("title_error", lang) @Model.ErrorCode
+				@Loc.Get("title_error", lang) @error_code
 			</div>
 		</div>
 		<div class="window-body">
 			@{
 				if (!string.IsNullOrEmpty(Model.ErrorMessage))
 				{
-					<p>@Model.ErrorMessage</p>
+					<p>@Loc.Get($"error-500", lang)<br /><br />@(Loc.Get(Model.ErrorMessage, lang) == "?" ? Model.ErrorMessage : Loc.Get(Model.ErrorMessage, lang) )</p>
 				}
-				else if (Model.ErrorCode == 404)
+				else if (error_code == 404)
 				{
 					<p>@Loc.Get($"error-404", lang)</p>
 				}
-				else if (Model.ErrorCode == 503)
+				else if (error_code == 403)
+				{
+					<p>@Loc.Get($"error-403", lang)</p>
+				}
+				else if (error_code == 503)
 				{
 					<p>@Loc.Get($"error-503", lang)</p>
 				}
 				else
 				{
-					<p>@Loc.Get($"error-404", lang)</p>
+					<p>@Loc.Get($"error-500", lang)</p>
 				}
 			}
 

@@ -4,8 +4,8 @@
     "FloppyVPN-server-website": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:14400",
-      "applicationUrl": "http://localhost:14400",
+      "launchUrl": "http://localhost:1441",
+      "applicationUrl": "http://localhost:1441",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

@@ -92,6 +92,13 @@
 		<ja>このページを提供できませんでした！ 要求されたサービスは現在利用できません。 少し後にもう一度お試しください！</ja>
     </row>
 	<row>
+		<name>error-500</name>
+		<en>A server error occured. This is not your fault, it's mine. Please try again later.</en>
+		<ru>A server error occured. This is not your fault, it's mine. Please try again later.</ru>
+		<uk>A server error occured. This is not your fault, it's mine. Please try again later.</uk>
+		<ja>A server error occured. This is not your fault, it's mine. Please try again later.</ja>
+    </row>
+	<row>
     <name>go-back-button</name>
     <en>Go back</en>
     <ru>Назад</ru>
@@ -408,7 +415,7 @@
   </row>
   <row>
     <name>whom-for</name>
-    <en>Whom this is for? If...</en>
+    <en>Whom is this for? If...</en>
     <ru>Для кого это? Если ты...</ru>
     <uk>Для кого це? Якщо ти...</uk>
     <ja>それは誰のためですか？ してください...</ja>

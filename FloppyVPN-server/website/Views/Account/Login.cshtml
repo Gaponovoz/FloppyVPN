@@ -11,28 +11,32 @@
 <h3 id="login-page-heading"></h3>
 
 <br>
-<span class="htext">
+<div class="htext">
 	<span class="htext" id="login-field-caption">
 		@Loc.Get("login-field-caption", lang)
 	</span>
 
-	<form>
+	@if (TempData["Message"] != null)
+	{
+		<p>@TempData["Message"]</p>
+	}
+
+	<form asp-controller="Account" asp-action="" method="post">
 		<input type="password" name="user_login">
-		<button onclick="" id="login-button">
-			<b>
-				@Loc.Get("login-button", lang)
-			</b>
+		<button type="submit" id="login-button">
+			<b>@Loc.Get("login-button", lang)</b>
 		</button>
 	</form>
+</div>
 
-	<br><br>
+<br><br>
 
-	<span class="htext" id="register-proposal">
-		@Loc.Get("register-proposal", lang)
-	</span>
+<span class="htext" id="register-proposal">
+	@Loc.Get("register-proposal", lang)
 </span>
 
-<a href="/register" id="register-button"><button>
+<a href="/register" id="register-button">
+	<button>
 		@Loc.Get("register-button", lang)
-</button></a>
-
+	</button>
+</a>

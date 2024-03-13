@@ -12,10 +12,10 @@ namespace FloppyVPN.Controllers
 		[ServiceFilter(typeof(UserIsSoftBannedValidationFilter))]
 		public string RegisterAccount()
 		{
-			return Rialize.Se<DataRow>(Account.Register().accountData);
+			return Rialize.Se(Account.Register().accountData);
 		}
 
-		[HttpGet("RegisterAccount/{private_login}")]
+		[HttpGet("LogintoAccount/{private_login}")]
 		[ServiceFilter(typeof(UserIsBannedValidationFilter))]
 		public string LogintoAccount(string private_login)
 		{

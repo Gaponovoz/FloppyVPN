@@ -13,7 +13,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title> @(string.IsNullOrEmpty((ViewData["Title"] ?? "").ToString()) ? "FloppyVPN" : $"{ViewData["Title"]} | FloppyVPN)") </title>
+	<title> @(string.IsNullOrEmpty((ViewData["Title"] ?? "").ToString()) ? "FloppyVPN" : $"{ViewData["Title"]} | FloppyVPN") </title>
 	@* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
@@ -30,31 +30,34 @@
 			<a href="/" class="plain-link color-on-hover"><span style="font-family: Tahoma,sans; font-size: 23px; font-weight: bold" id="website-title">@Loc.Get("website-title", lang)</span></a>
 		</div>
 
-		<div id="elementSecondaryRight">
+		@if (currentView != "Registered") //should not show language changer on "Registered" page
+		{
+			<div id="elementSecondaryRight">
 
-			<form method="post">
-				<label for="language" id="language-label">Language: </label>
-				<select id="language" name="language" onchange="this.form.submit()">
-				<option value="en" selected="@(lang == "en")">English</option>
-				<option value="ru" selected="@(lang == "ru")">Русский</option>
-				<option value="uk" selected="@(lang == "uk")">Українська</option>
-				<option value="ja" selected="@(lang == "ja")">日本語</option>
-				</select>
-				@{
-					// Handle language change and set cookie
-					if (Context.Request.Method == "POST")
-					{
-						var selectedLang = Context.Request.Form["language"];
-						WriteCookie(this, "language", selectedLang);
-						// Redirect to refresh page with the new language parameter
-						string? langParam = "?lang=" + selectedLang;
-						string? paramUrl = Url.Action(null, null, new { lang = selectedLang });
-						Context.Response.Redirect(paramUrl);
+				<form method="post">
+					<label for="language" id="language-label">Language: </label>
+					<select id="language" name="language" onchange="this.form.submit()">
+						<option value="en" selected="@(lang == "en")">English</option>
+						<option value="ru" selected="@(lang == "ru")">Русский</option>
+						<option value="uk" selected="@(lang == "uk")">Українська</option>
+						<option value="ja" selected="@(lang == "ja")">日本語</option>
+					</select>
+					@{
+						// Handle language change and set cookie
+						if (Context.Request.Method == "POST")
+						{
+							var selectedLang = Context.Request.Form["language"];
+							WriteCookie(this, "language", selectedLang);
+							// Redirect to refresh page with the new language parameter
+							string? langParam = "?lang=" + selectedLang;
+							string? paramUrl = Url.Action(null, null, new { lang = selectedLang });
+							Context.Response.Redirect(paramUrl);
+						}
 					}
-				}
-			</form>
+				</form>
 
-		</div>
+			</div>
+		}
 
 	</header>
 
