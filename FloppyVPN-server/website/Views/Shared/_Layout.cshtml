@@ -2,8 +2,7 @@
 @using static FloppyVPN._Functions
 
 @{
-	string currentController = (ViewContext.RouteData.Values["controller"] ?? "").ToString();
-	string currentView = (Context.Request.Path != null) ? (Context.Request.Path) : "";
+	string currentPath = (Context.Request.Path != null) ? (Context.Request.Path) : "";
 	string lang = GetCurrentLanguage(this);
 
 }
@@ -14,27 +13,34 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title> @(string.IsNullOrEmpty((ViewData["Title"] ?? "").ToString()) ? "FloppyVPN" : $"{ViewData["Title"]} | FloppyVPN") </title>
-	@* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
 </head>
 <body>
 	<header>
+
 		<div id="elementSecondaryLeft">
-			<a href="/register"><button id="register-button">@Loc.Get("register-button", lang)</button></a>
-			<form><button id="logout-button" type="submit" style="display: none">@Loc.Get("logout-button", lang)</button></form>
-			<a href="/login"><button id="login-button">@Loc.Get("login-button", lang)</button></a>
+			@if (currentPath.ToLower() != "/account/registered") //should not be shown on "Registered" page
+			{
+				<a href="/register"><button id="register-button">@Loc.Get("register-button", lang)</button></a>
+				@if (currentPath.ToLower() == "/account/index" || currentPath.ToLower() == "/account")
+				{
+					<form asp-controller="Account" asp-action="PerformLogout" method="post">
+						<button id="logout-button" type="submit">@Loc.Get("logout-button", lang)</button>
+					</form>
+				}
+				<a href="/login"><button id="login-button">@Loc.Get("login-button", lang)</button></a>
+			}
 		</div>
 
 		<div id="elementPrimary">
 			<a href="/" class="plain-link color-on-hover"><span style="font-family: Tahoma,sans; font-size: 23px; font-weight: bold" id="website-title">@Loc.Get("website-title", lang)</span></a>
 		</div>
 
-		@if (currentView != "Registered") //should not show language changer on "Registered" page
-		{
-			<div id="elementSecondaryRight">
-
-				<form method="post">
+		<div id="elementSecondaryRight">
+			@if (currentPath.ToLower() != "/account/registered") //should not be shown on "Registered" page
+			{
+				<form asp-controller="Home" asp-action="ChangeLanguage" method="post">
+					<input name="cp" id="currentPath" value="@currentPath" hidden />
 					<label for="language" id="language-label">Language: </label>
 					<select id="language" name="language" onchange="this.form.submit()">
 						<option value="en" selected="@(lang == "en")">English</option>
@@ -42,23 +48,10 @@
 						<option value="uk" selected="@(lang == "uk")">Українська</option>
 						<option value="ja" selected="@(lang == "ja")">日本語</option>
 					</select>
-					@{
-						// Handle language change and set cookie
-						if (Context.Request.Method == "POST")
-						{
-							var selectedLang = Context.Request.Form["language"];
-							WriteCookie(this, "language", selectedLang);
-							// Redirect to refresh page with the new language parameter
-							string? langParam = "?lang=" + selectedLang;
-							string? paramUrl = Url.Action(null, null, new { lang = selectedLang });
-							Context.Response.Redirect(paramUrl);
-						}
-					}
 				</form>
-
-			</div>
-		}
-
+			}
+		</div>
+		
 	</header>
 
 	<hr />

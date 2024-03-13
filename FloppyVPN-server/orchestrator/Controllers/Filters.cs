@@ -74,7 +74,7 @@ public class MasterKeyValidationFilter : IActionFilter
 
 		if (serverKarma.IsBanned())
 		{
-			context.HttpContext.Response.StatusCode = 423;
+			context.HttpContext.Response.StatusCode = 403;
 			context.HttpContext.Response.WriteAsync("You seem to be banned.");
 			context.Result = new EmptyResult();
 		}
@@ -82,7 +82,7 @@ public class MasterKeyValidationFilter : IActionFilter
 		{
 			serverKarma.LogRequestAsync(Karma.LogRequestResources.master_key_failed_usage, false);
 
-			context.HttpContext.Response.StatusCode = 403;
+			context.HttpContext.Response.StatusCode = 401;
 			context.HttpContext.Response.WriteAsync("Master key is wrong or absent.");
 			context.Result = new EmptyResult();
 		}

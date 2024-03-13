@@ -63,42 +63,49 @@
     <uk>Зареєструйтеся, щоб почати використання FloppyVPN</uk>
     <ja>FloppyVPNの使用を開始するために登録する</ja>
   </row>
-	<row>
-		<name>error-registrations-limit</name>
-		<en>You are prohibited to access this service because you have made too many requests recently.</en>
-		<ru>Не удалось отобразить эту страницу! Ссылка может быть неправильной или вы превысили лимит запросов к ресурсу. (вам виднее).</ru>
-		<uk>Не вдалося подати цю сторінку. Посилання може бути помилковим, або ви перевисили ліміт запросів до ресурсу (вам видніше).</uk>
-		<ja>このページは表示できませんでした！ リンクが正しくないか、リソースへの要求の制限を超えている可能性があります。（あなたはよく知っています）。</ja>
-	</row>
-	<row>
-		<name>error-403</name>
-		<en>You are prohibited to access this service because you have made too many requests recently.</en>
-		<ru>Не удалось отобразить эту страницу! Ссылка может быть неправильной или вы превысили лимит запросов к ресурсу. (вам виднее).</ru>
-		<uk>Не вдалося подати цю сторінку. Посилання може бути помилковим, або ви перевисили ліміт запросів до ресурсу (вам видніше).</uk>
-		<ja>このページは表示できませんでした！ リンクが正しくないか、リソースへの要求の制限を超えている可能性があります。（あなたはよく知っています）。</ja>
-	</row>
-	<row>
-		<name>error-404</name>
-		<en>Could not serve this page! The link may be wrong, or you have made too many requests today. (you know better)</en>
-		<ru>Не удалось отобразить эту страницу! Ссылка может быть неправильной или вы превысили лимит запросов к ресурсу. (вам виднее).</ru>
-		<uk>Не вдалося подати цю сторінку. Посилання може бути помилковим, або ви перевисили ліміт запросів до ресурсу (вам видніше).</uk>
-		<ja>このページは表示できませんでした！ リンクが正しくないか、リソースへの要求の制限を超えている可能性があります。（あなたはよく知っています）。</ja>
-	</row>
-	<row>
-		<name>error-503</name>
-		<en>Could not serve this page! The requested service currently unavailable. Please try again a bit later!</en>
-		<ru>Не удалось подать эту страницу! Запрошенное действие в данный момент недоступно. Пожалуйста, повторите попытку чуть позже!</ru>
-		<uk>Не вдалося подати цю сторінку. Запитана послуга наразі недоступна. Будь ласка, спробуйте ще раз трохи пізніше!</uk>
-		<ja>このページを提供できませんでした！ 要求されたサービスは現在利用できません。 少し後にもう一度お試しください！</ja>
-    </row>
-	<row>
-		<name>error-500</name>
-		<en>A server error occured. This is not your fault, it's mine. Please try again later.</en>
-		<ru>A server error occured. This is not your fault, it's mine. Please try again later.</ru>
-		<uk>A server error occured. This is not your fault, it's mine. Please try again later.</uk>
-		<ja>A server error occured. This is not your fault, it's mine. Please try again later.</ja>
-    </row>
-	<row>
+  <row>
+    <name>error-wrong-login</name>
+    <en>You entered the wrong login. Please try again</en>
+    <ru>Вы ввели неправильный логин. Пожалуйста, попробуйте снова</ru>
+    <uk>Ви ввели неправильний логін. Будь ласка, спробуйте ще раз</uk>
+    <ja>間違ったログインを入力しました。 もう一度お試しください</ja>
+  </row>
+  <row>
+    <name>error-401</name>
+    <en>You are unauthorized, try to login or register a new account if you don't have one.</en>
+    <ru>Вы не авторизованы, попробуйте войти или зарегистрироваться, если ещё не.</ru>
+    <uk>Ви не авторизовані, спробуйте увійти або зареєструвати новий обліковий запис, якщо у вас його немає.</uk>
+    <ja>アカウントをお持ちでない場合は、ログインまたは新しいアカウントを登録してみてください。</ja>
+  </row>
+  <row>
+    <name>error-403</name>
+    <en>Could not allow you to access this page. You seem to have exceeded the failed requests limit. Please try again but later.</en>
+    <ru>Не удалось разрешить вам доступ к этой странице. Похоже, вы превысили лимит неудачных запросов. Пожалуйста, повторите попытку, но позже.</ru>
+    <uk>Не вдалося дозволити вам доступ до цієї сторінки. Схоже, ви перевищили ліміт невдалих запитів. Будь ласка, спробуйте ще раз, але пізніше.</uk>
+    <ja>このページへのアクセスを許可できませんでした。 失敗した要求の制限を超えているようです。 再試行してくださいが、後でしてください。</ja>
+  </row>
+  <row>
+    <name>error-404</name>
+    <en>Such page simply does not exist.</en>
+    <ru>Такой страницы просто не существует.</ru>
+    <uk>Такої сторінки просто не існує.</uk>
+    <ja>そのようなページは単に存在しません。</ja>
+  </row>
+  <row>
+    <name>error-503</name>
+    <en>Could not serve this page! The requested service currently unavailable. Please try again a bit later!</en>
+    <ru>Не удалось подать эту страницу! Запрошенное действие в данный момент недоступно. Пожалуйста, повторите попытку чуть позже!</ru>
+    <uk>Не вдалося подати цю сторінку. Запитана послуга наразі недоступна. Будь ласка, спробуйте ще раз трохи пізніше!</uk>
+    <ja>このページを提供できませんでした！ 要求されたサービスは現在利用できません。 少し後にもう一度お試しください！</ja>
+  </row>
+  <row>
+    <name>error-500</name>
+    <en>A server error occured. This is not your fault, it's mine. Please try again later.</en>
+    <ru>Произошла ошибка сервера. Это не ваша вина, но моя. Пожалуйста, повторите попытку позже.</ru>
+    <uk>Сталася помилка сервера. Це не ваша вина, але моя. Будь ласка, повторіть спробу пізніше.</uk>
+    <ja>サーバーエラーが発生しました。 これはあなたのせいではなく、私のせいです。 後でもう一度お試しください。</ja>
+  </row>
+    <row>
     <name>go-back-button</name>
     <en>Go back</en>
     <ru>Назад</ru>

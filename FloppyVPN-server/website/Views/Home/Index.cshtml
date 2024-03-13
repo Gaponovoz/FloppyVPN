@@ -7,7 +7,7 @@
 }
 
 @{
-	bool cookieAcknowledged = (_Functions.ReadCookie(this, "FloppyVPN_CookieAcknowledged") ?? "").Contains("True");
+	bool cookieAcknowledged = (_Functions.ReadCookie(this, "cookieAcknowledged") ?? "").Contains("True");
 	if (!cookieAcknowledged)
 	{
 		<div class="window" style="margin: 32px; width: 250px; float: right;" id="cookie-alert-window">

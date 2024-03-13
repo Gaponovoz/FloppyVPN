@@ -123,15 +123,20 @@ button {
 	margin: 4px;
 	font-family: Tahoma;
 }
+
 .htext {
 	font-family: 'Times New Roman', 'Times', serif;
 	font-size: 19px;
 	line-height: normal;
-	letter-spacing: 0.18px; /* Adjust this value to your preference */
+	letter-spacing: 0.18px;
 }
 
 .highlight {
-	background-color: #fff894;  /* highlighter color */
+	background-color: #fff894;
+}
+
+.highlight-red {
+	background-color: #ccaaa4;
 }
 
 ::-moz-selection {
@@ -187,7 +192,7 @@ table {
 	border-collapse: separate;
 	border-spacing: 0;
 	background-color: #fff;
-	border: 2px solid #fff; /* This makes the white core thicker */
+	border: 2px solid #fff;
 	box-shadow: 
 		inset 1px 1px 0 0 #333,
 		inset -1px -1px 0 0 #ccc,
@@ -199,7 +204,7 @@ td, th {
 	font-size: medium;
 	padding: 5px;
 	background-color: #fff;
-	border: 1px solid #fff; /* This makes the white core thicker */
+	border: 1px solid #fff;
 	box-shadow: 
 		inset 1px 1px 0 0 #333,
 		inset -1px -1px 0 0 #ccc,

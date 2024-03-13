@@ -8,7 +8,7 @@
 
 
 
-<h3 id="login-page-heading"></h3>
+<h3 id="login-page-heading">@Loc.Get("login-page-heading", lang)</h3>
 
 <br>
 <div class="htext">
@@ -18,10 +18,11 @@
 
 	@if (TempData["Message"] != null)
 	{
-		<p>@TempData["Message"]</p>
+		<br />
+		<p class="highlight_red">@TempData["Message"]</p>
 	}
 
-	<form asp-controller="Account" asp-action="" method="post">
+	<form asp-controller="Account" asp-action="PerformLogin" method="post">
 		<input type="password" name="user_login">
 		<button type="submit" id="login-button">
 			<b>@Loc.Get("login-button", lang)</b>
@@ -29,7 +30,7 @@
 	</form>
 </div>
 
-<br><br>
+<br /><br />
 
 <span class="htext" id="register-proposal">
 	@Loc.Get("register-proposal", lang)

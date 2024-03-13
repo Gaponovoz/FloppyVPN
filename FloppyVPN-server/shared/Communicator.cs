@@ -36,15 +36,14 @@ namespace FloppyVPN
 		/// <param name="body">The body of the request.</param>
 		/// <param name="master_key">The value of the "master_key" header.</param>
 		/// <returns>The response body.</returns>
-		public static string PostHttp(string url, object body, string master_key, string hashed_user_ip_address, out HttpStatusCode status_code, out bool is_successful)
+		public static string PostHttp(string url, string body, string master_key, string hashed_user_ip_address, out HttpStatusCode status_code, out bool is_successful)
 		{
 			using (HttpClient client = new())
 			{
 				client.DefaultRequestHeaders.Add("master_key", master_key);
 				client.DefaultRequestHeaders.Add("hashed_user_ip_address", hashed_user_ip_address);
 
-				string jsonBody = Newtonsoft.Json.JsonConvert.SerializeObject(body);
-				HttpContent content = new StringContent(jsonBody, System.Text.Encoding.UTF8, "application/json");
+				HttpContent content = new StringContent(body, System.Text.Encoding.UTF8, "application/json");
 				HttpResponseMessage response = client.PostAsync(url, content).Result;
 
 				status_code = response.StatusCode;

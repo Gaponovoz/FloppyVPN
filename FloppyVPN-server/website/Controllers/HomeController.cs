@@ -1,7 +1,5 @@
 ﻿using FloppyVPN.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using System.Reflection;
 
 namespace FloppyVPN.Controllers
 {
@@ -22,12 +20,24 @@ namespace FloppyVPN.Controllers
 			return View();
 		}
 
-
 		[HttpPost]
 		public IActionResult AcknowledgeCookie()
 		{
-			_Functions.WriteCookie(HttpContext, "FloppyVPN_CookieAcknowledged", "True");
+			_Functions.WriteCookie(HttpContext, "cookieAcknowledged", "True");
 			return RedirectToAction("Index", "Home");
 		}
+		
+		[HttpPost]
+		public IActionResult ChangeLanguage()
+		{
+			var selectedLang = HttpContext.Request.Form["language"];
+			_Functions.WriteCookie(HttpContext, "language", selectedLang);
+
+			// Redirect to refresh page with the new language parameter
+			string resreshUrl = HttpContext.Request.Form["currentPath"] + "?lang=" + selectedLang;
+			return Redirect(resreshUrl);
+		}
+
+		
 	}
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FloppyVPN.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FloppyVPN.Controllers
 {
@@ -19,8 +20,18 @@ namespace FloppyVPN.Controllers
 			return View();
 		}
 
-		public IActionResult Registered()
+		//public IActionResult Registered()
+		//{
+		//	return RedirectToAction();
+		//}
+
+		[HttpPost]
+		public IActionResult PerformRegistration()
 		{
+			// Set TempData flag indicating that the form was submitted
+			TempData["FormSubmitted"] = true;
+
+			// Redirect to the Registered action to render the Registered view
 			// Only open "Registered" (which actually registers a user) when redirected from "Register"
 			if ((bool)(TempData["FormSubmitted"] ?? false) == true)
 			{
@@ -58,7 +69,7 @@ namespace FloppyVPN.Controllers
 						return Redirect($"/Error/{(int)statusCode}");
 					}
 
-					return View(new Models.NewAccountModel() { NewAccountData = newAccountData });
+					return View("~/Views/Account/Registered.cshtml", new NewAccountModel() { NewAccountData = newAccountData });
 				}
 			}
 			else
@@ -69,19 +80,19 @@ namespace FloppyVPN.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult PerformRegistration()
+		public IActionResult PerformLogin()
 		{
-			// Set TempData flag indicating that the form was submitted
-			TempData["FormSubmitted"] = true;
 
-			// Redirect to the Registered action to render the Registered view
-			return RedirectToAction("Registered", "Account");
+
+			AccountModel accountModel = new();
+
+			return RedirectToAction("~/Views/Account");
 		}
 
 		[HttpPost]
-		public IActionResult PerformLogin()
+		public IActionResult PerformLogout()
 		{
-			return RedirectToAction("Index", "Account");
+			return RedirectToAction("Index", "Home");
 		}
 	}
 }
