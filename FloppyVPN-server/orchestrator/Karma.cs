@@ -7,7 +7,7 @@
 	internal class Karma
 	{
 		/// <summary>
-		/// For request logging
+		/// For request logging and misusage determination
 		/// </summary>
 		public enum LogRequestResources
 		{
@@ -25,7 +25,7 @@
 		/// Recommended to set between 24 and 1.
 		/// Must be negative
 		/// </summary>
-		readonly double LastHoursToCheckMisusageIn = -18;
+		readonly double LastHoursToCheckMisusageIn = -8;
 
 		/// <summary>
 		/// How many failed requests per check period are allowed until user gets a ban
@@ -82,7 +82,7 @@
 		/// <summary>
 		/// Adds a request to the table of requests
 		/// </summary>
-		public void LogRequest(LogRequestResources requestedResource, bool isRequestSuccessful = true)
+		public void LogRequest(LogRequestResources requestedResource, bool isRequestSuccessful)
 		{
 			DB.Execute("INSERT INTO `requests` (`date_time`, hashed_ip_address, `successful`, `request`) " +
 				"VALUES(@date_time, @hashed_ip_address, @successful, @request);", 
@@ -193,14 +193,14 @@
 
 			Dictionary<byte, double> banLengthsInHoursDependingOnTimesBanned = new()
 			{
-				{ 0, 0.15 },
-				{ 1, 0.4  },
-				{ 2, 2    },
-				{ 3, 12   },
-				{ 4, 24   },
-				{ 5, 48   },
-				{ 6, 200  },
-				{ 7, 9999 },
+				{ 0, 0.06 },
+				{ 1, 0.2  },
+				{ 2, 0.3  },
+				{ 3, 0.4  },
+				{ 4, 1    },
+				{ 5, 2    },
+				{ 6, 4    },
+				{ 7, 8    },
 			};
 
 			byte timesBanned = byte.Parse(karmaData["times_banned"].ToString());

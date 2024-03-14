@@ -13,7 +13,7 @@
 				DeleteUnpaidAccounts();
 				DeleteOldRequests();
 
-				Thread.Sleep(60000);
+				Thread.Sleep(15 * 1000 * 60);
 			}
 		}
 

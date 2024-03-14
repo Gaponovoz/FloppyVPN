@@ -5,10 +5,10 @@ namespace FloppyVPN.Controllers
 {
 	public class AccountController : Controller
 	{
-		public IActionResult Index()
-		{
-			return View();
-		}
+		//public IActionResult Index()
+		//{
+		//	return Redirect("/login");
+		//}
 
 		public IActionResult Login()
 		{
@@ -19,11 +19,6 @@ namespace FloppyVPN.Controllers
 		{
 			return View();
 		}
-
-		//public IActionResult Registered()
-		//{
-		//	return RedirectToAction();
-		//}
 
 		[HttpPost]
 		public IActionResult PerformRegistration()
@@ -39,8 +34,7 @@ namespace FloppyVPN.Controllers
 
 				if (Config.cache["allow_registration"].ToString() == bool.FalseString)
 				{
-					HttpContext.Response.StatusCode = StatusCodes.Status503ServiceUnavailable;
-					return RedirectToAction();
+					return Redirect("/Error/503");
 				}
 				else
 				{
@@ -50,8 +44,6 @@ namespace FloppyVPN.Controllers
 						status_code: out HttpStatusCode statusCode,
 						is_successful: out bool isSuccessful
 					);
-
-					Console.WriteLine(response);
 
 					DataRow? newAccountData;
 					try
@@ -80,13 +72,43 @@ namespace FloppyVPN.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult PerformLogin()
+		public IActionResult My()
 		{
+			string enteredLogin = (HttpContext.Request.Form["user_login"].FirstOrDefault() ?? "").Replace("-", "");
+
+			string lang = _Functions.GetCurrentLanguage(HttpContext);
+			if (enteredLogin.Length != 12)
+			{
+				TempData["Message"] = Loc.Get("error-wrong-login", lang);
+				return Redirect("/login");
+			}
 
 
-			AccountModel accountModel = new();
+			string response = Communicator.GetHttp(url: $"{Config.cache["orchestrator_url"]}/Api/Website/LogintoAccount/{enteredLogin}",
+				master_key: Config.cache["master_key"].ToString(),
+				hashed_user_ip_address: ServerTools.GetHashedIPAddress(HttpContext.Request).ToString(),
+				status_code: out HttpStatusCode statusCode,
+				is_successful: out bool isSuccessful
+			);
 
-			return RedirectToAction("~/Views/Account");
+			DataRow? accountData;
+			try
+			{
+				accountData = Rialize.Dese<DataRow>(response);
+			}
+			catch
+			{
+				accountData = null;
+			}
+
+			if (!isSuccessful || accountData == null)
+			{
+				return Redirect($"/Error/{(int)statusCode}");
+			}
+
+			AccountModel accountModel = new() { AccountData = accountData };
+
+			return View("~/Views/Account/Index.cshtml", accountModel);
 		}
 
 		[HttpPost]

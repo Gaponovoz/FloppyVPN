@@ -9,6 +9,7 @@ namespace FloppyVPN
 		public string public_login;  //used to top up the balance
 		public DateTime date_registered;
 		public DateTime paid_till;   //if "paid_till" equals "date_registered" - the account is just created
+		public int days_left;
 
 		public DataRow? accountData = null;
 
@@ -16,6 +17,10 @@ namespace FloppyVPN
 		/// <param name="isLoginPublic">True if passing a public login, false (default) if passing the private login</param>
 		public Account(string login, bool isLoginPublic = false)
 		{
+			//login can be entered either with or without the delimiting symbol
+			login = login.Replace("-", "");
+			login = login.Insert(login.Length / 2, "-");
+
 			string accessColumn;
 
 			if (isLoginPublic)
@@ -47,17 +52,42 @@ namespace FloppyVPN
 			}
 
 			//getting account data:
-			accountData = accounts.Rows[0];
+			private_login = accounts.Rows[0]["private_login"].ToString();
+			RefreshData();
+		}
+
+		private void RefreshData()
+		{
+			accountData = DB.GetDataTable($"SELECT * FROM `accounts` WHERE `private_login` = @private_login;",
+				new Dictionary<string, object>()
+				{
+					{ "@private_login", private_login }
+				}).Rows[0];
 
 			private_login = accountData["private_login"].ToString();
 			public_login = accountData["public_login"].ToString();
 			date_registered = (DateTime)accountData["when_registered"];
 			paid_till = (DateTime)accountData["paid_till"];
+			RefreshDaysLeft();
 		}
 
-		private void UpdateAccountRow()
+		protected void RefreshDaysLeft()
 		{
+			try
+			{
+				days_left = (int)Math.Ceiling((paid_till - DateTime.Now).TotalDays);
+			}
+			catch
+			{
+				days_left = (int)0;
+			}
 
+			DB.Execute($"UPDATE `accounts` SET `days_left` = @days_left WHERE `id` = @id;",
+				new Dictionary<string, object>()
+				{
+					{ "@days_left", days_left },
+					{ "@id", (ulong)accountData["id"] }
+				});
 		}
 
 		/// <param name="days">Amount of days to add to account's balance.</param>
@@ -65,22 +95,17 @@ namespace FloppyVPN
 		public DateTime AddTime(ushort days)
 		{
 			DateTime new_paid_till = paid_till.AddDays(days);
-			DB.Execute($"UPDATE `Users` SET paid_till = '{new_paid_till.ToDateTime()}' WHERE login = '{private_login}';", 
-				new Dictionary<string, object>() { { "", "" }, { "", "" }, { "", "" } });
-			Thread.Sleep(100);
-			return new_paid_till;
-		}
 
-		public ushort DaysLeft()
-		{
-			try
-			{
-				return (ushort)Math.Ceiling((paid_till - DateTime.Now).TotalDays);
-			}
-			catch
-			{
-				return (ushort)0;
-			}
+			DB.Execute($"UPDATE `Users` SET paid_till = @paid_till WHERE private_login = @private_login;", 
+				new Dictionary<string, object>()
+				{
+					{ "@paid_till", "" },
+					{ "@private_login", private_login },
+					{ "", "" }
+				});
+
+			RefreshData();
+			return new_paid_till;
 		}
 
 		/// <summary>
@@ -104,7 +129,7 @@ namespace FloppyVPN
 					{ "@when_registered", when_registered },
 					{ "@paid_till", paid_till },
 					{ "@private_login", private_login },
-					{ "@public_login", public_login },
+					{ "@public_login", public_login }
 				});
 
 			Thread.Sleep(123);

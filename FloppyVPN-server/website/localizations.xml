@@ -105,12 +105,12 @@
     <uk>Сталася помилка сервера. Це не ваша вина, але моя. Будь ласка, повторіть спробу пізніше.</uk>
     <ja>サーバーエラーが発生しました。 これはあなたのせいではなく、私のせいです。 後でもう一度お試しください。</ja>
   </row>
-    <row>
-    <name>go-back-button</name>
-    <en>Go back</en>
-    <ru>Назад</ru>
-    <uk>Назад</uk>
-    <ja>戻る</ja>
+  <row>
+	  <name>go-back-button</name>
+	  <en>Go back</en>
+	  <ru>Назад</ru>
+	  <uk>Назад</uk>
+	  <ja>戻る</ja>
   </row>
   <row>
     <name>more-platforms-soon</name>

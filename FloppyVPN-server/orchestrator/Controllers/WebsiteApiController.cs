@@ -12,7 +12,7 @@ namespace FloppyVPN.Controllers
 		[ServiceFilter(typeof(UserIsSoftBannedValidationFilter))]
 		public string RegisterAccount()
 		{
-			return Rialize.Se(Account.Register().accountData);
+			return Rialize.Se<DataRow>(Account.Register().accountData);
 		}
 
 		[HttpGet("LogintoAccount/{private_login}")]
@@ -20,13 +20,19 @@ namespace FloppyVPN.Controllers
 		public string LogintoAccount(string private_login)
 		{
 			Account acc = new(private_login);
+			Karma karma = new(GetHashedIpFromHeaders(HttpContext.Request));
+
 			if (acc.exists)
 			{
+				karma.LogRequest(Karma.LogRequestResources.login, true);
+
 				return Rialize.Se<DataRow>(acc.accountData);
 			}
 			else
 			{
-				Response.StatusCode = StatusCodes.Status404NotFound;
+				karma.LogRequest(Karma.LogRequestResources.login, false);
+
+				Response.StatusCode = 401;
 				return "Such account does not seem to exist";
 			}
 		}
