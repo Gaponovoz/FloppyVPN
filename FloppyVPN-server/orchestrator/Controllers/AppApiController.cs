@@ -6,10 +6,11 @@ namespace FloppyVPN.Controllers
 	[Route("Api/App")]
 	public class AppApiController : ControllerBase
 	{
-		[HttpGet("Test")]
-		public string Test()
+		[HttpGet("Login")]
+		[ServiceFilter(typeof(UserIsBannedValidationFilter))]
+		public string Login()
 		{
-			return "hello";
+			return "";
 		}
 	}
 }

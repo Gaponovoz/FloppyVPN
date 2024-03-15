@@ -77,12 +77,18 @@ namespace FloppyVPN
 				defaults: new { controller = "Home", action = "Support" }
 			);
 
-			app.MapControllerRoute(
-				name: "accountRoute",
-				pattern: "account",
-				defaults: new { controller = "Account", action = "Index" }
-			);
+            app.MapControllerRoute(
+                name: "accountRoute",
+                pattern: "account",
+                defaults: new { controller = "Account", action = "Index" }
+            );
 
+            app.MapControllerRoute(
+                name: "topupRoute",
+                pattern: "topup",
+                defaults: new { controller = "Account", action = "Index" }
+            ); 
+			
 			app.MapControllerRoute(
 				name: "loginRoute",
 				pattern: "login",

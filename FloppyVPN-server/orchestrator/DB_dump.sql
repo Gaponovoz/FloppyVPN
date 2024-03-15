@@ -21,7 +21,7 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '50affa9b-dad1-11ee-8d98-525400123456:1-212';
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '50affa9b-dad1-11ee-8d98-525400123456:1-762';
 
 --
 -- Table structure for table `accounts`
@@ -36,8 +36,9 @@ CREATE TABLE `accounts` (
   `paid_till` datetime NOT NULL,
   `private_login` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `public_login` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
+  `days_left` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='It is what it is.';
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='It is what it is.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,10 +51,11 @@ DROP TABLE IF EXISTS `karmas`;
 CREATE TABLE `karmas` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `hashed_ip_address` varchar(130) COLLATE utf8mb4_general_ci NOT NULL,
-  `banned_till` datetime NOT NULL COMMENT 'From 0 to 10, where 10 is banned forever',
   `times_banned` tinyint unsigned NOT NULL DEFAULT '0' COMMENT 'How many times user has been banned in the past',
+  `banned_till` datetime NOT NULL,
+  `softbanned_till` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Dictionary of IP addresses and their karmas';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Dictionary of IP addresses and their karmas';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,7 +88,7 @@ CREATE TABLE `requests` (
   `successful` tinyint(1) NOT NULL,
   `request` varchar(128) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT 'What resource was requested',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='The journal of all requests to the system. Mainly used for karma calculation';
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='The journal of all requests to the system. Mainly used for karma calculation';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,4 +105,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-12 16:53:36
+-- Dump completed on 2024-03-15 21:06:59

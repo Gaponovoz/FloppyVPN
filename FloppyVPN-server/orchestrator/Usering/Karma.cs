@@ -35,7 +35,7 @@
 		/// <summary>
 		/// How many registrations per check period are allowed until user gets a softban
 		/// </summary>
-		readonly byte MaximumRegistrationsAllowedPerPeriod = 10;
+		readonly byte MaximumRegistrationsAllowedPerPeriod = 30;
 
 		/// <summary>
 		/// How many failed master key usages allowed until server gets a permanent ban

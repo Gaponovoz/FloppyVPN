@@ -21,14 +21,21 @@
     <uk>Реєстрація</uk>
     <ja>登録</ja>
   </row>
-  <row>
-    <name>login-button</name>
-    <en>Log in</en>
-    <ru>Войти</ru>
-    <uk>Увійти</uk>
-    <ja>入る</ja>
-  </row>
-  <row>
+	<row>
+		<name>login-button</name>
+		<en>Log in</en>
+		<ru>Войти</ru>
+		<uk>Увійти</uk>
+		<ja>入る</ja>
+	</row>
+	<row>
+		<name>logout-button</name>
+		<en>Log out</en>
+		<ru>Выйти</ru>
+		<uk>Вийти</uk>
+		<ja>Log out</ja>
+	</row>
+	<row>
     <name>heading-text</name>
     <en>FloppyVPN — Shielding Bytes, Lighting Freedom.\nSimple yet full-featured:</en>
     <ru>FloppyVPN — спасай приватность и забывай блокировки.\nТеперь без геморроя:</ru>
@@ -387,10 +394,10 @@
   </row>
   <row>
     <name>account-tip2</name>
-    <en>Tip: You can share this link with your friends and they will be able to top up your balance (but not to use your VPN).</en>
-    <ru>Совет: если поделиться текущей ссылкой с друзьями, то они смогут пополнять ваш баланс (но не использовать ваш VPN).</ru>
-    <uk>Порада: якщо поділитися поточним посиланням з друзями, то вони зможуть поповнювати ваш рахунок (але не використовувати ваш VPN).</uk>
-    <ja>ヒント：現在のリンクを友達と共有すると、友達は残高を補うことができます（ただし、VPNは使用しません）。</ja>
+    <en>Tip:</en>
+    <ru>Совет: </ru>
+    <uk>Порада: </uk>
+    <ja>ヒント：</ja>
   </row>
   <row>
     <name>account-tip3</name>

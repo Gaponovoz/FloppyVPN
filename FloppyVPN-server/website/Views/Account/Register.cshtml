@@ -11,17 +11,18 @@
 <br><br>
 
 <span class="htext">
-	<span class="htext" id="register-caption">
-		@Loc.Get("register-caption", lang)
-	</span>
+		
+	
 	<form method="post" action="@Url.Action("PerformRegistration", "Account")">
+		<span class="htext" id="register-caption">
+			@Loc.Get("register-caption", lang)
+		</span>
 		<button type="submit" id="register-button">
 			<b>@Loc.Get("register-button", lang)!</b>
 		</button>
 	</form>
 
 	<br><br>
-
 
 </span>
 

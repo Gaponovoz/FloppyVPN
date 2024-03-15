@@ -20,7 +20,7 @@ namespace FloppyVPN.Controllers
 		public string LogintoAccount(string private_login)
 		{
 			Account acc = new(private_login);
-			Karma karma = new(GetHashedIpFromHeaders(HttpContext.Request));
+			Karma karma = new(Filters.GetHashedIpFromHeaders(HttpContext.Request));
 
 			if (acc.exists)
 			{
@@ -35,6 +35,13 @@ namespace FloppyVPN.Controllers
 				Response.StatusCode = 401;
 				return "Such account does not seem to exist";
 			}
+		}
+
+		[HttpGet("TopupInfo/{public_login}")]
+		[ServiceFilter(typeof(UserIsBannedValidationFilter))]
+		public string TopupInfo(string public_login)
+		{
+			return "";
 		}
 	}
 }

@@ -5,10 +5,10 @@ namespace FloppyVPN.Controllers
 {
 	public class AccountController : Controller
 	{
-		//public IActionResult Index()
-		//{
-		//	return Redirect("/login");
-		//}
+		public IActionResult Index()
+		{
+			return Redirect("/login");
+		}
 
 		public IActionResult Login()
 		{
@@ -18,6 +18,22 @@ namespace FloppyVPN.Controllers
 		public IActionResult Register()
 		{
 			return View();
+		}
+
+		[HttpGet("TopUp/{public_login}")]
+		public IActionResult TopUp(string public_login)
+		{
+			if (public_login.Length != 12)
+			{
+				return Redirect("/login");
+			}
+
+
+
+
+			TopupModel topupModel = new() { };
+
+			return View("~/Views/Account/TopUp.cshtml", topupModel);
 		}
 
 		[HttpPost]
@@ -108,7 +124,7 @@ namespace FloppyVPN.Controllers
 
 			AccountModel accountModel = new() { AccountData = accountData };
 
-			return View("~/Views/Account/Index.cshtml", accountModel);
+			return View("~/Views/Account/My.cshtml", accountModel);
 		}
 
 		[HttpPost]

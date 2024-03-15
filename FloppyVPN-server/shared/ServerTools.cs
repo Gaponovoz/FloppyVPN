@@ -1,25 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Hosting;
-
 
 namespace FloppyVPN;
 
 public static class ServerTools
 {
-	public static string GetHashedIpFromHeaders(HttpRequest request)
-	{
-		try
-		{
-			return request.Headers["hashed_user_ip_address"].FirstOrDefault();
-		}
-		catch
-		{
-			return "";
-		}
-	}
-
 	public static bool IsValidMasterKey(HttpRequest request)
 	{
 		string master_key_config = (Config.cache["master_key"] ?? "").ToString();

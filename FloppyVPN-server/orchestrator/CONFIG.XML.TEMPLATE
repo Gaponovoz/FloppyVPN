@@ -8,4 +8,5 @@
 	<db_name>floppyvpn_database</db_name>
 	<db_backups_folder>/var/floppyvpn_db_backups</db_backups_folder>
 	<db_port>3306</db_port>
+	<payment_service_1_key>gGgggG</payment_service_1_key>
 </Config>
