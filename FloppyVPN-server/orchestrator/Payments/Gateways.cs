@@ -7,7 +7,7 @@
 	{
 		public static string Generate()
 		{
-			return "https://pay.com";
+			return "https://gay.com";
 		}
 	}
 }
