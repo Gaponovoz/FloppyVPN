@@ -7,8 +7,10 @@
 # Windows shortcuts
 *.lnk
 
-# I don't want you to see this ...yet
+# I don't want you to see this
 **/drivers/
-alzheimer.txt
-alzheimer.txt
+Paymenting.cs
+PaymentsCallbackController.cs
 CONFIG.XML
+alzheimer.txt
+alzheimer.txt

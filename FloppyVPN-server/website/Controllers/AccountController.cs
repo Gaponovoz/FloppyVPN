@@ -20,22 +20,6 @@ namespace FloppyVPN.Controllers
 			return View();
 		}
 
-		[HttpGet("TopUp/{public_login}")]
-		public IActionResult TopUp(string public_login)
-		{
-			if (public_login.Length != 12)
-			{
-				return Redirect("/login");
-			}
-
-
-
-
-			TopupModel topupModel = new() { };
-
-			return View("~/Views/Account/TopUp.cshtml", topupModel);
-		}
-
 		[HttpPost]
 		public IActionResult PerformRegistration()
 		{
@@ -88,17 +72,17 @@ namespace FloppyVPN.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult My()
+		public IActionResult My() //logging in
 		{
 			string enteredLogin = (HttpContext.Request.Form["user_login"].FirstOrDefault() ?? "").Replace("-", "");
 
 			string lang = _Functions.GetCurrentLanguage(HttpContext);
-			if (enteredLogin.Length != 12)
+			if (enteredLogin.Length != 8)
 			{
+				Thread.Sleep(new Random().Next(200, 900));
 				TempData["Message"] = Loc.Get("error-wrong-login", lang);
 				return Redirect("/login");
 			}
-
 
 			string response = Communicator.GetHttp(url: $"{Config.cache["orchestrator_url"]}/Api/Website/LogintoAccount/{enteredLogin}",
 				master_key: Config.cache["master_key"].ToString(),
@@ -117,12 +101,29 @@ namespace FloppyVPN.Controllers
 				accountData = null;
 			}
 
-			if (!isSuccessful || accountData == null)
-			{
+            if (!isSuccessful || accountData == null)
+            {
+				if ((int)statusCode == 404)
+				{
+					TempData["Message"] = Loc.Get("error-wrong-login", lang);
+					return Redirect("/login");
+				}
 				return Redirect($"/Error/{(int)statusCode}");
+            }
+
+			string alias = Communicator.GetHttp(url: $"{Config.cache["orchestrator_url"]}/Api/Website/CreateLoginAlias/{enteredLogin}",
+				master_key: Config.cache["master_key"].ToString(),
+				hashed_user_ip_address: ServerTools.GetHashedIPAddress(HttpContext.Request).ToString(),
+				status_code: out HttpStatusCode aliasStatusCode,
+				is_successful: out bool aliasIsSuccessful
+			);
+
+			if (!aliasIsSuccessful)
+			{
+				return Redirect($"/Error/{aliasStatusCode}");
 			}
 
-			AccountModel accountModel = new() { AccountData = accountData };
+			AccountModel accountModel = new() { AccountData = accountData, Alias = alias };
 
 			return View("~/Views/Account/My.cshtml", accountModel);
 		}
@@ -131,6 +132,69 @@ namespace FloppyVPN.Controllers
 		public IActionResult PerformLogout()
 		{
 			return RedirectToAction("Index", "Home");
+		}
+
+		[HttpGet("TopUp/{alias}")]
+		public IActionResult TopUp(string alias) // Serves the TopUp page for an account
+		{
+			string acc_existance = Communicator.GetHttp(url: $"{Config.cache["orchestrator_url"]}/Api/Website/AccountExistsByAlias/{alias}",
+				master_key: Config.cache["master_key"].ToString(),
+				hashed_user_ip_address: ServerTools.GetHashedIPAddress(HttpContext.Request).ToString(),
+				status_code: out _,
+				is_successful: out _
+			);
+
+			if (!acc_existance.Contains(bool.TrueString))
+				return Redirect("/Error/404");
+
+			string response = Communicator.GetHttp(url: $"{Config.cache["orchestrator_url"]}/Api/Website/GetCurrenciesTable",
+				master_key: Config.cache["master_key"].ToString(),
+				hashed_user_ip_address: ServerTools.GetHashedIPAddress(HttpContext.Request).ToString(),
+				status_code: out HttpStatusCode statusCode,
+				is_successful: out bool isSuccessful
+			);
+
+			DataTable currenciesTable = Rialize.Dese<DataTable>(response);
+
+			return View("~/Views/Account/TopUp.cshtml", new TopUpModel { CurrenciesTable = currenciesTable, Alias = alias });
+		}
+
+		[HttpPost]
+		public IActionResult CreatePayment() // Creates a new payment and redirects to the payment page if success
+		{
+			string alias = Request.Form["alias"];
+			string currency_code = Request.Form["currency_code"];
+			int months_amount = int.Parse(Request.Form["months_amount"]);
+
+			string new_payment_id = Communicator.GetHttp(url: $"{Config.cache["orchestrator_url"]}/Api/Website/CreateNewPayment/{alias}/{currency_code}/{months_amount}",
+				master_key: Config.cache["master_key"].ToString(),
+				hashed_user_ip_address: ServerTools.GetHashedIPAddress(HttpContext.Request).ToString(),
+				status_code: out HttpStatusCode statusCode,
+				is_successful: out bool isSuccessful
+			);
+
+			if (isSuccessful)
+				return Redirect($"/Account/Payment/{new_payment_id}");
+			else
+				return Redirect($"/Error/{(int)statusCode}");
+		}
+
+		[HttpGet("Payment/{payment_id}")]
+		public IActionResult Payment(string payment_id) // Serves the page of an individual payment
+		{
+			string response = Communicator.GetHttp(url: $"{Config.cache["orchestrator_url"]}/Api/Website/GetPaymentInfo/{payment_id}",
+				master_key: Config.cache["master_key"].ToString(),
+				hashed_user_ip_address: ServerTools.GetHashedIPAddress(HttpContext.Request).ToString(),
+				status_code: out HttpStatusCode statusCode,
+				is_successful: out bool isSuccessful
+			);
+
+			if (!isSuccessful)
+				return Redirect($"/Error/{(int)statusCode}");
+
+			DataRow paymentInfo = Rialize.Dese<DataRow>(response);
+
+			return View(/* "~/Views/Account/Payment.cshtml", */new PaymentModel { PaymentData = paymentInfo });
 		}
 	}
 }

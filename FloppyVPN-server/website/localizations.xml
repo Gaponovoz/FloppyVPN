@@ -21,21 +21,21 @@
     <uk>Реєстрація</uk>
     <ja>登録</ja>
   </row>
-	<row>
-		<name>login-button</name>
-		<en>Log in</en>
-		<ru>Войти</ru>
-		<uk>Увійти</uk>
-		<ja>入る</ja>
-	</row>
-	<row>
-		<name>logout-button</name>
-		<en>Log out</en>
-		<ru>Выйти</ru>
-		<uk>Вийти</uk>
-		<ja>Log out</ja>
-	</row>
-	<row>
+    <row>
+        <name>login-button</name>
+        <en>Log in</en>
+        <ru>Войти</ru>
+        <uk>Увійти</uk>
+        <ja>入る</ja>
+    </row>
+    <row>
+        <name>logout-button</name>
+        <en>Log out</en>
+        <ru>Выйти</ru>
+        <uk>Вийти</uk>
+        <ja>Log out</ja>
+    </row>
+    <row>
     <name>heading-text</name>
     <en>FloppyVPN — Shielding Bytes, Lighting Freedom.\nSimple yet full-featured:</en>
     <ru>FloppyVPN — спасай приватность и забывай блокировки.\nТеперь без геморроя:</ru>
@@ -45,15 +45,15 @@
   <row>
     <name>pricing-1</name>
     <en>Single account &amp; three devices &amp; many countries = </en>
-    <ru>Один аккаунт — три устройства — много стран</ru>
+    <ru>Один аккаунт — три устройства — много стран = </ru>
     <uk>Один акаунт — три платформи — багато країн = </uk>
-    <ja></ja>
+    <ja>シングルアカウント&amp;3つのデバイス&amp;多くの国=</ja>
   </row>
   <row>
     <name>pricing-2</name>
-    <en>3$ / month</en>
-    <ru>220 рублей в месяц</ru>
-    <uk>90 гривень на місяць</uk>
+    <en>5$ / month</en>
+    <ru>420 рублей в месяц</ru>
+    <uk>150 гривень на місяць</uk>
     <ja>$3/月</ja>
   </row>
   <row>
@@ -113,11 +113,11 @@
     <ja>サーバーエラーが発生しました。 これはあなたのせいではなく、私のせいです。 後でもう一度お試しください。</ja>
   </row>
   <row>
-	  <name>go-back-button</name>
-	  <en>Go back</en>
-	  <ru>Назад</ru>
-	  <uk>Назад</uk>
-	  <ja>戻る</ja>
+      <name>go-back-button</name>
+      <en>Go back</en>
+      <ru>Назад</ru>
+      <uk>Назад</uk>
+      <ja>戻る</ja>
   </row>
   <row>
     <name>more-platforms-soon</name>
@@ -359,7 +359,7 @@
   </row>
   <row>
     <name>topup-balance</name>
-    <en>Top up your balance to add time:</en>
+    <en>Top up balance to add time:</en>
     <ru>Пополните баланс, чтобы добавить время:</ru>
     <uk>Поповніть рахунок, щоб додати часу:</uk>
     <ja>時間を追加するためにあなたのバランスを上:</ja>
@@ -373,17 +373,38 @@
   </row>
   <row>
     <name>column-cost</name>
-    <en>Cost</en>
-    <ru>Стоимость</ru>
-    <uk>Вартість</uk>
+    <en>Cost\nper month</en>
+    <ru>Стоимость\nза месяц</ru>
+    <uk>Вартість\nна мiсяць</uk>
     <ja>コスト</ja>
   </row>
   <row>
-    <name>column-payment-link</name>
-    <en>Payment link</en>
-    <ru>Ссылка на оплату</ru>
-    <uk>Посилання на оплату</uk>
-    <ja>支払いへのリンク</ja>
+    <name>column-minimim-sum</name>
+    <en>Minimum sum</en>
+    <ru>Минимальная\nсумма</ru>
+    <uk>Мiнiмальна\nсума</uk>
+    <ja>Minimum sum</ja>
+  </row>
+  <row>
+    <name>column-months-amount</name>
+    <en>Months\namount</en>
+    <ru>Количество\nмесяцев</ru>
+    <uk>Кількість\nмісяців</uk>
+    <ja>月数</ja>
+  </row>
+  <row>
+    <name>column-total-sum</name>
+    <en>Sum</en>
+    <ru>Сумма</ru>
+    <uk>Сума</uk>
+    <ja>和</ja>
+  </row>
+  <row>
+    <name>pay-button</name>
+    <en>Pay!</en>
+    <ru>Оплатить!</ru>
+    <uk>Сплатити!</uk>
+    <ja>Pay!</ja>
   </row>
   <row>
     <name>account-tip1</name>
@@ -405,6 +426,27 @@
     <ru>a</ru>
     <uk>a</uk>
     <ja>a</ja>
+  </row>
+  <row>
+    <name>account-tip-topup-1</name>
+    <en>This is an anonymous link to top up your account balance using any available method.</en>
+    <ru>Это анонимная ссылка для пополнения баланса вашего аккаунта любым доступным способом.</ru>
+    <uk>Це анонімне посилання для поповнення рахунку вашого аккаунта будь-яким доступним способом.</uk>
+    <ja>これは、利用可能な方法を使用してアカウント残高を補充するための匿名リンクです。</ja>
+  </row>
+  <row>
+    <name>account-topup-button</name>
+    <en>Follow the link\nTop up balance</en>
+    <ru>Перейти по ссылке\nПополнить баланс</ru>
+    <uk>Перейти за посиланням\nПоповнити рахунок!</uk>
+    <ja>リンクに従ってください\nあなたのバランスをトップアップ</ja>
+  </row>
+  <row>
+    <name>account-tip-topup-2</name>
+    <en>You can also share it with your friends, they will be able to top up your balance, but not use your VPN.\nEach time the link is new but any previous its variants work as well.</en>
+    <ru>Вы также можете поделиться ею со своими друзьями, они смогут пополнить ваш баланс, но не использовать ваш VPN.\nКаждый раз здесь новая ссылка, но все предыдущие ее варианты также работают.</ru>
+    <uk>Ви також можете поділитися нею зі своїми друзями, вони зможуть поповнити ваш баланс, але не використовувати ваш VPN.\nЩоразу посилання нове, але всі попередні його варіанти також працюють.</uk>
+    <ja>また、あなたの友人とそれを共有することができ、彼らはあなたのバランスを補充することができますが、あなたのVPNを使用しません。\nリンクが新しいが、以前のその変種も同様に機能するたびに。</ja>
   </row>
   <row>
     <name>support-page-heading</name>
@@ -533,32 +575,11 @@
     <ja>このウェブサイトではCookieを使用しています... お客様の言語設定とこのCookieのアラートを保存します。</ja>
   </row>
   <row>
-    <name>xxx</name>
-    <en>xxx</en>
-    <ru>xxx</ru>
-    <uk>xxx</uk>
-    <ja>xxx</ja>
-  </row>
-  <row>
-    <name>xxx</name>
-    <en>xxx</en>
-    <ru>xxx</ru>
-    <uk>xxx</uk>
-    <ja>xxx</ja>
-  </row>
-  <row>
-    <name>xxx</name>
-    <en>xxx</en>
-    <ru>xxx</ru>
-    <uk>xxx</uk>
-    <ja>xxx</ja>
-  </row>
-  <row>
-    <name>xxx</name>
-    <en>xxx</en>
-    <ru>xxx</ru>
-    <uk>xxx</uk>
-    <ja>xxx</ja>
+    <name>no-js-warning</name>
+    <en>JavaScript is not enabled in your browser. Everything's gonna work but with a lesser convenience.</en>
+    <ru>JavaScript не включен в вашем браузере. Все будет работать, но с уменьшенным удобством.</ru>
+    <uk>JavaScript не ввімкнено у вашому браузері. Все буде працювати, але з меншою зручністю.</uk>
+    <ja>お使いのブラウザではJavaScriptが有効になっていません。 すべてがうまくいくだろうが、利便性は低い。</ja>
   </row>
   <row>
     <name>xxx</name>

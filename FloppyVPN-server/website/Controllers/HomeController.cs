@@ -34,8 +34,8 @@ namespace FloppyVPN.Controllers
 			_Functions.WriteCookie(HttpContext, "language", selectedLang);
 
 			// Redirect to refresh page with the new language parameter
-			string resreshUrl = HttpContext.Request.Form["currentPath"] + "?lang=" + selectedLang;
-			return Redirect(resreshUrl);
+			string refreshUrl = HttpContext.Request.Form["currentPath"] + "?lang=" + selectedLang;
+			return Redirect(refreshUrl);
 		}
 
 		

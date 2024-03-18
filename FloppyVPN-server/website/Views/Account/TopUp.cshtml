@@ -1,5 +1,6 @@
 ﻿@namespace FloppyVPN
 @using static _Functions
+@model TopUpModel
 
 @{
 	string lang = GetCurrentLanguage(this);
@@ -11,29 +12,96 @@
 <span class="htext">
 	<img src="/imgs/account-addtime.png" />
 	<span class="highlight" id="topup-balance">
-		@Loc.Get("topup-balance", lang)
+		@(Html.Raw(Loc.Get("topup-balance", lang)))
 	</span>
 </span>
 
-<br>
-<br>
+<br />
 
-<table>
-	<tbody>
+<span class="htext highlight-red" id="no-js-warning">
+	@(Html.Raw(Loc.Get("no-js-warning", lang)))
+</span>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var warningElement = document.getElementById("no-js-warning");
+		warningElement.style.display = "none";
+	});
+</script>
+
+<br /> 
+<br />
+
+<style>
+	.currency-logo-image {
+		width: 24px;
+		height: 24px;
+		align-content: center;
+		text-align: center;
+	}
+</style>
+
+<table style="table-layout:auto">
+	<thead>
 		<tr style="text-align: center;">
-			<td><b id="column-currency">@Loc.Get("column-currency", lang)</b></td>
-			<td><b id="column-cost">@Loc.Get("column-cost", lang)</b></td>
-			<td><b id="column-payment-link">@Loc.Get("column-payment-link", lang)</b></td>
+			<td></td>
+			<td><b>@(Html.Raw(Loc.Get("column-currency", lang)))</b></td>
+			<td><b>@(Html.Raw(Loc.Get("column-cost", lang)))</b></td>
+			<td><b>@(Html.Raw(Loc.Get("column-minimim-sum", lang)))</b></td>
+			<td><b>@(Html.Raw(Loc.Get("column-months-amount", lang)))</b></td>
+			<td><b>@(Html.Raw(Loc.Get("column-total-sum", lang)))</b></td>
+			<td></td>
 		</tr>
-		<tr>
-			<td>Monero (XMR)</td>
-			<td>0.007 XMR</td>
-			<td>link</td>
-		</tr>
-		<tr>
-			<td>RUR (Rouble)</td>
-			<td>220 ₽</td>
-			<td>link</td>
-		</tr>
+	</thead>
+	<tbody>
+		@foreach (DataRow currency in Model.CurrenciesTable.Rows)
+		{
+			<tr>
+				<form asp-controller="Account" asp-action="CreatePayment" method="post">
+					<input name="alias" value="@Model.Alias" disabled hidden />
+					<input name="currency_code" value="@currency["currency_code"]" disabled hidden />
+
+					<td><img class="currency-logo-image" src="@currency["icon"]" /></td>
+					<td>@currency["currency_code"].ToString().ToUpper() (@currency["currency_name"])</td>
+					<td>@(((decimal)(double)currency["month_cost"]).ToString(CultureInfo.InvariantCulture))</td>
+					<td>@(((decimal)(double)currency["minimum_sum"]).ToString(CultureInfo.InvariantCulture))</td>
+					<td><input style="width: 6em;" name="months_amount" type="number" value="1" min="1" max="12" /></td>
+					<td><input style="width: 8em;" name="sum" value="@(((decimal)(double)currency["month_cost"]).ToString(CultureInfo.InvariantCulture))" readonly /></td>
+					<td><button type="submit">@Loc.Get("pay-button", lang)</button></td>
+				</form>
+			</tr>
+		}
 	</tbody>
 </table>
+
+<script>
+	// automatic calculation of sum by price and selected months amount
+
+	document.addEventListener("DOMContentLoaded", function () {
+
+		var monthsInputs = document.querySelectorAll("input[name='months_amount']");
+		var sumInputs = document.querySelectorAll("input[name='sum']");
+		var buttons = document.querySelectorAll("button[type='submit']");
+
+		monthsInputs.forEach(function (input, index) {
+			input.addEventListener("change", function () {
+
+				var monthCost = parseFloat(input.parentElement.previousElementSibling.textContent.replace(',', '.'));
+				var monthsAmount = parseFloat(input.value);
+
+				var sum = monthCost * monthsAmount;
+
+				var formattedSum = sum.toFixed(10).replace(/\.?0+$/, '');
+
+				sumInputs[index].value = formattedSum;
+
+				var minimumSum = parseFloat(input.parentElement.nextElementSibling.textContent.replace(',', '.'));
+
+				if (sum <= minimumSum) {
+					buttons[index].disabled = true;
+				} else {
+					buttons[index].disabled = false;
+				}
+			});
+		});
+	});
+</script>

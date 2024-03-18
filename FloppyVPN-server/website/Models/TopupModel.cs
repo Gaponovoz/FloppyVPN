@@ -1,8 +1,8 @@
 ﻿namespace FloppyVPN.Models
 {
-	public class TopupModel
+	public class TopUpModel
 	{
-		public DataRow AccountData { get; set; }
-
+		public DataTable CurrenciesTable { get; set; }
+		public string Alias { get; set; }
 	}
 }

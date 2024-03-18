@@ -5,37 +5,23 @@ namespace FloppyVPN
 	public class Account
 	{
 		public bool exists = false;
-		public string private_login; //used to log in and use vpn
-		public string public_login;  //used to top up the balance
+		public string login;
 		public DateTime date_registered;
 		public DateTime paid_till;   //if "paid_till" equals "date_registered" - the account is just created
 		public int days_left;
 
 		public DataRow? accountData = null;
 
-		/// <param name="login"></param>
-		/// <param name="isLoginPublic">True if passing a public login, false (default) if passing the private login</param>
-		public Account(string login, bool isLoginPublic = false)
+		public Account(string login)
 		{
 			//login can be entered either with or without the delimiting symbol
 			login = login.Replace("-", "");
 			login = login.Insert(login.Length / 2, "-");
 
-			string accessColumn;
-
-			if (isLoginPublic)
-			{
-				this.public_login = login;
-				accessColumn = "public_login";
-			}
-			else
-			{
-				this.private_login = login;
-				accessColumn = "private_login";
-			}
+			this.login = login;
 
 			//check if account exists
-			DataTable accounts = DB.GetDataTable($"SELECT * FROM `accounts` WHERE `{accessColumn}` = @login;", 
+			DataTable accounts = DB.GetDataTable($"SELECT * FROM `accounts` WHERE `login` = @login;", 
 				new Dictionary<string, object>()
 				{
 					{ "@login", login }
@@ -51,21 +37,19 @@ namespace FloppyVPN
 				return;
 			}
 
-			//getting account data:
-			private_login = accounts.Rows[0]["private_login"].ToString();
+
 			RefreshData();
 		}
 
 		private void RefreshData()
 		{
-			accountData = DB.GetDataTable($"SELECT * FROM `accounts` WHERE `private_login` = @private_login;",
+			accountData = DB.GetDataTable($"SELECT * FROM `accounts` WHERE `login` = @login;",
 				new Dictionary<string, object>()
 				{
-					{ "@private_login", private_login }
+					{ "@login", login }
 				}).Rows[0];
 
-			private_login = accountData["private_login"].ToString();
-			public_login = accountData["public_login"].ToString();
+			login = accountData["login"].ToString();
 			date_registered = (DateTime)accountData["when_registered"];
 			paid_till = (DateTime)accountData["paid_till"];
 			RefreshDaysLeft();
@@ -90,18 +74,17 @@ namespace FloppyVPN
 				});
 		}
 
-		/// <param name="days">Amount of days to add to account's balance.</param>
+		/// <param name="months">Amount of months to add to account's balance.</param>
 		/// <returns>A DateTime till which account is paid.</returns>
-		public DateTime AddTime(ushort days)
+		public DateTime AddTime(ushort months)
 		{
-			DateTime new_paid_till = paid_till.AddDays(days);
+			DateTime new_paid_till = paid_till.AddMonths(months);
 
-			DB.Execute($"UPDATE `Users` SET paid_till = @paid_till WHERE private_login = @private_login;", 
+			DB.Execute($"UPDATE `accounts` SET `paid_till` = @new_paid_till WHERE `login` = @login;", 
 				new Dictionary<string, object>()
 				{
-					{ "@paid_till", "" },
-					{ "@private_login", private_login },
-					{ "", "" }
+					{ "@new_paid_till", new_paid_till },
+					{ "@login", login }
 				});
 
 			RefreshData();
@@ -114,125 +97,51 @@ namespace FloppyVPN
 		/// <returns>A fresh brand new account</returns>
 		public static Account Register()
 		{
-			string private_login = GenerateUniquePrivateLogin();
-			string public_login = GenerateUniquePublicLogin();
+			string new_login = GenerateUniqueLogin();
 			DateTime now = DateTime.Now;
 			DateTime when_registered = now;
 			DateTime paid_till = now;
 
 			ulong new_account_id = DB.InsertAndGetID("INSERT INTO `accounts` " +
-				"(`when_registered`, `paid_till`, `private_login`, `public_login`) " +
+				"(`login`, `when_registered`, `paid_till`) " +
 				"VALUES " +
-				"(@when_registered, @paid_till, @private_login, @public_login);", 
+				"(@login, @when_registered, @paid_till);", 
 				new Dictionary<string, object>()
 				{
+					{ "@login", new_login },
 					{ "@when_registered", when_registered },
-					{ "@paid_till", paid_till },
-					{ "@private_login", private_login },
-					{ "@public_login", public_login }
+					{ "@paid_till", paid_till }
 				});
 
 			Thread.Sleep(123);
 
-			return new Account(private_login);
+			return new Account(new_login);
 		}
 
-		private static string GenerateUniquePrivateLogin()
+		private static string GenerateUniqueLogin()
 		{
 			const string dic = "qwetipasdfghjkzcvb123456789"; //possible account characters dictionary
-			string new_private_login = "";
+			string new_login = "";
 
-			for (uint u = 0; u < uint.MaxValue; u++) //fail-safe alternative to forever loop
+			for (uint u = 0; u < uint.MaxValue; u++) //a safer alternative to forever loop
 			{
-				Random random = new();
-
-				for (byte b = 0; b < 12; b++)
-				{
-					new_private_login += dic[random.Next(dic.Length)];
-					if (b == 5)
-						new_private_login += "-";
-
-					try
-					{
-						Span<byte> randomNumber = stackalloc byte[4];
-						RandomNumberGenerator.Fill(randomNumber);
-						int value = BitConverter.ToInt32(randomNumber);
-						int delay = 1 + (Math.Abs(value) % 13);
-						Thread.Sleep(delay);
-					}
-					catch
-					{
-						Thread.Sleep(new Random().Next(3, 30));
-					}
-					finally
-					{
-						Thread.Sleep(new Random().Next(0, 27));
-					}
-				}
-
+				new_login = $"{Cryption.GenerateRandomString(4, dic)}-{Cryption.GenerateRandomString(4, dic)}";
+				
 				DataTable loginExistances = DB.GetDataTable($"SELECT * FROM `accounts` WHERE " +
-					$"`private_login` = @private_login;",
+					$"`login` = @new_login;",
 					new Dictionary<string, object>()
 					{
-						{ "private_login", new_private_login }
+						{ "@new_login", new_login }
 					});
 
 				if (loginExistances.Rows.Count <= 0)
 					break;
 			}
 
-			if (new_private_login == "")
-				throw new Exception("Could not generate a unique private login");
+			if (new_login == "")
+				throw new Exception("Could not generate a unique login");
 			else
-				return new_private_login;
-		}
-
-		private static string GenerateUniquePublicLogin()
-		{
-			const string dic = "qwertyupasdfghjkzxcvbnm123456789"; //possible account characters dictionary
-			string new_public_login = "";
-
-			for (uint u = 0; u < uint.MaxValue; u++) //fail-safe alternative to forever loop
-			{
-				Random random = new();
-
-				for (byte b = 0; b < 11; b++)
-				{
-					new_public_login += dic[random.Next(dic.Length)];
-
-					try
-					{
-						Span<byte> randomNumber = stackalloc byte[4];
-						RandomNumberGenerator.Fill(randomNumber);
-						int value = BitConverter.ToInt32(randomNumber);
-						int delay = 1 + (Math.Abs(value) % 13);
-						Thread.Sleep(delay);
-					}
-					catch
-					{
-						Thread.Sleep(new Random().Next(3, 30));
-					}
-					finally
-					{
-						Thread.Sleep(new Random().Next(0, 27));
-					}
-				}
-
-				DataTable loginExistances = DB.GetDataTable($"SELECT * FROM `accounts` WHERE " +
-					$"`public_login` = @public_login;",
-					new Dictionary<string, object>()
-					{
-						{ "public_login", new_public_login }
-					});
-
-				if (loginExistances.Rows.Count <= 0)
-					break;
-			}
-
-			if (new_public_login == "")
-				throw new Exception("Could not generate a unique public login");
-			else
-				return new_public_login;
+				return new_login;
 		}
 
 	}

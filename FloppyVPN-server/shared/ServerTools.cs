@@ -52,7 +52,7 @@ public static class ServerTools
 		if (ip_address_raw == "")
 			ip_address_raw = request.HttpContext.Connection.RemoteIpAddress?.ToString();
 
-		ip_address_hashed = EncryptionTools.Hash(ip_address_raw ?? "unknown");
+		ip_address_hashed = Cryption.Hash(ip_address_raw ?? "unknown");
 
 		return ip_address_hashed;
 	}

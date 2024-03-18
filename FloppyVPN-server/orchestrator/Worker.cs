@@ -1,7 +1,7 @@
 ﻿namespace FloppyVPN
 {
 	/// <summary>
-	/// Does periodical jobs like deleting unpaid accounts
+	/// Does periodical jobs like deleting data which is not needed anymore at all
 	/// </summary>
 	internal static class Worker
 	{

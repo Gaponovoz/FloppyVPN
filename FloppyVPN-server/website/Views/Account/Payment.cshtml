@@ -1,0 +1,37 @@
+﻿@namespace FloppyVPN
+@using static _Functions
+@model Models.PaymentModel
+
+@{
+	ViewData["Title"] = "Payment";
+	string lang = GetCurrentLanguage(this);
+
+	DataRow paymentData = Model.PaymentData;
+}
+
+<center>
+	<h3>Payment page</h3>
+</center>
+
+<img src="" />
+
+<table>
+	<tr>
+		<td>Payment currency</td>
+		<td>Address to pay to</td>
+		<td>Exact amount to pay to</td>
+		<td>Comment to attach to payment</td>
+	</tr>
+	<tr>
+		<td>aaa</td>
+		<td>aaa</td>
+		<td>aaa</td>
+		<td>aaa</td>
+	</tr>
+	<tr>
+		<td>aaa</td>
+		<td>aaa</td>
+		<td>aaa</td>
+		<td>aaa</td>
+	</tr>
+</table>

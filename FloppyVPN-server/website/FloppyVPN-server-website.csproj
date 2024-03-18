@@ -41,6 +41,7 @@
 
   <ItemGroup>
     <Using Include="System.Data" />
+    <Using Include="System.Globalization" />
     <Using Include="System.Net" />
   </ItemGroup>
 

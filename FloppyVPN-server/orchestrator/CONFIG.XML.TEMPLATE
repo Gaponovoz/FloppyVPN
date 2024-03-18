@@ -8,5 +8,8 @@
 	<db_name>floppyvpn_database</db_name>
 	<db_backups_folder>/var/floppyvpn_db_backups</db_backups_folder>
 	<db_port>3306</db_port>
-	<payment_service_1_key>gGgggG</payment_service_1_key>
+	<payment_service_1_api_key>qWeRtY</payment_service_1_api_key>
+	<payment_service_1_login>user</payment_service_1_login>
+	<payment_service_1_password>pass</payment_service_1_password>
+	<payment_service_1_ipn>http://localhost/callback</payment_service_1_ipn>
 </Config>

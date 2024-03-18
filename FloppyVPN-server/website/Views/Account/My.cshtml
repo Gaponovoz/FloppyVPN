@@ -8,6 +8,9 @@
 	string lang = GetCurrentLanguage(this);
 
 	DataRow accountData = Model.AccountData;
+
+	string protocol = Context.Request.IsHttps ? "https://" : "http://";
+	string host = Context.Request.Host.ToString();
 }
 
 
@@ -15,14 +18,14 @@
 <h4>
 <span id="account-welcome-message">
 	@Loc.Get("account-welcome-message", lang)
-	</span> "@accountData["private_login"]"
+	</span> "@accountData["login"]"
 </h4>
 
 <br>
 
 <span class="htext">
 	<span class="htext">
-		<img src="/imgs/account-view.png" />  
+		<img src="/imgs/account-view.png" /> 
 		<span class="highlight" id="account-message">
 			@Loc.Get("account-message", lang)
 		</span>
@@ -33,15 +36,17 @@
 <br>
 
 <table>
-	<tbody>
+	<thead>
 		<tr style="text-align: center;">
 			<td><b id="column-your-login">@Loc.Get("column-your-login", lang)</b></td>
 			<td><b id="column-registration-date">@Loc.Get("column-registration-date", lang)</b></td>
 			<td><b id="column-paid-till">@Loc.Get("column-paid-till", lang)</b></td>
 			<td><b id="column-days-left">@Loc.Get("column-days-left", lang)</b></td>
 		</tr>
+	</thead>
+	<tbody>
 		<tr>
-			<td>@accountData["private_login"]</td>
+			<td>@accountData["login"]</td>
 			<td>@(((DateTime)accountData["when_registered"]).ToDate())</td>
 			<td>@(((DateTime)accountData["paid_till"]).ToDate())</td>
 			<td>@accountData["days_left"]</td>
@@ -49,8 +54,7 @@
 	</tbody>
 </table>
 
-<br>
-<br>
+<br />
 
 <ul>
 	<li>
@@ -65,9 +69,28 @@
 	</li>
 </ul>
 
+<br /><br />
+
+<br />
+<span class="htext">
+	<img src="/imgs/account-addtime.png" /> 
+	<span class="highlight" id="topup-balance">
+		@(Html.Raw(Loc.Get("topup-balance", lang)))
+	</span>
+</span>
 <br />
 
-<p class="htext">To topup your balance, go </p>
+@{
+	string topup_link = protocol + host + "/TopUp/" + Model.Alias;
+}
 
-<br>
-<br>
+<p class="htext" id="account-tip-topup-1">@(Html.Raw(Loc.Get("account-tip-topup-1", lang)))</p>
+<input readonly value="@topup_link" style="width: 100%;" />
+<p>   </p>
+<a href="@topup_link" target="_blank"><button>Follow link</button></a>
+
+<br />
+<p class="htext" id="account-tip-topup-2">@(Html.Raw(Loc.Get("account-tip-topup-2", lang)))</p>
+<br />
+
+<br />

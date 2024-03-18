@@ -114,6 +114,14 @@ header label {
 	margin-right: 8px;
 }
 
+thead > tr > td {
+	line-height: 20px;
+}
+
+thead {
+	height: 110%;
+}
+
 table, ul, li, tr, td {
 	font-family: "Times New Roman", Times, serif;
 }

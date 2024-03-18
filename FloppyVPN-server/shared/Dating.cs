@@ -27,5 +27,10 @@ namespace FloppyVPN
         {
             return dt.ToString(dateTimeString);
         }
-    }
+
+		public static long UnixTimeNow()
+		{
+			return DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+		}
+	}
 }
