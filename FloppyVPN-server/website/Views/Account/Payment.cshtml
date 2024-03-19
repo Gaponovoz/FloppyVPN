@@ -3,35 +3,73 @@
 @model Models.PaymentModel
 
 @{
-	ViewData["Title"] = "Payment";
 	string lang = GetCurrentLanguage(this);
 
+	ViewData["Title"] = Loc.Get("title_payment", lang);
+
 	DataRow paymentData = Model.PaymentData;
+	DataRow currencyData = Model.CurrencyData;
 }
 
 <center>
-	<h3>Payment page</h3>
+	<h3>@Loc.Get("payment-page", lang)</h3>
+	<img src="@currencyData["icon"]" />
 </center>
 
-<img src="" />
+<br />
 
 <table>
 	<tr>
-		<td>Payment currency</td>
-		<td>Address to pay to</td>
-		<td>Exact amount to pay to</td>
-		<td>Comment to attach to payment</td>
+		<td><b>@Loc.Get("payment-currency", lang)</b></td>
+		<td>@currencyData["currency_code"].ToString().ToUpper() (@currencyData["currency_name"])</td>
+	</tr>
+	@if ((paymentData["network"] ?? "").ToString() != "")
+	{
+		<tr>
+			<td><b>@Loc.Get("currency-network", lang)</b></td>
+			<td>@paymentData["currency_name"]</td>
+		</tr>
+	}
+	<tr>
+		<td><b>@Loc.Get("address-to-pay-to", lang)</b></td>
+		<td>@paymentData["address_to_pay_to"]</td>
 	</tr>
 	<tr>
-		<td>aaa</td>
-		<td>aaa</td>
-		<td>aaa</td>
-		<td>aaa</td>
+		<td><b>@Loc.Get("amount-to-pay", lang)</b></td>
+		<td>@(((decimal)(double)paymentData["amount_to_pay"]).ToString(CultureInfo.InvariantCulture))</td>
+	</tr>
+	@if ((paymentData["comment_to_attach"] ?? "").ToString() != "")
+	{
+		<tr>
+			<td><b>@Loc.Get("payment-comment", lang)</b></td>
+			<td>@paymentData["comment_to_attach"]</td>
+		</tr>
+	}
+	<tr>
+		<td><b>@Loc.Get("time-to-pay-left", lang)</b></td>
+		@{
+			DateTime payTill = (DateTime)paymentData["to_be_paid_till"];
+
+			TimeSpan timeLeftToPay;
+			if (payTill > DateTime.Now)
+				timeLeftToPay = payTill.Subtract(DateTime.Now);
+			else
+				timeLeftToPay = new(0, 0, 0);
+		}
+        <td>@timeLeftToPay.ToString("hh\\:mm\\:ss") <sub>(@Loc.Get("time-format-explanation", lang))</sub></td>
 	</tr>
 	<tr>
-		<td>aaa</td>
-		<td>aaa</td>
-		<td>aaa</td>
-		<td>aaa</td>
+		<td><b>@Loc.Get("payment-status", lang)</b></td>
+		<td>@Loc.Get("payment_status-" + paymentData["status"].ToString(), lang)</td>
 	</tr>
 </table>
+
+
+
+<script>
+	function reload() {
+		document.location.reload();
+	}
+
+	setTimeout(reload, 13000);
+</script>

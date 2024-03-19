@@ -76,7 +76,7 @@ namespace FloppyVPN
 
 		/// <param name="months">Amount of months to add to account's balance.</param>
 		/// <returns>A DateTime till which account is paid.</returns>
-		public DateTime AddTime(ushort months)
+		public DateTime AddTime(int months)
 		{
 			DateTime new_paid_till = paid_till.AddMonths(months);
 

@@ -14,7 +14,8 @@
 			idk,
 			registration,
 			login,
-			master_key_failed_usage
+			master_key_failed_usage,
+			payment_creation
 		}
 
 		string hashed_ip_address;
@@ -22,15 +23,15 @@
 
 		/// <summary>
 		/// Last hours during which misusage will be checked.
-		/// Recommended to set between 24 and 1.
+		/// Recommended to set between 12 and 1.
 		/// Must be negative
 		/// </summary>
-		readonly double LastHoursToCheckMisusageIn = -8;
+		readonly double LastHoursToCheckMisusageIn = -4;
 
 		/// <summary>
 		/// How many failed requests per check period are allowed until user gets a ban
 		/// </summary>
-		readonly ulong MaximumFailedRequestsAllowed = 12;
+		readonly ulong MaximumFailedRequestsAllowed = 30;
 
 		/// <summary>
 		/// How many registrations per check period are allowed until user gets a softban

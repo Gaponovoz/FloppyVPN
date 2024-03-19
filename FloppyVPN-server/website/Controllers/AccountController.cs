@@ -101,15 +101,15 @@ namespace FloppyVPN.Controllers
 				accountData = null;
 			}
 
-            if (!isSuccessful || accountData == null)
-            {
+			if (!isSuccessful || accountData == null)
+			{
 				if ((int)statusCode == 404)
 				{
 					TempData["Message"] = Loc.Get("error-wrong-login", lang);
 					return Redirect("/login");
 				}
 				return Redirect($"/Error/{(int)statusCode}");
-            }
+			}
 
 			string alias = Communicator.GetHttp(url: $"{Config.cache["orchestrator_url"]}/Api/Website/CreateLoginAlias/{enteredLogin}",
 				master_key: Config.cache["master_key"].ToString(),
@@ -174,7 +174,7 @@ namespace FloppyVPN.Controllers
 			);
 
 			if (isSuccessful)
-				return Redirect($"/Account/Payment/{new_payment_id}");
+				return Redirect($"/Payment/{new_payment_id}");
 			else
 				return Redirect($"/Error/{(int)statusCode}");
 		}
@@ -182,19 +182,29 @@ namespace FloppyVPN.Controllers
 		[HttpGet("Payment/{payment_id}")]
 		public IActionResult Payment(string payment_id) // Serves the page of an individual payment
 		{
-			string response = Communicator.GetHttp(url: $"{Config.cache["orchestrator_url"]}/Api/Website/GetPaymentInfo/{payment_id}",
+			string responsePaymentInfo = Communicator.GetHttp(url: $"{Config.cache["orchestrator_url"]}/Api/Website/GetPaymentInfo/{payment_id}",
 				master_key: Config.cache["master_key"].ToString(),
 				hashed_user_ip_address: ServerTools.GetHashedIPAddress(HttpContext.Request).ToString(),
 				status_code: out HttpStatusCode statusCode,
 				is_successful: out bool isSuccessful
 			);
-
 			if (!isSuccessful)
 				return Redirect($"/Error/{(int)statusCode}");
 
-			DataRow paymentInfo = Rialize.Dese<DataRow>(response);
+			DataRow paymentInfo = Rialize.Dese<DataRow>(responsePaymentInfo);
 
-			return View(/* "~/Views/Account/Payment.cshtml", */new PaymentModel { PaymentData = paymentInfo });
+			string responseCurrencyInfo = Communicator.GetHttp(url: $"{Config.cache["orchestrator_url"]}/Api/Website/GetCurrencyInfo/{paymentInfo["currency_code"]}",
+				master_key: Config.cache["master_key"].ToString(),
+				hashed_user_ip_address: ServerTools.GetHashedIPAddress(HttpContext.Request).ToString(),
+				status_code: out _,
+				is_successful: out _
+			);
+
+			DataRow currencyInfo = Rialize.Dese<DataRow>(responseCurrencyInfo);
+
+			PaymentModel paymentModel = new() { PaymentData = paymentInfo, CurrencyData = currencyInfo };
+
+			return View("~/Views/Account/Payment.cshtml", paymentModel);
 		}
 	}
 }

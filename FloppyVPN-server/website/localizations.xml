@@ -540,11 +540,18 @@
     <ja>エラー</ja>
  </row>
  <row>
-    <name>title_topup</name>
-    <en>Balance top up</en>
-    <ru>Пополнение баланса</ru>
-    <uk>Поповнення рахунку</uk>
-    <ja>アカウント Top Up</ja>
+     <name>title_topup</name>
+     <en>Balance top up</en>
+     <ru>Пополнение баланса</ru>
+     <uk>Поповнення рахунку</uk>
+     <ja>アカウント Top Up</ja>
+ </row>
+ <row>
+     <name>title_payment</name>
+     <en>Payment</en>
+     <ru>Платёж</ru>
+     <uk>Платіж</uk>
+     <ja>お支払い</ja>
  </row>
  <row>
   <name>title_registered</name>
@@ -582,11 +589,95 @@
     <ja>お使いのブラウザではJavaScriptが有効になっていません。 すべてがうまくいくだろうが、利便性は低い。</ja>
   </row>
   <row>
-    <name>xxx</name>
-    <en>xxx</en>
-    <ru>xxx</ru>
-    <uk>xxx</uk>
-    <ja>xxx</ja>
+    <name>payment_status-waiting_deposit</name>
+    <en>Waiting for the deposit...</en>
+    <ru>Ожидание денег...</ru>
+    <uk>Очікування на внесення грошей...</uk>
+    <ja>預金を待っています。..</ja>
+  </row>
+  <row>
+    <name>payment_status-confirming</name>
+    <en>Confirming the payment...</en>
+    <ru>Подтверждаем платёж...</ru>
+    <uk>Здійснюється підтвердження платежу...</uk>
+    <ja>現在、支払いを確認しています。..</ja>
+  </row>
+  <row>
+    <name>payment_status-not_enough</name>
+    <en>Not enough deposit sent</en>
+    <ru>Отправлено недостаточно средств</ru>
+    <uk>Відправлено недостатньо коштів</uk>
+    <ja>保証金が足りない</ja>
+  </row>
+  <row>
+    <name>payment_status-done</name>
+    <en>The payment was successful.</en>
+    <ru>Платіж успішно пройшов.</ru>
+    <uk>Платіж успішно пройшов.</uk>
+    <ja>支払いは成功しました。</ja>
+  </row>
+  <row>
+    <name>payment-page</name>
+    <en>Page of the payment</en>
+    <ru>Страница платежа</ru>
+    <uk>Сторінка платiжки</uk>
+    <ja>お支払いページ</ja>
+  </row>
+  <row>
+    <name>payment-currency</name>
+    <en>Payment currency:</en>
+    <ru>Валюта платежа:</ru>
+    <uk>Валюта платежу:</uk>
+    <ja>お支払い通貨:</ja>
+  </row>
+  <row>
+    <name>currency-network</name>
+    <en>Currency network:</en>
+    <ru>Сеть валюты:</ru>
+    <uk>Мережа валюти:</uk>
+    <ja>通貨ネットワーク:</ja>
+  </row>
+  <row>
+    <name>address-to-pay-to</name>
+    <en>Address to pay to:</en>
+    <ru>Адрес для оплаты:</ru>
+    <uk>Адреса для оплати:</uk>
+    <ja>お支払い先住所:</ja>
+  </row>
+  <row>
+    <name>amount-to-pay</name>
+    <en>Exact amount to pay:</en>
+    <ru>Точная сумма к оплате:</ru>
+    <uk>Точна сума до оплати:</uk>
+    <ja>正確な金額を支払う:</ja>
+  </row>
+  <row>
+    <name>payment-comment</name>
+    <en>Comment needs to be attached to the payment:</en>
+    <ru>Комментарий должен быть прикреплен к платежу:</ru>
+    <uk>Коментар повинен бути прикріплено до платежу:</uk>
+    <ja>コメントは支払いに添付する必要があります:</ja>
+  </row>
+  <row>
+    <name>time-to-pay-left</name>
+    <en>Time left to pay:</en>
+    <ru>Осталось времени на оплату:</ru>
+    <uk>Залишилося часу, щоб заплатити:</uk>
+    <ja>支払うために残された時間:</ja>
+  </row>
+  <row>
+    <name>payment-status</name>
+    <en>Payment status:</en>
+    <ru>Статус платежа:</ru>
+    <uk>Статус платежу:</uk>
+    <ja>支払状況:</ja>
+  </row>
+  <row>
+    <name>time-format-explanation</name>
+    <en>hours:minutes:seconds</en>
+    <ru>часы:минуты:секунды</ru>
+    <uk>години:хвилини:секунди</uk>
+    <ja>時間:分:秒</ja>
   </row>
   <row>
     <name>xxx</name>

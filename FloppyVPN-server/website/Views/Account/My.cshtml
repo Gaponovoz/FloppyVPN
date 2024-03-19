@@ -87,7 +87,7 @@
 <p class="htext" id="account-tip-topup-1">@(Html.Raw(Loc.Get("account-tip-topup-1", lang)))</p>
 <input readonly value="@topup_link" style="width: 100%;" />
 <p>   </p>
-<a href="@topup_link" target="_blank"><button>Follow link</button></a>
+<a href="@topup_link" target="_blank"><button>@(Html.Raw(Loc.Get("account-topup-button", lang)))</button></a>
 
 <br />
 <p class="htext" id="account-tip-topup-2">@(Html.Raw(Loc.Get("account-tip-topup-2", lang)))</p>

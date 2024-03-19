@@ -75,20 +75,38 @@ namespace FloppyVPN.Controllers
 		}
 
 		[HttpGet("GetCurrenciesTable")]
-		[ServiceFilter(typeof(UserIsBannedValidationFilter))]
 		public string GetCurrenciesTable()
 		{
 			DataTable currenciesTable = DB.GetDataTable($"SELECT * FROM `currencies` WHERE `enabled` = 1;");
 			return Rialize.Se<DataTable>(currenciesTable);
 		}
 
-		/// <returns></returns>
+		//[HttpGet("GetAllCurrenciesTable")]
+		//public string GetAllCurrenciesTable()
+		//{
+		//	DataTable currenciesTable = DB.GetDataTable($"SELECT * FROM `currencies`;");
+		//	return Rialize.Se<DataTable>(currenciesTable);
+		//}
+
+		[HttpGet("GetCurrencyInfo/{currency_code}")]
+		public string GetCurrencyInfo(string currency_code)
+		{
+			DataRow currencyInfo = DB.GetDataTable($"SELECT * FROM `currencies` " +
+				$"WHERE `currency_code` = @currency_code;",
+				new Dictionary<string, object>()
+				{
+					{ "@currency_code", currency_code }
+				}).Rows[0];
+			return Rialize.Se<DataRow>(currencyInfo);
+		}
+
 		[HttpGet("CreateNewPayment/{alias}/{currency_code}/{months_amount}")]
 		[ServiceFilter(typeof(UserIsBannedValidationFilter))]
 		public string CreateNewPayment(string alias, string currency_code, int months_amount)
 		{
 			//check if an acount of such alias exists:
 			string? login = Aliasing.GetLoginFromAlias(alias);
+
 			if (string.IsNullOrEmpty(login) || !new Account(login).exists)
 			{
 				Response.StatusCode = 404;
@@ -97,6 +115,9 @@ namespace FloppyVPN.Controllers
 
 			//create the payment:
 			string new_payment_id = Paymenting.Create_NowPayments(login, currency_code, months_amount);
+
+			Karma karma = new(Filters.GetHashedIpFromHeaders(HttpContext.Request));
+			karma.LogRequest(Karma.LogRequestResources.payment_creation, true);
 
 			return new_payment_id;
 		}

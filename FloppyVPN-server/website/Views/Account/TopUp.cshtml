@@ -57,13 +57,13 @@
 		{
 			<tr>
 				<form asp-controller="Account" asp-action="CreatePayment" method="post">
-					<input name="alias" value="@Model.Alias" disabled hidden />
-					<input name="currency_code" value="@currency["currency_code"]" disabled hidden />
+					<input name="alias" value="@Model.Alias" readonly hidden />
+					<input name="currency_code" value="@currency["currency_code"]" readonly hidden />
 
 					<td><img class="currency-logo-image" src="@currency["icon"]" /></td>
 					<td>@currency["currency_code"].ToString().ToUpper() (@currency["currency_name"])</td>
-					<td>@(((decimal)(double)currency["month_cost"]).ToString(CultureInfo.InvariantCulture))</td>
-					<td>@(((decimal)(double)currency["minimum_sum"]).ToString(CultureInfo.InvariantCulture))</td>
+					<td name="month_cost">@(((decimal)(double)currency["month_cost"]).ToString(CultureInfo.InvariantCulture))</td>
+					<td name="minimum_sum">@(((decimal)(double)currency["minimum_sum"]).ToString(CultureInfo.InvariantCulture))</td>
 					<td><input style="width: 6em;" name="months_amount" type="number" value="1" min="1" max="12" /></td>
 					<td><input style="width: 8em;" name="sum" value="@(((decimal)(double)currency["month_cost"]).ToString(CultureInfo.InvariantCulture))" readonly /></td>
 					<td><button type="submit">@Loc.Get("pay-button", lang)</button></td>
@@ -85,7 +85,7 @@
 		monthsInputs.forEach(function (input, index) {
 			input.addEventListener("change", function () {
 
-				var monthCost = parseFloat(input.parentElement.previousElementSibling.textContent.replace(',', '.'));
+				var monthCost = parseFloat(input.parentElement.previousElementSibling.previousElementSibling.textContent.replace(',', '.'));
 				var monthsAmount = parseFloat(input.value);
 
 				var sum = monthCost * monthsAmount;
@@ -94,9 +94,9 @@
 
 				sumInputs[index].value = formattedSum;
 
-				var minimumSum = parseFloat(input.parentElement.nextElementSibling.textContent.replace(',', '.'));
+				var minimumSum = parseFloat(input.parentElement.previousElementSibling.textContent.replace(',', '.'));
 
-				if (sum <= minimumSum) {
+				if (sum < minimumSum) {
 					buttons[index].disabled = true;
 				} else {
 					buttons[index].disabled = false;
