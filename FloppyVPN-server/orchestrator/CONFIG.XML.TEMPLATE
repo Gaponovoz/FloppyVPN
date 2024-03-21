@@ -2,6 +2,7 @@
 <Config>
 	<master_key>qwerty12</master_key>
 	<strict_mode>False</strict_mode>
+	<max_countries_per_account>3</max_countries_per_account> <!-- New accounts will be provided with no more than this amount of countries -->
 	<db_host>localhost</db_host>
 	<db_user>root</db_user>
 	<db_password>toor</db_password>
@@ -9,7 +10,5 @@
 	<db_backups_folder>/var/floppyvpn_db_backups</db_backups_folder>
 	<db_port>3306</db_port>
 	<payment_service_1_api_key>qWeRtY</payment_service_1_api_key>
-	<payment_service_1_login>user</payment_service_1_login>
-	<payment_service_1_password>pass</payment_service_1_password>
 	<payment_service_1_ipn>http://localhost/callback</payment_service_1_ipn>
 </Config>

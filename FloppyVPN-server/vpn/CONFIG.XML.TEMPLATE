@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Config>
+	<master_key>qwerty12</master_key>
+	<strict_mode>False</strict_mode>
+	<master_server_url></master_server_url>
+	<max_accounts_amount>3</max_accounts_amount> <!-- Maximum ACCs (not configs) the server can serve -->
+</Config>

@@ -7,10 +7,22 @@ namespace FloppyVPN.Controllers
 	[ServiceFilter(typeof(MasterKeyValidationFilter))]
 	public class VpnApiController : Controller
 	{
-		[HttpGet("Test")]
-		public string Test()
+		/// <summary>
+		/// For vpn servers to claim their existance to the orchestrator server.
+		/// Usually for first launch so the orchestrator will know there's such vpn server.
+		/// </summary>
+		[HttpPost("MyNameIsFloppyVpnVpnServerButEverybodyCallsMeVpn")]
+		public string SelfClaim()
 		{
-			return "hi";
+			string body = "";
+			using (StreamReader sr = new(Request.Body))
+			{
+				body = sr.ReadToEnd();
+			}
+
+
+
+			return "ok";
 		}
 	}
 }

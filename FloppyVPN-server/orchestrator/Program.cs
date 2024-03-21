@@ -35,7 +35,7 @@ namespace FloppyVPN
 
 			builder.Services.AddControllers(options =>
 			{
-				options.Filters.AddService<MasterKeyValidationFilter>(); // Add the filter as a service filter
+				//options.Filters.AddService<MasterKeyValidationFilter>(); // Add the filter as a service filter
 			});
 
 
@@ -59,8 +59,8 @@ namespace FloppyVPN
 
 			builder.Services.AddScoped<MasterKeyValidationFilter>();
 			builder.Services.AddScoped<UserIsSoftBannedValidationFilter>();
-			builder.Services.AddScoped<UserIsBannedValidationFilter>(); 
-			
+			builder.Services.AddScoped<UserIsBannedValidationFilter>();
+
 
 			// Disable crazy logging
 			builder.Host.ConfigureLogging(logging =>
@@ -86,7 +86,7 @@ namespace FloppyVPN
 			app.UseSwaggerUI(c =>
 			{
 				c.SwaggerEndpoint("/swagger/v1/swagger.json", "Orchestrator Server API");
-				c.RoutePrefix = "swagger"; // set Swagger UI at the app root
+				c.RoutePrefix = "swagger"; // set Swagger UI
 			});
 
 
